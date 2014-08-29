@@ -7,6 +7,7 @@ url="http://www.thekelleys.org.uk/dnsmasq/"
 arch="all"
 license="GPL-2"
 depends=
+makedepends="nettle-dev"
 install="$pkgname.pre-install $pkgname.pre-upgrade"
 subpackages="$pkgname-doc"
 source="http://www.thekelleys.org.uk/dnsmasq/$pkgname-$pkgver.tar.gz
@@ -22,6 +23,7 @@ build() {
 		DBUS_LIBS= \
 		DBUS_CFLAGS= \
 		DBUS_MINOR= \
+		COPTS=-DHAVE_DNSSEC \
 		all || return 1
 }
 
