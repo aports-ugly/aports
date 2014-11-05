@@ -11,8 +11,7 @@ depends=""
 depends_dev=""
 makedepends="$depends_dev"
 install=""
-subpackages="$pkgname-doc"
-options="libtool"
+subpackages="$pkgname-doc $pkgname-dev"
 source="http://stedolan.github.io/jq/download/source/${pkgname}-${pkgver}.tar.gz"
 
 _builddir="${srcdir}/${pkgname}-${pkgver}"
@@ -26,6 +25,7 @@ build() {
 package() {
 	cd "$_builddir"
 	make DESTDIR="$pkgdir" prefix=/usr install
+	rm -f "$pkgdir"/usr/lib/*.la
 }
 
 md5sums="e3c75a4f805bb5342c9f4b3603fb248f  jq-1.4.tar.gz"
