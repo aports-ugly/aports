@@ -1,0 +1,74 @@
+# Contributor: Johannes Matheis <jomat+alpinebuild@jmt.gr>
+# Maintainer: Johannes Matheis <jomat+alpinebuild@jmt.gr>
+pkgname=charybdis-git
+pkgver=0_git20150129
+_gitver=e9f86e320e87f94827e40dd03418aed98461390a
+pkgrel=0
+pkgdesc="Charybdis ircd from git"
+url="http://www.stack.nl/~jilles/irc/#charybdis"
+arch="all"
+license="GPL"
+depends=""
+depends_dev="bison flex openssl-dev zlib-dev libtool"
+makedepends="$depends_dev"
+install=""
+#subpackages="$pkgname-dev $pkgname-doc"
+subpackages="$pkgname-dev"
+source="https://github.com/atheme/charybdis/archive/${_gitver}.tar.gz charybdis.confd charybdis.initd charybdis.pre-install"
+
+_builddir=${srcdir}/charybdis-${_gitver}
+prepare() {
+	local i
+	cd "$_builddir"
+	for i in $source; do
+		case $i in
+		*.patch) msg $i; patch -p1 -i "$srcdir"/$i || return 1;;
+		esac
+	done
+}
+
+build() {
+	cd "$_builddir"
+        ./configure \
+                --prefix=/usr \
+                --sysconfdir=/etc/charybdis \
+                --localstatedir=/var \
+                --libexecdir=/usr/lib \
+                --disable-assert \
+                --enable-ssl \
+                --enable-ipv6 \
+                --with-rundir=/var/run \
+                --with-program-prefix=charybdis- \
+                || return 1
+         make || return 1
+
+}
+
+package() {
+	cd "$_builddir"
+        make DESTDIR="$pkgdir" install || return 1
+        rm -f "$pkgdir"/usr/lib/*.la   
+        install -m755 -D "$srcdir"/charybdis.initd \
+              "$pkgdir"/etc/init.d/charybdis-ircd || return 1
+        install -m644 -D "$srcdir"/charybdis.confd \
+              "$pkgdir"/etc/conf.d/charybdis-ircd || return 1
+        chown ircd "$pkgdir"/var/run/charybdis
+        chown ircd "$pkgdir"/var/log/charybdis
+        chown ircd "$pkgdir"/var/charybdis
+        sed -i -e "s/\"modules\"/\"\/usr\/lib\/charybdis\/modules\"/g" $pkgdir/etc/charybdis/example.conf
+        sed -i -e "s/\"modules\/autoload\"/\"\/usr\/lib\/charybdis\/modules\/autoload\"/g" "$pkgdir"/etc/charybdis/example.conf
+        sed -i -e "s/usr\/local\/ircd\/modules/usr\/lib\/charybdis\/modules/g" "$pkgdir"/etc/charybdis/reference.conf
+}
+
+md5sums="2e79b35916dd4d252273fc6b686bfe31  e9f86e320e87f94827e40dd03418aed98461390a.tar.gz
+11d70cc7c9fa0eb5ad52af35801d57c6  charybdis.confd
+ce8dc0025b4e50fbec2aa643a947c1b0  charybdis.initd
+4c0971f2598d002a6596e6e78ad0054d  charybdis.pre-install"
+sha256sums="f28916aa648a12cb28ddd8234537fdd5bccd945646fe1f70a870532eb7e6d958  e9f86e320e87f94827e40dd03418aed98461390a.tar.gz
+3d1d8b8e722efe6a9eb3171a65d96651bb93c8d6265bd4980bcbb4b8d500f6ad  charybdis.confd
+3bd4b0b58189518fa72b9d0c2226e83499ab718189f054a889f4e680f3a20e18  charybdis.initd
+3d6b74fa1f052f5df138821577fc40fa0fa341fce51625871bfa5c104f98269c  charybdis.pre-install"
+sha512sums="cf9d6b198d836410843473d03e79a834c64a97072d21b599545d05b1d9403a3931f751358610ba2cf4c48f97ff4ee9c1492df27829813ee78f76e0cec4d836cb  e9f86e320e87f94827e40dd03418aed98461390a.tar.gz
+1886b312b0ea40945de45db7a379bff2a3af426155fb77676e03f21f8d1d733e057fb5c3cb65fb72bb56008c4c92f3d2d0010563f871fd0802446de443ddfd5e  charybdis.confd
+fef24d361acd96f1e5891e484cbba8ef1dd4a0091550e6a7ae7fe6d053311b80fcdfe4f2307ebf1c4af7ec08ce35ba15bf4a8d499a0c9eb4956b00cd28cf8487  charybdis.initd
+1385b2e2a9891e3f81159b3959784def268ca677a60fd5524525228d06157c0499427288621ce460daecbf36b8944f1c491d349f55814f8e153023e610166975  charybdis.pre-install"
