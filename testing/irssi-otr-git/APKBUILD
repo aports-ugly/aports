@@ -1,0 +1,45 @@
+# Contributor: Johannes Matheis <jomat+alpinebuild@jmt.gr>
+# Maintainer: Johannes Matheis <jomat+alpinebuild@jmt.gr>
+pkgname=irssi-otr-git
+pkgver=0_git20150212
+_gitver=4ad3b7b6c85be0154ab3694fe9831796db20c4fe
+pkgrel=0
+pkgdesc="LibOTR functionality in Irssi."
+url="http://irssi-otr.tuxfamily.org/"
+arch="all"
+license="GPL"
+depends=""
+depends_dev="irssi-dev libgcrypt-dev glib-dev libotr-dev autoconf automake libtool"
+makedepends="$depends_dev"
+install=""
+source="https://github.com/cryptodotis/irssi-otr/archive/${_gitver}.tar.gz"
+
+_builddir=${srcdir}/irssi-otr-${_gitver}
+prepare() {
+	local i
+	cd "$_builddir"
+	for i in $source; do
+		case $i in
+		*.patch) msg $i; patch -p1 -i "$srcdir"/$i || return 1;;
+		esac
+	done
+}
+
+build() {
+	cd "$_builddir"
+	./bootstrap
+        ./configure \
+                --prefix=/usr \
+                || return 1
+         make || return 1
+
+}
+
+package() {
+	cd "$_builddir"
+        make DESTDIR="$pkgdir" install || return 1
+}
+
+md5sums="05dcf2223d7a5c339a95637592727649  4ad3b7b6c85be0154ab3694fe9831796db20c4fe.tar.gz"
+sha256sums="743a585f8ad509d1ecdb98919ace2a9789dd19d48ca506df6ff94b5a9dbef64a  4ad3b7b6c85be0154ab3694fe9831796db20c4fe.tar.gz"
+sha512sums="68ff9b4a18b3dc7ebb22be52908544b484b266861b64d27977a7ce461ed0f8fe2e8b707e32c367495a8232f0a53ff73e40df49c416f317ffd7bbd826bb2b2cc9  4ad3b7b6c85be0154ab3694fe9831796db20c4fe.tar.gz"
