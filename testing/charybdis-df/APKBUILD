@@ -2,10 +2,10 @@
 # Maintainer: Johannes Matheis <jomat+alpinebuild@jmt.gr>
 pkgname=charybdis-df
 pkgver=0_git20150129
-_gitver=e9f86e320e87f94827e40dd03418aed98461390a
+_gitver=6f9e36b046e84e0c4a76e254c46069d57cced5df
 pkgrel=0
 pkgdesc="Charybdis ircd with modifications for darkfasel.net"
-url="http://www.stack.nl/~jilles/irc/#charybdis"
+url="http://darkfasel.net"
 arch="all"
 license="GPL"
 depends=""
@@ -14,7 +14,7 @@ makedepends="$depends_dev"
 install=""
 #subpackages="$pkgname-dev $pkgname-doc"
 subpackages="$pkgname-dev"
-source="https://github.com/atheme/charybdis/archive/${_gitver}.tar.gz charybdis.confd charybdis.initd charybdis.pre-install full_cloak.patch"
+source="https://github.com/darkfasel/charybdis/archive/${_gitver}.tar.gz charybdis.confd charybdis.initd charybdis.pre-install" 
 
 _builddir=${srcdir}/charybdis-${_gitver}
 prepare() {
