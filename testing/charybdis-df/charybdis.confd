@@ -1,3 +1,0 @@
-CHARYBDIS_USER="ircd"
-CHARYBDIS_PID="/var/run/charybdis/ircd.pid"
-CHARYBDIS_CONF="/etc/charybdis/ircd.conf"
