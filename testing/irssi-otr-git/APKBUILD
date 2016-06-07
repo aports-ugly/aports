@@ -2,8 +2,8 @@
 # Maintainer: Johannes Matheis <jomat+alpinebuild@jmt.gr>
 pkgname=irssi-otr-git
 pkgver=0_git20150212
-_gitver=4ad3b7b6c85be0154ab3694fe9831796db20c4fe
-pkgrel=0
+_gitver=f75eb260c168b708873f2770d95b9a1b66144edd
+pkgrel=1
 pkgdesc="LibOTR functionality in Irssi."
 url="http://irssi-otr.tuxfamily.org/"
 arch="all"
@@ -40,6 +40,6 @@ package() {
         make DESTDIR="$pkgdir" install || return 1
 }
 
-md5sums="05dcf2223d7a5c339a95637592727649  4ad3b7b6c85be0154ab3694fe9831796db20c4fe.tar.gz"
-sha256sums="743a585f8ad509d1ecdb98919ace2a9789dd19d48ca506df6ff94b5a9dbef64a  4ad3b7b6c85be0154ab3694fe9831796db20c4fe.tar.gz"
-sha512sums="68ff9b4a18b3dc7ebb22be52908544b484b266861b64d27977a7ce461ed0f8fe2e8b707e32c367495a8232f0a53ff73e40df49c416f317ffd7bbd826bb2b2cc9  4ad3b7b6c85be0154ab3694fe9831796db20c4fe.tar.gz"
+md5sums="bfa26a3e1e5f5aff060cb1d5a162531e  f75eb260c168b708873f2770d95b9a1b66144edd.tar.gz"
+sha256sums="471739c4a7dfc5e2fd165bd7ab69f8b1e9f03ad1ed5b2b4d5c6cc5f1accc260c  f75eb260c168b708873f2770d95b9a1b66144edd.tar.gz"
+sha512sums="73b1092f444c9be2b2c5ce7d47cf831c7ab658f1e2f78433650f87e0b9aa384e9b391dedf24410680a60c438357da2855bc233c0016a10736f0aeaf42f5f8f4b  f75eb260c168b708873f2770d95b9a1b66144edd.tar.gz"
