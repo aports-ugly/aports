@@ -1,0 +1,14 @@
+diff --git a/src/logger.cc b/src/logger.cc
+index 84e0bcb..7e80120 100644
+--- a/src/logger.cc
++++ b/src/logger.cc
+@@ -83,7 +83,8 @@ std::string logger::format(const std::string& fmt, ...)
+ std::string logger::err()
+ {
+     char buf[2048];
+-    return strerror_r(errno, buf, sizeof(buf));
++    //return strerror_r(errno, buf, sizeof(buf));
++    return "errno: "+errno;
+ }
+ 
+ logger logger::error()
