@@ -2,7 +2,7 @@
 # Maintainer: Johannes Matheis <jomat+alpinebuild@jmt.gr>
 pkgname=ndppd
 pkgver=0.2.5
-pkgrel=0
+pkgrel=1
 pkgdesc="NDP Proxy Daemon"
 url="https://github.com/DanielAdolfsson/ndppd"
 arch="all"
@@ -13,7 +13,8 @@ makedepends="$depends_dev"
 install=""
 subpackages="$pkgname-doc"
 source="${pkgname}-${pkgver}.tar.gz::https://github.com/DanielAdolfsson/ndppd/archive/${pkgver}.tar.gz
-  logger.patch"
+  logger.patch
+  ndppd.init"
 
 _builddir="${srcdir}/${pkgname}-${pkgver}"
 prepare() {
@@ -34,14 +35,18 @@ build() {
 }
 
 package() {
+	install -D ndppd.init ${pkgdir}/etc/init.d/ndppd
 	cd "$_builddir"
 	make PREFIX="/usr/" DESTDIR="${pkgdir}" install
 	install -D ndppd.conf-dist ${pkgdir}/etc/ndppd.conf
 }
 
 md5sums="e8c8c5dd28572c4061a5119e77c44c1e  ndppd-0.2.5.tar.gz
-bcfcad8d53f95e3e58e8361cc858fd56  logger.patch"
+bcfcad8d53f95e3e58e8361cc858fd56  logger.patch
+121312ef33a1b0c2580d1877225a4f14  ndppd.init"
 sha256sums="ee934167f8357f0bd0015e201a77fbe4d028c59e89dc98113805c6855e1c3992  ndppd-0.2.5.tar.gz
-580823e4341175e1179cc7b7ecf639b6d7ddb2e9b74be51babac8cebb70f8254  logger.patch"
+580823e4341175e1179cc7b7ecf639b6d7ddb2e9b74be51babac8cebb70f8254  logger.patch
+d1ce6ccaf447b64c38dfc779a76476c6feaa3e18675e3e84f461a3b933f91f66  ndppd.init"
 sha512sums="85534594689c38c0203ad5e7c0c6373a705cbd7da7e2b0519689853a003be2fd7c953aa73529ca52d8c88bf0ce98524e39c475ea992669278090cde4a0e4ba2b  ndppd-0.2.5.tar.gz
-56a681297e9e38fcc24d813b5442ee2e1bc1c5f44e98ccf5131dda1f9b122f7f44a7b2e4014ba6bd46277619e34ab2d68fc77d8d097a190e1ae2888a7dfed21f  logger.patch"
+56a681297e9e38fcc24d813b5442ee2e1bc1c5f44e98ccf5131dda1f9b122f7f44a7b2e4014ba6bd46277619e34ab2d68fc77d8d097a190e1ae2888a7dfed21f  logger.patch
+3acefc7f573ad60086dc734f8d8befd30f41e00aaa52829f0108224f0044083515dafecb145af701ce29f3c5217dd50d878dbbc135e28be06f1707264f45e1b2  ndppd.init"

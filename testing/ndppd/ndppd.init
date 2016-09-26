@@ -1,0 +1,11 @@
+#!/sbin/openrc-run
+
+name="$SVCNAME"
+command="/usr/sbin/$SVCNAME"
+pidfile="/var/run/$SVCNAME.pid"
+command_args="-p $pidfile -d"
+
+depend() {
+	need net
+}
+
