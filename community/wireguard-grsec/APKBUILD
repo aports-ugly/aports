@@ -1,0 +1,44 @@
+# Contributor: Johannes Matheis <jomat+alpinebuild@jmt.gr>
+# Maintainer: Johannes Matheis <jomat+alpinebuild@jmt.gr>
+pkgname=wireguard
+pkgver=volatile
+gitcommit=d2de8b0862a7fbb51a7f2f958d58f0efe4648259
+pkgrel=0
+pkgdesc="WireGuard is an extremely simple yet fast and modern VPN that utilizes state-of-the-art cryptography"
+url="https://www.wireguard.io/"
+arch="all"
+license="GPL"
+depends=""
+makedepends="linux-headers linux-grsec-dev libmnl-dev"
+install=""
+subpackages="$pkgname-doc"
+source="https://git.zx2c4.com/WireGuard/snapshot/WireGuard-${gitcommit}.tar.xz"
+builddir="$srcdir/WireGuard-${gitcommit}/src/"
+
+getpkgver() {
+	echo 0_git${gitcommit}
+}
+
+prepare() {
+	local i
+	cd "$builddir"
+	for i in $source; do
+		case $i in
+		*.patch) msg $i; patch -p1 -i "$srcdir"/$i || return 1;;
+		esac
+	done
+}
+
+build() {
+	cd "$builddir"
+	make KCFLAGS=-fno-pie || return 1
+}
+
+package() {
+	cd "$builddir"
+	make DESTDIR="$pkgdir" INSTALL_MOD_PATH="$pkgdir" install || return 1
+}
+
+md5sums="72310883fcb58d2997935e853d291a4b  WireGuard-d2de8b0862a7fbb51a7f2f958d58f0efe4648259.tar.xz"
+sha256sums="4765da22a167c9fdc333b609c8fe3c3ea4c5b5909a73bec98f9456bb4e9dfeab  WireGuard-d2de8b0862a7fbb51a7f2f958d58f0efe4648259.tar.xz"
+sha512sums="d389101ebb63ebceb869d986fd93098bc54986fdf2550371fc2941d5ace2a529beba8f53e020c1c59e71e96887a541055d427e1c973c369437183dcca9b99e6c  WireGuard-d2de8b0862a7fbb51a7f2f958d58f0efe4648259.tar.xz"
