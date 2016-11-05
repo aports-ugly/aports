@@ -2,8 +2,8 @@
 # Maintainer: Johannes Matheis <jomat+alpinebuild@jmt.gr>
 pkgname=wireguard
 pkgver=volatile
-gitcommit=d2de8b0862a7fbb51a7f2f958d58f0efe4648259
-pkgrel=0
+gitcommit=3f67e6331e8d5f772bb8da3a3ad00bf5209f146a
+pkgrel=1
 pkgdesc="WireGuard is an extremely simple yet fast and modern VPN that utilizes state-of-the-art cryptography"
 url="https://www.wireguard.io/"
 arch="all"
@@ -16,7 +16,7 @@ source="https://git.zx2c4.com/WireGuard/snapshot/WireGuard-${gitcommit}.tar.xz"
 builddir="$srcdir/WireGuard-${gitcommit}/src/"
 
 getpkgver() {
-	echo 0_git${gitcommit}
+	echo ${pkgrel}_git${gitcommit}
 }
 
 prepare() {
@@ -39,6 +39,6 @@ package() {
 	make DESTDIR="$pkgdir" INSTALL_MOD_PATH="$pkgdir" install || return 1
 }
 
-md5sums="72310883fcb58d2997935e853d291a4b  WireGuard-d2de8b0862a7fbb51a7f2f958d58f0efe4648259.tar.xz"
-sha256sums="4765da22a167c9fdc333b609c8fe3c3ea4c5b5909a73bec98f9456bb4e9dfeab  WireGuard-d2de8b0862a7fbb51a7f2f958d58f0efe4648259.tar.xz"
-sha512sums="d389101ebb63ebceb869d986fd93098bc54986fdf2550371fc2941d5ace2a529beba8f53e020c1c59e71e96887a541055d427e1c973c369437183dcca9b99e6c  WireGuard-d2de8b0862a7fbb51a7f2f958d58f0efe4648259.tar.xz"
+md5sums="ee7fdfbc3397e847fe2750da794f3a41  WireGuard-3f67e6331e8d5f772bb8da3a3ad00bf5209f146a.tar.xz"
+sha256sums="7898e6cd7172dcd400d56cf946d0a1ef87162c370c86effdaf7dc14e68f1a168  WireGuard-3f67e6331e8d5f772bb8da3a3ad00bf5209f146a.tar.xz"
+sha512sums="f389e1cf2e7dfe391e563d60b7ba3a650f0b16cc052bc55f6046c7356d0b963a3409bba6c9abdd5765bee310aa3d67c748123d3ff2afaac171be8d5e137a90d3  WireGuard-3f67e6331e8d5f772bb8da3a3ad00bf5209f146a.tar.xz"
