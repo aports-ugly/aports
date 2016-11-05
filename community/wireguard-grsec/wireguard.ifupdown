@@ -1,0 +1,38 @@
+#!/bin/sh
+IP=/sbin/ip
+WG=/usr/bin/wg
+MV=/bin/mv
+MKTEMP=/bin/mktemp
+
+if [ "${IFACE#wg*}" == "$IFACE" -a -z "${IF_WG_CONFIG}" -a -z "${IF_WG_UPDATE_CONF}" ]
+then
+  exit 0
+fi
+
+: ${IF_WG_CONFIG:=/etc/wireguard/${IFACE}.conf}
+
+case ${PHASE}
+in
+  pre-up)
+    if ! modprobe wireguard
+    then
+      echo WireGuard interface detected, but kernel module could not be loaded >&2
+      exit 1
+    fi
+    ${IP} link add dev ${IFACE} type wireguard
+    ${WG} setconf ${IFACE} ${IF_WG_CONFIG}
+    ;;
+  post-down)
+    case ${IF_WG_UPDATE_CONF}
+    in
+      yes|true|1)
+        echo Updating ${IF_WG_CONFIG}
+	TMPFILE=$(${MKTEMP})
+	umask 077
+        ${WG} showconf ${IFACE} > ${TMPFILE}
+	${MV} ${TMPFILE} ${IF_WG_CONFIG}
+	;;
+    esac
+    ${IP} link del dev ${IFACE}
+    ;;
+esac

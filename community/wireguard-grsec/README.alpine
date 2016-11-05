@@ -1,0 +1,32 @@
+Using the experimental WireGuard VPN and encrypted network tunnel
+==================================================================
+
+WireGuard is still in experimental stages. Please use caution!
+
+Check https://www.wireguard.io/ for information that isn't
+specific to Alpine Linux.
+
+
+Configure wireguard interfaces in /etc/network/interfaces:
+
+iface wg_example inet static
+  wg_config /etc/wireguard/wg_example.conf
+  wg_update_conf false
+  address 10.23.42.1
+  netmask 255.255.255.0
+  [...]
+
+
+Any interface names starting with 'wg' will be treated as
+wireguard interfaces. To use a different name, set at least
+one of the optional wg_ variables:
+
+wg_config
+  Defaults to /etc/wireguard/$IFNAME.conf
+  Specifies a different config file for the tunnel, see
+  also wg_example.conf
+
+wg_update_conf
+  Defaults to false
+  Update config file upon taking down the interface
+  This can be useful for roaming endpoints
