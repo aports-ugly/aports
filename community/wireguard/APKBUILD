@@ -10,7 +10,7 @@ license="GPL"
 depends=""
 makedepends="linux-headers linux-grsec-dev libmnl-dev"
 install=""
-subpackages="$pkgname-doc"
+subpackages="$pkgname-doc $pkgname-tools $pkgname-module"
 source="https://git.zx2c4.com/WireGuard/snapshot/WireGuard-experimental-${pkgver}.tar.xz
 	wireguard.ifupdown
 	README.alpine
@@ -33,13 +33,22 @@ build() {
 }
 
 package() {
+	depends="wireguard-tools wireguard-module"
 	cd "$builddir"
 	make DESTDIR="$pkgdir" INSTALL_MOD_PATH="$pkgdir" install || return 1
-	install -d -m700 $pkgdir/etc/wireguard
-	install -D -m755 $srcdir/wireguard.ifupdown $pkgdir/etc/network/if-pre-up.d/wireguard
-	install -D -m755 $srcdir/wireguard.ifupdown $pkgdir/etc/network/if-post-down.d/wireguard
-	install -D -m600 $srcdir/wg_example.conf $pkgdir/usr/share/doc/wireguard/wg_example.conf
-	install -D -m644 $srcdir/README.alpine $pkgdir/usr/share/doc/wireguard/README.alpine
+	install -D -m600 $srcdir/wg_example.conf $pkgdir/usr/share/doc/wireguard/wg_example.conf || return 1
+	install -D -m644 $srcdir/README.alpine $pkgdir/usr/share/doc/wireguard/README.alpine || return 1
+}
+
+tools() {
+	install -d -m700 $subpkgdir/etc/wireguard || return 1
+	install -D -m755 $srcdir/wireguard.ifupdown $subpkgdir/etc/network/if-pre-up.d/wireguard || return 1
+	install -D -m755 $srcdir/wireguard.ifupdown $subpkgdir/etc/network/if-post-down.d/wireguard || return 1
+        mv $pkgdir/usr $subpkgdir
+}
+
+module() {
+	mv $pkgdir/lib $subpkgdir
 }
 
 md5sums="9eca72b6e21624233cef37630c50cad7  WireGuard-experimental-0.0.20161105.tar.xz
