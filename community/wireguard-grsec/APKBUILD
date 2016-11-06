@@ -35,6 +35,7 @@ build() {
 package() {
 	cd "$builddir"
 	make DESTDIR="$pkgdir" INSTALL_MOD_PATH="$pkgdir" install || return 1
+	install -d -m700 $pkgdir/etc/wireguard
 	install -D -m755 $srcdir/wireguard.ifupdown $pkgdir/etc/network/if-pre-up.d/wireguard
 	install -D -m755 $srcdir/wireguard.ifupdown $pkgdir/etc/network/if-post-down.d/wireguard
 	install -D -m600 $srcdir/wg_example.conf $pkgdir/usr/share/doc/wireguard/wg_example.conf
