@@ -30,3 +30,7 @@ wg_update_conf
   Defaults to false
   Update config file upon taking down the interface
   This can be useful for roaming endpoints
+
+wg_ignore
+  Default to false
+  Set to true if this isn't a wireguard interface

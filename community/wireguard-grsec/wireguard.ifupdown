@@ -4,7 +4,14 @@ WG=/usr/bin/wg
 MV=/bin/mv
 MKTEMP=/bin/mktemp
 
-if [ "${IFACE#wg*}" == "$IFACE" -a -z "${IF_WG_CONFIG}" -a -z "${IF_WG_UPDATE_CONF}" ]
+case ${IF_WG_IGNORE} in
+  yes|true|1) exit 0;;
+esac
+
+if [ "${IFACE#wg*}" == "$IFACE" \
+  -a -z "${IF_WG_CONFIG}" \
+  -a -z "${IF_WG_UPDATE_CONF}" \
+  -a -z "${IF_WG_IGNORE}" ]
 then
   exit 0
 fi
