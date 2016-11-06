@@ -10,7 +10,7 @@ license="GPL"
 depends=""
 makedepends="linux-headers linux-grsec-dev libmnl-dev"
 install=""
-subpackages="$pkgname-doc $pkgname-tools $pkgname-module"
+subpackages="$pkgname-doc $pkgname-tools $pkgname-kmod"
 source="https://git.zx2c4.com/WireGuard/snapshot/WireGuard-experimental-${pkgver}.tar.xz
 	wireguard.ifupdown
 	README.alpine
@@ -47,7 +47,7 @@ tools() {
         mv $pkgdir/usr $subpkgdir
 }
 
-module() {
+kmod() {
 	mv $pkgdir/lib $subpkgdir
 }
 
