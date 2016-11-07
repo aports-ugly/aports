@@ -2,7 +2,7 @@
 # Maintainer: Johannes Matheis <jomat+alpinebuild@jmt.gr>
 pkgname=wireguard
 pkgver=0.0.20161105
-pkgrel=0
+pkgrel=1
 pkgdesc="WireGuard is an extremely simple yet fast and modern VPN that utilizes state-of-the-art cryptography"
 url="https://www.wireguard.io/"
 arch="all"
@@ -48,6 +48,7 @@ tools() {
 }
 
 kmod() {
+	install -d -m755 $subpkgdir
 	mv $pkgdir/lib $subpkgdir
 }
 
