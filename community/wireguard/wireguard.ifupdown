@@ -21,11 +21,6 @@ fi
 case ${PHASE}
 in
   pre-up)
-    if ! modprobe wireguard
-    then
-      echo WireGuard interface detected, but kernel module could not be loaded >&2
-      exit 1
-    fi
     ${IP} link add dev ${IFACE} type wireguard
     ${WG} setconf ${IFACE} ${IF_WG_CONFIG}
     ;;
