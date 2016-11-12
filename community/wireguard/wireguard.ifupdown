@@ -29,8 +29,8 @@ in
     in
       yes|true|1)
         echo Updating ${IF_WG_CONFIG}
-	TMPFILE=$(${MKTEMP})
 	umask 077
+	TMPFILE=$(${MKTEMP})
         ${WG} showconf ${IFACE} > ${TMPFILE}
 	${MV} ${TMPFILE} ${IF_WG_CONFIG}
 	;;
