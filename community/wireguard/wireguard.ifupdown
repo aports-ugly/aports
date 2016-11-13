@@ -21,6 +21,11 @@ fi
 case ${PHASE}
 in
   pre-up)
+    if [ ! -f ${IF_WG_CONFIG} ]
+    then
+      echo "WireGuard config file ${IF_WG_CONFIG} not found." >&2
+      exit 1
+    fi
     ${IP} link add dev ${IFACE} type wireguard
     ${WG} setconf ${IFACE} ${IF_WG_CONFIG}
     ;;
@@ -28,7 +33,7 @@ in
     case ${IF_WG_UPDATE_CONF}
     in
       yes|true|1)
-        echo Updating ${IF_WG_CONFIG}
+        echo "Updating ${IF_WG_CONFIG}"
 	umask 077
 	TMPFILE=$(${MKTEMP})
         ${WG} showconf ${IFACE} > ${TMPFILE}
