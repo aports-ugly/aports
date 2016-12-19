@@ -1,7 +1,7 @@
 # Contributor: Johannes Matheis <jomat+alpinebuild@jmt.gr>
 # Maintainer: Johannes Matheis <jomat+alpinebuild@jmt.gr>
 pkgname=wireguard
-pkgver=0.0.20161129
+pkgver=0.0.20161218
 pkgrel=0
 pkgdesc="WireGuard is an extremely simple yet fast and modern VPN that utilizes state-of-the-art cryptography"
 url="https://www.wireguard.io/"
@@ -11,11 +11,11 @@ depends=""
 makedepends="linux-headers linux-grsec-dev libmnl-dev"
 install=""
 subpackages="$pkgname-doc $pkgname-tools $pkgname-kmod"
-source="https://git.zx2c4.com/WireGuard/snapshot/WireGuard-experimental-${pkgver}.tar.xz
+source="https://git.zx2c4.com/WireGuard/snapshot/WireGuard-${pkgver}.tar.xz
 	wireguard.ifupdown
 	README.alpine
 	wg_example.conf"
-builddir="$srcdir/WireGuard-experimental-${pkgver}/src/"
+builddir="$srcdir/WireGuard-${pkgver}/src/"
 
 prepare() {
 	local i
@@ -52,15 +52,15 @@ kmod() {
 	mv $pkgdir/lib $subpkgdir
 }
 
-md5sums="9b83936161bfc6dc7bfd82fda2ff62aa  WireGuard-experimental-0.0.20161129.tar.xz
+md5sums="7d9334198685c968577d778b815ea456  WireGuard-0.0.20161218.tar.xz
 fa5fff08d09f53469ee0380b75b1ebc1  wireguard.ifupdown
 f0c50dbbed58dbf7ff823da41427f65a  README.alpine
 b3e9f999dbaf32d063a75479e9ebbc87  wg_example.conf"
-sha256sums="7bdce3e56aaae91b195b8bbf7afc8d07f68632c997aa702c1ab84745c099d1b7  WireGuard-experimental-0.0.20161129.tar.xz
+sha256sums="d805035d3e99768e69d8cdeb8fb5250a59b994ce127fceb71a078582c30f5597  WireGuard-0.0.20161218.tar.xz
 da6b51d3b78daf67069b24eb43c968b50eb3e39bcb0d23c192540ff6cbe02fef  wireguard.ifupdown
 59104dd25feaaf2a59d126bdae038a3a92317a18daa5be363d96e97426e0885a  README.alpine
 549c94588eb42656c6af7e84c1e4a2011f202500a95a6e520042ab6cbf32debf  wg_example.conf"
-sha512sums="e16a67b546b39b3a9b24bc914727c4368c76480198e2c5bcd1c9fe3b78c56405d5c0a2ad3c50dda80a472e1e4d2425f82289c82898faaf9fd136081534cd5062  WireGuard-experimental-0.0.20161129.tar.xz
+sha512sums="e4a4c32262a558f28e0c8db0d9414645a11d05e59953ce5645f8b93a276950cc6ddade96cf4ae3855974c88e496cfa76bc798418648dc663a336acfff270f68c  WireGuard-0.0.20161218.tar.xz
 582d451969c7987af5af3682ed672b9734ccb033362c0b0bbd80f49f28ef241efb3c4e4a1dfe8ee1d58b24ce1cdbbc74c6342d48a89b749e4b3aa6a10931d9cb  wireguard.ifupdown
 7d3cd33eaf0cfe1b4514aa665288a441a356ffd4d042e68c72b0bd6a0b8ab7b7ab5e195471b286a28e6613fe0a7fd507bf19c6db563e123da07dcaee4ca71647  README.alpine
 9e6ce4d394d606e5d5485bd746f00de17eab42c939e9b7173ef7237003e43f4a5586634a6425fe8d3f473bf72131d60f9ed30f4dc9a65bd244b1e08a06575ce0  wg_example.conf"
