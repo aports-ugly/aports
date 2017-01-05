@@ -17,16 +17,6 @@ source="https://git.zx2c4.com/WireGuard/snapshot/WireGuard-${pkgver}.tar.xz
 	wg_example.conf"
 builddir="$srcdir/WireGuard-${pkgver}/src/"
 
-prepare() {
-	local i
-	cd "$builddir"
-	for i in $source; do
-		case $i in
-		*.patch) msg $i; patch -p1 -i "$srcdir"/$i || return 1;;
-		esac
-	done
-}
-
 build() {
 	cd "$builddir"
 	make KCFLAGS=-fno-pie || return 1
