@@ -1,4 +1,4 @@
-# Contributor: Johannes Matheis <jomat+alpinebuild@jmt.gr>
+# Contributor: Jason A. Donenfeld <Jason@zx2c4.com>
 # Maintainer: Johannes Matheis <jomat+alpinebuild@jmt.gr>
 pkgname=wireguard
 pkgver=0.0.20170105
