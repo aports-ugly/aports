@@ -2,7 +2,7 @@
 # Maintainer: Johannes Matheis <jomat+alpinebuild@jmt.gr>
 pkgname=wireguard
 pkgver=0.0.20170105
-pkgrel=0
+pkgrel=1
 pkgdesc="WireGuard is an extremely simple yet fast and modern VPN that utilizes state-of-the-art cryptography"
 url="https://www.wireguard.io/"
 arch="all"
@@ -25,7 +25,7 @@ build() {
 package() {
 	depends="wireguard-tools wireguard-module"
 	cd "$builddir"
-	make DESTDIR="$pkgdir" INSTALL_MOD_PATH="$pkgdir" install || return 1
+	make DESTDIR="$pkgdir" INSTALL_MOD_PATH="$pkgdir" WITH_BASHCOMPLETION=yes WITH_SYSTEMDUNITS=no WITH_WGQUICK=no install || return 1
 	install -D -m600 $srcdir/wg_example.conf $pkgdir/usr/share/doc/wireguard/wg_example.conf || return 1
 	install -D -m644 $srcdir/README.alpine $pkgdir/usr/share/doc/wireguard/README.alpine || return 1
 }
