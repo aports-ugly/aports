@@ -2,7 +2,7 @@
 # Maintainer: Johannes Matheis <jomat+alpinebuild@jmt.gr>
 pkgname=wireguard
 pkgver=0.0.20170105
-pkgrel=1
+pkgrel=2
 pkgdesc="WireGuard is an extremely simple yet fast and modern VPN that utilizes state-of-the-art cryptography"
 url="https://www.wireguard.io/"
 arch="all"
@@ -10,7 +10,7 @@ license="GPL"
 depends=""
 makedepends="linux-headers linux-grsec-dev libmnl-dev"
 install=""
-subpackages="$pkgname-doc $pkgname-tools $pkgname-kmod"
+subpackages="$pkgname-doc $pkgname-tools-bash-completion:bashcomp $pkgname-tools $pkgname-kmod"
 source="https://git.zx2c4.com/WireGuard/snapshot/WireGuard-${pkgver}.tar.xz
 	wireguard.ifupdown
 	README.alpine
@@ -40,6 +40,17 @@ tools() {
 kmod() {
 	install -d -m755 $subpkgdir
 	mv $pkgdir/lib $subpkgdir
+}
+
+bashcomp() {
+	depends=""
+	pkgdesc="Bash completions for $pkgname"
+	install_if="$pkgname=$pkgver-r$pkgrel bash-completion"
+	arch="noarch"
+
+	mkdir -p "$subpkgdir"/usr/share/bash-completion/completions
+	mv "$pkgdir"/usr/share/bash-completion/completions/* \
+		"$subpkgdir"/usr/share/bash-completion/completions/ || return 1
 }
 
 md5sums="1288b3b607c1bc963e0053f490ade3bb  WireGuard-0.0.20170105.tar.xz
