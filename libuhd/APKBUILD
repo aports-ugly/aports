@@ -1,0 +1,49 @@
+# Contributor: stef <l0ls0fo2i@ctrlc.hu>
+
+pkgname=libuhd
+pkgver=3.9.5
+_verstring='003_009_005'
+pkgrel=0
+pkgdesc="Universal Software Radio Peripheral (USRP) userspace driver"
+arch='all'
+url="http://www.ettus.com/kb/category/software-documentation/uhd-manual"
+license='GPL'
+makedepends='make boost-dev py-cheetah py-mako orc-dev libusb-dev doxygen'
+
+source="$pkgname-$pkgver.tar.gz::https://github.com/EttusResearch/uhd/archive/release_${_verstring}.tar.gz"
+
+_builddir="$srcdir/uhd-release_$_verstring/host"
+prepare() {
+	local i
+	cd "$_builddir"
+	for i in $source; do
+		case $i in
+		*.patch) msg $i; patch -p1 -i "$srcdir"/$i || return 1;;
+		esac
+	done
+  find -name "*.py" -or -name '*.py.in' | xargs sed -i "s|#!/usr/bin/env python$|#!/usr/bin/env python2|"
+
+}
+
+build() {
+  cd "$_builddir"
+  mkdir -p build
+  cd build
+  cmake .. -DCMAKE_INSTALL_PREFIX=/usr/ \
+           -DPYTHON_EXECUTABLE=/usr/bin/python2 \
+           -DENABLE_EXAMPLES=OFF \
+           -DENABLE_UTILS=ON \
+           -DENABLE_TESTS=OFF \
+           -DENABLE_E100=ON \
+           -DENABLE_E300=ON
+  make
+}
+
+package() {
+	cd "$_builddir/build"
+	make DESTDIR="$pkgdir" install
+   install -Dm644 "../utils/uhd-usrp.rules" "$pkgdir/usr/lib/udev/rules.d/10-uhd-usrp.rules"
+}
+md5sums="d143e946543dadda670a163242ea0ad0  libuhd-3.9.5.tar.gz"
+sha256sums="8e642d724412712fa8a799f3ae4c6aff5352167942e5c4e77243fca8db14a7bb  libuhd-3.9.5.tar.gz"
+sha512sums="0a0283d1bfa75ce959f605a802e7f839fb1610d35293e7d040439d7ed3a17db87ebfb9e73df95f8caf907eb314351d274cf93bf5387910444d5bc257d79f34cd  libuhd-3.9.5.tar.gz"

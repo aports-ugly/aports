@@ -1,0 +1,32 @@
+# Contributor: stef <l0ls0fo2i@ctrlc.hu>
+
+pkgname=rtlsdr
+pkgver=0.5.3
+pkgrel=0
+url="http://sdr.osmocom.org/trac/wiki/rtl-sdr"
+arch="all"
+license="GPL2"
+pkgdesc="turns your Realtek RTL2832 based DVB dongle into a SDR receiver"
+makedepends="cmake pkg-config libusb-dev"
+source="https://github.com/steve-m/lib${pkgname}/archive/v${pkgver}.tar.gz"
+subpackages="$pkgname-dev"
+
+builddir="$srcdir/lib$pkgname-$pkgver"
+
+build() {
+  cd "$builddir"
+  mkdir -p build
+  cd build
+  cmake -DCMAKE_INSTALL_PREFIX=/usr "$builddir"
+  make
+}
+
+package() {
+	cd "$builddir/build"
+	make DESTDIR="$pkgdir" install
+	#install rtl-sdr.rules 644 usr/lib/udev/rules.d 53-rtl-sdr.rules
+}
+
+md5sums="9f6d8c4b5e1998305d0346689b43db98  v0.5.3.tar.gz"
+sha256sums="98fb5c34ac94d6f2235a0bb41a08f8bed7949e1d1b91ea57a7c1110191ea58de  v0.5.3.tar.gz"
+sha512sums="b2887b5df2728f8481b07fb4d8b9bee18b98c5c0ccd0c8e65c2e784a32826cc2301631e95e54071324e5dfbdaa11f0a5aa483cc619b864d4788c3700980b38b6  v0.5.3.tar.gz"
