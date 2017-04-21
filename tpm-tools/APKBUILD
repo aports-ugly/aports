@@ -1,0 +1,33 @@
+# Contributor: stef <l0ls0fo2i@ctrlc.hu>
+
+pkgname=tpm-tools
+pkgver=1.3.9.1
+pkgrel=0
+makedepends="libressl-dev trousers-dev"
+pkgdesc="Manage and diagnose tools for a Trusted Platform Module (TPM)"
+license="CPL"
+url="http://trousers.sourceforge.net/"
+source="https://downloads.sourceforge.net/project/trousers/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz"
+subpackages="$pkgname-doc $pkgname-dev"
+
+builddir="$srcdir/$pkgname-$pkgver"
+
+unpack() {
+  mkdir $builddir
+  cd $builddir
+  tar xzvf ../${pkgname}-${pkgver}.tar.gz
+}
+
+build() {
+  cd "$builddir"
+  CFLAGS='-Wno-error=misleading-indentation -Wno-error=bool-compare -Wno-error=logical-not-parentheses -lintl' \
+  ./configure --prefix=/usr
+  make
+}
+
+package() {
+	cd "$builddir"
+	make DESTDIR="$pkgdir" install
+}
+
+sha512sums="63a9c0e761cd890cc0a218de79a9c0169e151aba7824c19bf6b7ec894cf41c4950de1f63bd849aa93a4bdff36cf0fe557bc17113912b6d77f57f2bf1190b6a08  tpm-tools-1.3.9.1.tar.gz"
