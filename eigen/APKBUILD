@@ -1,0 +1,28 @@
+# Maintainer: stef <l0ls0fo2i@ctrlc.hu>
+
+pkgname=eigen
+pkgver=3.3.3
+pkgrel=0
+pkgdesc="C++ template library for linear algebra"
+arch="all"
+url="http://eigen.tuxfamily.org/"
+license="MPL-2.0, GPL-3, LGPL-2.1"
+source="http://bitbucket.org/eigen/eigen/get/${pkgver}.tar.bz2"
+subpackages="$pkgname-dev"
+
+builddir="$srcdir/eigen-eigen-67e894c6cd8f"
+build() {
+  cd "$builddir"
+  mkdir -p build
+  cd build
+  CXXFLAGS="-std=c++11 -g" \
+  cmake -DCMAKE_INSTALL_PREFIX=/usr "$builddir"
+  make
+}
+
+package() {
+	cd "$builddir/build"
+	make DESTDIR="$pkgdir" install
+}
+
+sha512sums="bb5a8b761371e516f0a344a7c9f6e369e21c2907c8548227933ca6010fc607a66c8d6ff7c41b1aec3dea7d482ce8c2a09e38ae5c7a2c5b16bdd8007e7a81ecc3  3.3.3.tar.bz2"
