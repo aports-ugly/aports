@@ -1,0 +1,33 @@
+# Contributor: stef <l0ls0fo2i@ctrlc.hu>
+
+pkgname=kicad
+pkgver=4.0.6
+pkgrel=0
+makedepends="python-dev glew-dev cairo-dev libressl-dev boost-dev swig doxygen curl-dev"
+pkgdesc="Electronic schematic and PCB design software"
+license="GPL2"
+url="http://kicad-pcb.org"
+source="https://launchpad.net/${pkgname}/${pkgver%.*}/${pkgver}/+download/${pkgname}-${pkgver}.tar.xz
+   boost-1.61.patch"
+subpackages="$pkgname-doc $pkgname-dbg"
+
+builddir="$srcdir/$pkgname-$pkgver"
+build() {
+  cd "$builddir"
+  mkdir -p build
+  cd build
+  CXXFLAGS="-std=c++11 -g" \
+  cmake -DCMAKE_INSTALL_PREFIX=/usr \
+        -DKICAD_BUILD_VERSION=$pkgver -DKICAD_SKIP_BOOST=ON \
+        -DKICAD_SCRIPTING=ON -DKICAD_SCRIPTING_MODULES=ON -DKICAD_SCRIPTING_WXPYTHON=ON \
+        "$builddir"
+  make
+}
+
+package() {
+	cd "$builddir/build"
+	make DESTDIR="$pkgdir" install
+}
+
+sha512sums="f20e5bdb7f4535e8eb9d8d76926a89ad4b69fd727447269f45695556aed9f7ddfdc05f434021bc210490ccb4b5223658eafc275df8cfaae91e22e3b645f2837e  kicad-4.0.6.tar.xz
+a960117a4c08144de5111e76a33f208a9b3fe702d10ec2546afc57faf3de3fccfe19b5a5c62b527953d55687e644ed67c9b560cd3baf8b678d127977f3f30cee  boost-1.61.patch"
