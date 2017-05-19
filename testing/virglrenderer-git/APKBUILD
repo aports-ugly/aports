@@ -1,0 +1,29 @@
+# Contributor: Johannes Matheis <jomat+alpinebuild@jmt.gr>
+# Maintainer: Johannes Matheis <jomat+alpinebuild@jmt.gr>
+pkgname=virglrenderer-git
+pkgver=0.6.0
+pkgrel=0
+pkgdesc="The virgil3d rendering library is a library used by qemu to implement 3D GPU support for the virtio GPU"
+url="https://virgil3d.github.io/"
+arch="all"
+license="MIT"
+depends="libepoxy@edge mesa@edge"
+makedepends="python2 git"
+install=""
+subpackages="$pkgname-dev"
+source="https://cgit.freedesktop.org/virglrenderer/snapshot/virglrenderer-${pkgver}.tar.xz fd_set.patch"
+builddir="$srcdir/virglrenderer-${pkgver}"
+
+build() {
+	cd "$builddir"
+	./autogen.sh --prefix=/usr/
+	make
+}
+
+package() {
+	cd "$builddir"
+	make DESTDIR="$pkgdir" install
+}
+
+sha512sums="7ef48670204ce518c89ffb8272269faf4d9585811725a8673ad0426be48cfeb3deefa665922758765d5dcf19b915e3670c8cf7441992df2e94fbda368b62f689  virglrenderer-0.6.0.tar.xz
+37d4a21be642c6a088bd04cba35a95b7233c68cf6af5ea2d03027d54d46d2532aeee614551a7f5e6b41d20360e751be198e18058d62f83fa5701ca61add5edce  fd_set.patch"
