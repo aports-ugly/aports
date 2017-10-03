@@ -1,14 +1,14 @@
 pkgname=wxWidgets
-pkgver=3.0.2
+pkgver=3.0.3
 pkgrel=0
 pkgdesc="The wxWidgets GUI toolkit library (pkgver 3)"
 license="wxWindows"
 url="http://www.wxwidgets.org/"
 makedepends="gtk+-dev libjpeg-turbo-dev tiff-dev libsm-dev libnotify-dev
- libxinerama-dev libmspack-dev sdl-dev glu-dev webkitgtk-dev@community"
+ libxinerama-dev libmspack-dev sdl-dev glu-dev webkit2gtk-dev@community"
 subpackages="$pkgname-dev"
-source="http://downloads.sourceforge.net/wxwindows/${pkgver}/${pkgname}-${pkgver}.tar.bz2
-       fix-gcc6-disambiguate-abs.patch  wxGTK-collision.patch"
+source="https://github.com/$pkgname/$pkgname/archive/v$pkgver.tar.gz
+      wxGTK-collision.patch"
 
 builddir="$srcdir/wxWidgets-$pkgver"
 
@@ -32,12 +32,5 @@ package() {
 	make DESTDIR="$pkgdir" install
 }
 
-md5sums="ba4cd1f3853d0cd49134c5ae028ad080  wxWidgets-3.0.2.tar.bz2
-3deffcc730f86f1068bd07f799c00fa0  fix-gcc6-disambiguate-abs.patch
-cee8c1fc9f70029b8203dfa8825c1e96  wxGTK-collision.patch"
-sha256sums="346879dc554f3ab8d6da2704f651ecb504a22e9d31c17ef5449b129ed711585d  wxWidgets-3.0.2.tar.bz2
-40af1873be69fb96cef5b1061f27d1adccab5ede179f50b126bc27fc1216b456  fix-gcc6-disambiguate-abs.patch
-7b3fbe6321bda5d97039af113326339d3ec005b454e26163638c5cecfda51e47  wxGTK-collision.patch"
-sha512sums="098f79863103f3be0b7e21e4f0f1b34ab5277ef0033c1ef1387a9c673b0e0b76a2d732b183fa11b22cfcbbfdb7a4884f243d12f65cd49baa1772852307b393c4  wxWidgets-3.0.2.tar.bz2
-682c3e727e8b33e8399c66127803eb01a2f6febda75f4369cc89b75b2fb03b8871364fae27331f5e6d990477f162ca28d2bbfb36d652be7fcde84526db6b39e4  fix-gcc6-disambiguate-abs.patch
+sha512sums="afc7741c21ce6dc06c7123f4e1846a7ba42a1fa5e5041722dde57af0e29c02e5638c7694fb05163aa69594f2d8e298c192cb40312f0b625f00c1bf53fc8df8cc  v3.0.3.tar.gz
 4daae3a7b2077d12d4c4dd2b318cf77b0d794003fe43f3022181412daff694653003ad764f6efe4893caa5ffdc9ffaf9edb3bfc3b7bf429891522a60b67a2026  wxGTK-collision.patch"
