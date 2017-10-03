@@ -1,7 +1,7 @@
 # Contributor:
 # Maintainer:
 pkgname=qscintilla-qt5
-pkgver=2.10
+pkgver=2.10.1
 pkgrel=0
 pkgdesc="Port to Qt5 of Neil Hodgson's Scintilla C++ editor class"
 url="http://www.riverbankcomputing.co.uk/software/qscintilla/"
@@ -26,4 +26,4 @@ package() {
    make INSTALL_ROOT=${pkgdir} install
 }
 
-sha512sums="fe33471de0807bc4e0d6b86e78eac70531a20c96b5c3269111d4c89eca7ccae5e55752fc2a5c8f20f37220a3ccfb6e9d7d718c02058dd8b40075d40da211a93b  QScintilla_gpl-2.10.tar.gz"
+sha512sums="ea9b95ca371a8af9262493ab59ecaef77e1697ba21d1d594aab39e836917884fd829aa4f6c4e72cce60b0d3f40eac654157cc507d027945f0034881855123ccc  QScintilla_gpl-2.10.1.tar.gz"
