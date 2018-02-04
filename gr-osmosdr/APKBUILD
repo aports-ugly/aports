@@ -1,0 +1,37 @@
+# Contributor: stef <l0ls0fo2i@ctrlc.hu>
+#
+pkgname=gr-osmosdr
+pkgver=0.1.4
+pkgrel=0
+pkgdesc="Source block for Funcube Dongle, RTL-SDR, USRP, OsmoSDR, BladeRF, HackRF and AirSpy devices"
+arch='all'
+url="http://sdr.osmocom.org/trac/"
+license='GPL'
+subpackages="$pkgname-dev"
+# libuhd
+makedepends='gnuradio-dev rtlsdr-dev hackrf-dev'
+
+source="http://git.osmocom.org/gr-osmosdr/snapshot/$pkgname-$pkgver.tar.gz"
+
+_builddir="$srcdir/$pkgname-$pkgver"
+
+build() {
+  cd "$_builddir"
+  export PYTHON=python2
+  mkdir -p build
+  cd build
+  cmake \
+    -DPYTHON_EXECUTABLE=$(which python2) \
+    -DPYTHON_INCLUDE_DIR=$(echo /usr/include/python2*) \
+    -DPYTHON_LIBRARY=$(echo /usr/lib/libpython2.*.so) \
+    -DCMAKE_INSTALL_PREFIX=/usr -Wno-dev ../
+  make
+}
+
+package() {
+	cd "$_builddir/build"
+	make DESTDIR="$pkgdir" install
+}
+md5sums="7238bf42ddd2ab91bbcc2713b3f99ed9  gr-osmosdr-0.1.4.tar.gz"
+sha256sums="59bb389431f72545f3ac51b87ceb98f3ba0591a1941f456ac4e67efb2ddb648c  gr-osmosdr-0.1.4.tar.gz"
+sha512sums="092bc4b5360693dc76e6c15c5188d3a1703d54ed2a0cc25750af7dbdb7d20d57e40c430c8a81b71e84448ce57336d61a02b6a6e7f1c851a76353d58c9379c847  gr-osmosdr-0.1.4.tar.gz"

@@ -1,0 +1,36 @@
+pkgname=wxWidgets
+pkgver=3.0.3
+pkgrel=0
+pkgdesc="The wxWidgets GUI toolkit library (pkgver 3)"
+license="wxWindows"
+url="http://www.wxwidgets.org/"
+makedepends="gtk+-dev libjpeg-turbo-dev tiff-dev libsm-dev libnotify-dev
+ libxinerama-dev libmspack-dev sdl-dev glu-dev webkit2gtk-dev@community"
+subpackages="$pkgname-dev"
+source="https://github.com/$pkgname/$pkgname/archive/v$pkgver.tar.gz
+      wxGTK-collision.patch"
+
+builddir="$srcdir/wxWidgets-$pkgver"
+
+prepare() {
+	cd "$builddir"
+	for i in $source; do
+		case $i in
+		*.patch) msg $i; patch -p0 -i "$srcdir"/$i || return 1;;
+		esac
+	done
+}
+
+build() {
+  cd "$builddir"
+  ./configure --prefix=/usr --enable-unicode --with-opengl --with-sdl --with-libmspack --with-libnotify
+  make
+}
+
+package() {
+   cd "$builddir"
+	make DESTDIR="$pkgdir" install
+}
+
+sha512sums="afc7741c21ce6dc06c7123f4e1846a7ba42a1fa5e5041722dde57af0e29c02e5638c7694fb05163aa69594f2d8e298c192cb40312f0b625f00c1bf53fc8df8cc  v3.0.3.tar.gz
+4daae3a7b2077d12d4c4dd2b318cf77b0d794003fe43f3022181412daff694653003ad764f6efe4893caa5ffdc9ffaf9edb3bfc3b7bf429891522a60b67a2026  wxGTK-collision.patch"

@@ -1,0 +1,29 @@
+# Maintainer: stef <l0ls0fo2i@ctrlc.hu>
+
+pkgname=cgal
+pkgver=4.11
+pkgrel=0
+pkgdesc="Computational Geometry Algorithms Library"
+arch="all"
+url="http://www.cgal.org"
+license="GPLv3,LGPLv3"
+source="https://github.com/CGAL/cgal/archive/releases/CGAL-${pkgver}.tar.gz"
+subpackages="$pkgname-dev $pkgname-doc"
+makedepends="boost-dev eigen-dev gmp-dev mpfr-dev"
+
+builddir="$srcdir/cgal-releases-CGAL-${pkgver}"
+build() {
+  cd "$builddir"
+  mkdir -p build
+  cd build
+  CXXFLAGS="-std=c++11 -g" \
+  cmake -DCMAKE_INSTALL_PREFIX=/usr "$builddir"
+  make
+}
+
+package() {
+	cd "$builddir/build"
+	make DESTDIR="$pkgdir" install
+}
+
+sha512sums="91e555d5988bee387afa31331e1e3a8990206468fd8c774fd82979d9ff169e9c4835ecc6ba3d576cda617b6cb2cd52d27657d2434e38b29ce0e7e643436810ab  CGAL-4.11.tar.gz"
