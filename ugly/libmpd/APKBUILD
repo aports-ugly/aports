@@ -1,0 +1,28 @@
+# Contributor: Johannes Matheis <jomat+alpinebuild@jmt.gr>
+# Maintainer: Johannes Matheis <jomat+alpinebuild@jmt.gr>
+pkgname=libmpd
+pkgver=11.8.17
+pkgrel=0
+pkgdesc="Signal based wrapper around libmpdclient"
+url="http://mpd.wikia.com/wiki/ClientLib:libmpd"
+arch="all"
+license="GPL"
+depends=""
+makedepends=""
+install=""
+subpackages="$pkgname-dev"
+source="http://download.sarine.nl/Programs/gmpc/11.8/libmpd-$pkgver.tar.gz"
+builddir="$srcdir/$pkgname-$pkgver"
+
+build() {
+	cd "$builddir"
+	./configure --prefix=/usr --enable-libnotify
+	make
+}
+
+package() {
+	cd "$builddir"
+	make DESTDIR="$pkgdir" install
+}
+
+sha512sums="ffe2880834a4a39745a5327d628781e16eeb8cd1ec17402dda46ad96ff402bc0d8b4312ba058a39242ad9bb8c3a0bb6feb2c5ea2a30ef9be97652fdb5c02572d  libmpd-11.8.17.tar.gz"
