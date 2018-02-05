@@ -1,0 +1,48 @@
+pkgname=hackrf
+pkgver=2015.07.2
+pkgrel=0
+pkgdesc="Driver for HackRF, allowing general purpose software defined radio (SDR)."
+arch="all"
+url="https://github.com/mossmann/hackrf"
+license='GPL2'
+makedepends='cmake libusb-dev'
+subpackages="$pkgname-dev"
+
+source="https://github.com/mossmann/hackrf/releases/download/v${pkgver}/hackrf-$pkgver.tar.xz
+        hackrf.conf"
+
+builddir="$srcdir/$pkgname-$pkgver"
+
+prepare() {
+  cd "$builddir/host"
+  # FS#41895
+  sed -i 's|MODE.*$|TAG+="uaccess"|' libhackrf/53-hackrf.rules*
+}
+
+build() {
+  cd "$builddir/host"
+  mkdir -p build
+  cd build
+  cmake -DCMAKE_INSTALL_PREFIX=/usr ../
+  make
+}
+
+package() {
+  cd "$builddir"
+  cd host/build
+  make DESTDIR="$pkgdir" install
+  cd ../..
+  cd host/libhackrf
+  install -vD -m644 53-hackrf.rules "$pkgdir/usr/lib/udev/rules.d/53-hackrf.rules"
+  cd ../..
+  cd firmware-bin
+  install -vD -m644 hackrf_jawbreaker_usb_rom_to_ram.bin "$pkgdir/usr/share/hackrf/hackrf_jawbreaker_usb_rom_to_ram.bin"
+  install -vD -m644 hackrf_one_usb_rom_to_ram.bin "$pkgdir/usr/share/hackrf/hackrf_usb_rom_to_ram.bin"
+  install -Dm644 "$srcdir/hackrf.conf" "$pkgdir/etc/modprobe.d/hackrf.conf"
+}
+md5sums="67595d2dad1c299138baf9a85ec37341  hackrf-2015.07.2.tar.xz
+31dd2a1b06a8b9cd2662afc2bfd7118d  hackrf.conf"
+sha256sums="5e3d9c36928b88cdbc0d66ee54e24e8682972dba478abfca0e31069515b870b6  hackrf-2015.07.2.tar.xz
+1e508ecebec36af87943b86c2cdcdedc42607524d138d02aa8692f8821f8d21c  hackrf.conf"
+sha512sums="a4f7b7800ece9b260d5c8c374f5544aa55cd2e97e10c6a0b33cf476e2ad4811321ffb1308d9dfb2168b2624cd3af616d1c314ad86bcd6f4c3fd0897319fa2cbd  hackrf-2015.07.2.tar.xz
+a3eefe7670d21ea2c10873db21dc9fc06ae9690022e1357b327f2622623242da296f93d7c6034a92ba940e42d620ef541bd6afa613bf9d019c17240eb6ea6a42  hackrf.conf"

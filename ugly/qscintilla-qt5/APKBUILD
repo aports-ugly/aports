@@ -1,0 +1,29 @@
+# Contributor:
+# Maintainer:
+pkgname=qscintilla-qt5
+pkgver=2.10.1
+pkgrel=0
+pkgdesc="Port to Qt5 of Neil Hodgson's Scintilla C++ editor class"
+url="http://www.riverbankcomputing.co.uk/software/qscintilla/"
+arch="all"
+license="GPLv3"
+depends=""
+makedepends="qt5-qtbase-dev@community"
+install=""
+subpackages="$pkgname-dev"
+source="https://downloads.sourceforge.net/project/pyqt/QScintilla2/QScintilla-${pkgver}/QScintilla_gpl-${pkgver}.tar.gz"
+
+_builddir="$srcdir/QScintilla_gpl-${pkgver}/Qt4Qt5"
+
+build() {
+  cd "$_builddir"
+  qmake-qt5 qscintilla.pro || exit 1
+  make
+}
+
+package() {
+	cd "$_builddir"
+   make INSTALL_ROOT=${pkgdir} install
+}
+
+sha512sums="ea9b95ca371a8af9262493ab59ecaef77e1697ba21d1d594aab39e836917884fd829aa4f6c4e72cce60b0d3f40eac654157cc507d027945f0034881855123ccc  QScintilla_gpl-2.10.1.tar.gz"

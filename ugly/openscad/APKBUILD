@@ -1,0 +1,42 @@
+# Contributor:
+# Maintainer:
+pkgname=openscad
+pkgver=2015.03.3
+pkgrel=0
+pkgdesc="The programmers solid 3D CAD modeller"
+url="http://www.openscad.org"
+arch="all"
+license="GPLv2"
+depends=""
+makedepends="qscintilla-qt5-dev@ugly bison flex cgal-dev@ugly harfbuzz-dev opencsg-dev@ugly glew-dev"
+_distver="${pkgver%.*}-${pkgver##*.}"
+subpackages="$pkgname-doc"
+source="http://files.openscad.org/${pkgname}-${_distver}.src.tar.gz
+       uic_qgettext.patch"
+
+_builddir="$srcdir/${pkgname}-${_distver}"
+
+prepare() {
+	local i
+	cd "$_builddir"
+	for i in $source; do
+		case $i in
+		*.patch) msg $i; patch -p0 -i "$srcdir"/$i || return 1;;
+		esac
+	done
+}
+
+build() {
+  cd "$_builddir"
+  qmake-qt5 PREFIX=/usr || exit 1
+  sed -i 's:-isystem /usr/include ::' Makefile || exit 1
+  make
+}
+
+package() {
+	cd "$_builddir"
+   make INSTALL_ROOT=${pkgdir} install
+}
+
+sha512sums="b2cee90563bdf2cb9f7b5a0d637b2266f5fcd62add6147c9326b843a5b0975b8ec900d13a2aa86485fce4a5e7e53a08cf4171a3d1d66355e813d01ca9096faee  openscad-2015.03-3.src.tar.gz
+2b7ad58fb4ec843e71597587423797d2685360294976884ba618fb8efb4df88b780ab1da310502f66058934c36e2a351b75e00b492e955478a1fc65917998cc1  uic_qgettext.patch"

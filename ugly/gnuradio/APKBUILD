@@ -1,0 +1,67 @@
+# Contributor: stef <l0ls0fo2i@ctrlc.hu>
+#
+pkgname=gnuradio
+pkgver=3.7.10.1
+pkgrel=0
+pkgdesc="General purpose DSP and SDR toolkit."
+arch='x86 x86_64'
+url="http://gnuradio.org"
+license='GPL'
+subpackages="$pkgname-dev"
+# libuhd
+makedepends='fftw-dev py-numpy@community cppunit-dev gsl-dev py-gtk wxgtk-dev@community volk-dev
+    libusb-dev portaudio-dev boost-dev zeromq-dev cmake py-lxml py-cheetah@testing glu swig wxPython-dev qwt-dev'
+    # py-pyqwt qwtplot3d'
+
+source="http://gnuradio.org/releases/$pkgname/$pkgname-$pkgver.tar.gz
+        http://gnuradio.org/releases/$pkgname/$pkgname-$pkgver.tar.gz.asc"
+
+_builddir="$srcdir/gnuradio-$pkgver"
+prepare() {
+	local i
+	cd "$_builddir"
+	for i in $source; do
+		case $i in
+		*.patch) msg $i; patch -p1 -i "$srcdir"/$i || return 1;;
+		esac
+	done
+  sed -i -e "s|#![ ]*/usr/bin/env python$|#!/usr/bin/env python2|" \
+    $(find ./ -name '*.py') \
+    $(find ./ -name 'gnuradio-companion' -o -name 'flow_graph.tmpl')
+  sed -i -e "s|#![ ]*/usr/bin/env /usr/bin/python$|#!/usr/bin/env python2|" \
+    $(find ./ -name '*.py')
+}
+
+build() {
+  cd "$_builddir"
+  export PYTHON=python2
+  cd "$srcdir/$pkgname-$pkgver"
+  sed -i -e "s|GR_PKG_LIBEXEC_DIR|GR_RUNTIME_DIR|" grc/scripts/freedesktop/CMakeLists.txt
+  #sed -i -e "s|/qwt$|/qwt5|" -e "s| qwt | qwt5 |" cmake/Modules/FindQwt.cmake
+  sed -i -e "s| sphinx-build$| sphinx-build2|" cmake/Modules/FindSphinx.cmake
+  msg "Starting build."
+  mkdir -p build
+  cd build
+    #-DENABLE_INTERNAL_VOLK=OFF \
+   
+  cmake \
+    -DPYTHON_EXECUTABLE=$(which python2) \
+    -DPYTHON_INCLUDE_DIR=$(echo /usr/include/python2*) \
+    -DPYTHON_LIBRARY=$(echo /usr/lib/libpython2.*.so) \
+    -DENABLE_GR_WXGUI=ON \
+    -DENABLE_GR_QTGUI=ON \
+    -DENABLE_GRC=ON \
+    -DCMAKE_INSTALL_PREFIX=/usr -Wno-dev ../
+  make
+}
+
+package() {
+	cd "$_builddir/build"
+	make DESTDIR="$pkgdir" install
+}
+md5sums="885d637669c2dfc2b005c24e16327c96  gnuradio-3.7.10.1.tar.gz
+9c9a556b2fed1fe2ed951e4a7f21b590  gnuradio-3.7.10.1.tar.gz.asc"
+sha256sums="63d7b65cc4abe22f47b8f41caaf7370a0a502b91e36e29901ba03e8838ab4937  gnuradio-3.7.10.1.tar.gz
+135f727d3252c802fe4cac2df8b112e187cb7bb25b45b5c87dbca7348d2121ce  gnuradio-3.7.10.1.tar.gz.asc"
+sha512sums="101ea704e25d8ddc1b124c3be23b5020f3f504cab7b2762ba41172d8d07822018e583179e8d15d2b4c224fb8fad68ea4b5e135bcb40126aa6317ee51c47883f6  gnuradio-3.7.10.1.tar.gz
+10c256e6a4bd82d035eb08295b1862d8de48dd86cd33f2c4569d2dcce267a4b11c6d609ccc9a5c786a2125f6178147d314765004480ab240f10589e9dd7df065  gnuradio-3.7.10.1.tar.gz.asc"
