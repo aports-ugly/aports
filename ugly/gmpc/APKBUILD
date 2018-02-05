@@ -1,0 +1,29 @@
+# Contributor: Johannes Matheis <jomat+alpinebuild@jmt.gr>
+# Maintainer: Johannes Matheis <jomat+alpinebuild@jmt.gr>
+pkgname=gmpc
+pkgver=11.8.16
+pkgrel=0
+pkgdesc="A graphical MPD client written in Gtk3 including libnotify support"
+url="http://gmpclient.org/home"
+arch="all"
+license="GPL"
+depends=""
+makedepends="libunique-dev libmpdclient-dev"
+install=""
+subpackages="$pkgname-dev $pkgname-doc"
+source="http://download.sarine.nl/Programs/gmpc/11.8/gmpc-$pkgver.tar.gz"
+builddir="$srcdir/$pkgname-$pkgver"
+
+build() {
+	cd "$builddir"
+	./configure --prefix=/usr --enable-libnotify
+	make
+
+}
+
+package() {
+	cd "$builddir"
+	make DESTDIR="$pkgdir" install
+}
+
+sha512sums="4e5c8112edc016ac6c472b0099347a4fcd0336022e15be8d76fae449d30e533df92a4379aa98e389e624b9910ff3f528afb682f64901ea53f09e00d3d5678623  gmpc-11.8.16.tar.gz"
