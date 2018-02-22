@@ -1,0 +1,31 @@
+# Contributor: Johannes Matheis <jomat+alpinebuild@jmt.gr>
+# Maintainer: Johannes Matheis <jomat+alpinebuild@jmt.gr>
+pkgname=cataclysm-dda-cooper
+pkgver=0.11
+cddaver=0.C
+pkgrel=0
+pkgdesc="A post-apocalyptic roguelike. Version 0.C Cooper."
+url="http://cataclysmdda.org"
+arch="all"
+license="CC-BY-SA-3.0"
+depends=""
+makedepends="sdl2_mixer-dev sdl2_ttf-dev sdl2_image-dev libexecinfo-dev"
+install=""
+subpackages=""
+source="cataclysm-dda-${cddaver}.tar.gz::https://github.com/CleverRaven/Cataclysm-DDA/archive/${cddaver}.tar.gz
+        Makefile.patch debug_glibcish.patch"
+builddir="$srcdir/Cataclysm-DDA-${cddaver}"
+
+build() {
+	cd "$builddir"
+	make PREFIX=/usr DESTDIR=$pkgdir ZLEVELS=1 USE_HOME_DIR=1 LUA=1 TILES=1 SOUND=1 RELEASE=1 
+}
+
+package() {
+	cd "$builddir"
+	make PREFIX=/usr DESTDIR=$pkgdir ZLEVELS=1 USE_HOME_DIR=1 LUA=1 TILES=1 SOUND=1 RELEASE=1 install
+}
+
+sha512sums="647eb18419f1f49dfe83f81ed09bb3553a496e9505098853b71ecaed47bd123c67031d23a76786764ed48adb867f7d6b9a20df314b8e3cb0ea0945ea411e2a12  cataclysm-dda-0.C.tar.gz
+8d07b461e9ed527c5fdfb017f5673b6e2d9d1e9b14f982455e488f5d15bc8387fa844c7aff3af0bcc0e36907eb4270d19b6175058504bae8cf2f1b35d357bb52  Makefile.patch
+a897a7152719bbc9af032a5a99d0d8008006ff2ba061c911efd87531428b22b8aafd158b692e4920461b03983f1d1a137d0ad9a89410fa1132d6d368beb35a1b  debug_glibcish.patch"

@@ -1,0 +1,33 @@
+--- a/Makefile
++++ b/Makefile
+@@ -49,7 +49,7 @@
+ # we don't check in code with new warnings, but we also have to disable some classes of warnings
+ # for now as we get rid of them.  In non-release builds we want to show all the warnings,
+ # even the ones we're allowing in release builds so they're visible to developers.
+-RELEASE_FLAGS = -Werror
++RELEASE_FLAGS = 
+ WARNINGS = -Wall -Wextra
+ # Uncomment below to disable warnings
+ #WARNINGS = -w
+@@ -409,6 +409,8 @@
+   DEFINES += -DUSE_HOME_DIR
+ endif
+ 
++LDFLAGS += -lintl
++
+ all: version $(TARGET) $(L10N)
+ 	@
+ 
+@@ -473,9 +475,9 @@
+ bindist: $(BINDIST)
+ 
+ ifeq ($(TARGETSYSTEM), LINUX)
+-DATA_PREFIX=$(PREFIX)/share/cataclysm-dda/
+-BIN_PREFIX=$(PREFIX)/bin
+-LOCALE_DIR=$(PREFIX)/share/locale
++DATA_PREFIX=$(DESTDIR)/$(PREFIX)/share/cataclysm-dda/
++BIN_PREFIX=$(DESTDIR)/$(PREFIX)/bin
++LOCALE_DIR=$(DESTDIR)/$(PREFIX)/share/locale
+ install: version $(TARGET)
+ 	mkdir -p $(DATA_PREFIX)
+ 	mkdir -p $(BIN_PREFIX)

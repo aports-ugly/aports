@@ -1,0 +1,11 @@
+--- a/src/debug.cpp
++++ b/src/debug.cpp
+@@ -309,7 +309,7 @@
+         debugFile.file << ": ";
+ 
+         // Backtrace on error.
+-#if !(defined _WIN32 || defined WINDOWS || defined __CYGWIN__)
++#if !(defined _WIN32 || defined WINDOWS || defined __CYGWIN__) && defined(__GLIBC__)
+         if( lev == D_ERROR ) {
+             int count = backtrace( tracePtrs, TRACE_SIZE );
+             char **funcNames = backtrace_symbols( tracePtrs, count );
