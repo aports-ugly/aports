@@ -1,0 +1,26 @@
+# Maintainer: stef <l0ls0fo2i@ctrlc.hu>
+
+pkgname=pbc
+pkgver=0.5.14
+pkgrel=0
+pkgdesc="Library that performs the mathematical operations underlying pairing-based cryptosystems."
+arch="all"
+url="https://crypto.stanford.edu/pbc/"
+license="LGPLv3"
+source="https://crypto.stanford.edu/pbc/files/pbc-0.5.14.tar.gz"
+subpackages="$pkgname-dev"
+makedepends="gmp-dev"
+
+builddir="$srcdir/pbc-${pkgver}"
+build() {
+  cd "$builddir"
+  ./configure --prefix=/usr
+  make
+}
+
+package() {
+        cd "$builddir"
+        make DESTDIR="$pkgdir" install
+}
+
+sha512sums="d75d4ceb3f67ee62c7ca41e2a91ee914fbffaeb70256675aed6734d586950ea8e64e2f16dc069d71481eddb703624df8d46497005fb58e75cf098dd7e7961333  pbc-0.5.14.tar.gz"
