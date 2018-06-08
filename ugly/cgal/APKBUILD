@@ -9,7 +9,7 @@ url="http://www.cgal.org"
 license="GPLv3,LGPLv3"
 source="https://github.com/CGAL/cgal/archive/releases/CGAL-${pkgver}.tar.gz"
 subpackages="$pkgname-dev $pkgname-doc"
-makedepends="boost-dev eigen-dev gmp-dev mpfr-dev cmake"
+makedepends="cmake boost-dev eigen-dev gmp-dev mpfr-dev"
 
 builddir="$srcdir/cgal-releases-CGAL-${pkgver}"
 build() {
