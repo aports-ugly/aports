@@ -9,7 +9,7 @@ url="http://www.opencsg.org"
 license="GPLv2"
 source="$url/OpenCSG-${pkgver}.tar.gz"
 subpackages="$pkgname-dev $pkgname-doc"
-makedepends="glew-dev freeglut-dev"
+makedepends="coreutils glew-dev freeglut-dev"
 
 builddir="$srcdir/OpenCSG-${pkgver}"
 build() {
