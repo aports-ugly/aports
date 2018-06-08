@@ -2,13 +2,13 @@
 # Maintainer:
 pkgname=openscad
 pkgver=2015.03.3
-pkgrel=0
+pkgrel=1
 pkgdesc="The programmers solid 3D CAD modeller"
 url="http://www.openscad.org"
 arch="all"
 license="GPLv2"
 depends=""
-makedepends="qscintilla-qt5-dev@ugly bison flex cgal-dev@ugly harfbuzz-dev opencsg-dev@ugly glew-dev"
+makedepends="qscintilla-qt5-dev@ugly bison flex cgal-dev@ugly harfbuzz-dev qt5-qtbase-dev opencsg-dev@ugly glew-dev"
 _distver="${pkgver%.*}-${pkgver##*.}"
 subpackages="$pkgname-doc"
 source="http://files.openscad.org/${pkgname}-${_distver}.src.tar.gz
