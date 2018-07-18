@@ -1,0 +1,29 @@
+--- src/oce-OCE-0.18.3/src/OSD/OSD_signal.cxx
++++ oce-OCE-0.18.3/src/OSD/OSD_signal.cxx
+@@ -217,7 +217,7 @@
+   // cout << "OSD::Handler: signal " << (int) theSignal << " occured inside a try block " <<  endl ;
+   if ( ADR_ACT_SIGIO_HANDLER != NULL )
+     (*ADR_ACT_SIGIO_HANDLER)() ;
+-#ifdef linux
++#ifdef __GLIBC__
+   if (fFltExceptions)
+     feenableexcept (FE_INVALID | FE_DIVBYZERO | FE_OVERFLOW);
+     //feenableexcept (FE_INVALID | FE_DIVBYZERO);
+@@ -338,7 +338,7 @@
+     return;
+   }
+ #endif
+-#ifdef linux
++#ifdef __GLIBC__
+   if (fFltExceptions)
+     feenableexcept (FE_INVALID | FE_DIVBYZERO | FE_OVERFLOW);
+     //feenableexcept (FE_INVALID | FE_DIVBYZERO);
+@@ -394,7 +394,7 @@
+       cerr << "ieee_handler does not work !!! KO " << endl;
+ #endif
+     }
+-#elif defined (linux)
++#elif defined (__GLIBC__)
+     feenableexcept (FE_INVALID | FE_DIVBYZERO | FE_OVERFLOW);
+     //feenableexcept (FE_INVALID | FE_DIVBYZERO);
+     fFltExceptions = Standard_True;

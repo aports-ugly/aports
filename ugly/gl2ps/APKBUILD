@@ -1,0 +1,30 @@
+# Contributor:
+# Maintainer:
+pkgname=gl2ps
+pkgver=1.4.0
+pkgrel=0
+pkgdesc="OpenGL to Postscript printing library"
+url="http://www.geuz.org/gl2ps/"
+arch="all"
+license="LGPL2"
+depends=""
+makedepends="glu-dev freeglut-dev libxmu-dev zlib-dev libpng-dev cmake"
+install=""
+subpackages="$pkgname-dev $pkgname-doc"
+source="http://www.geuz.org/${pkgname}/src/$pkgname-$pkgver.tgz"
+_builddir="$srcdir/$pkgname-$pkgver-source"
+
+build() {
+  cd "$_builddir"
+  mkdir build
+  cd build
+  cmake .. -DCMAKE_INSTALL_PREFIX=/usr
+  make PREFIX="/usr"
+}
+
+package() {
+  cd "$_builddir/build"
+  make DESTDIR="$pkgdir" install
+}
+
+sha512sums="420b21a5b4397c9a9a2323a8686b8635c2683354c94762d2d0172c661fc36c4298042498dd8ef2323adf32f45aa4e0a3dba146058ccde597e5a46c2027cbf7ce  gl2ps-1.4.0.tgz"

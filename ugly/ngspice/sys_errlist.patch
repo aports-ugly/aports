@@ -1,0 +1,13 @@
+--- src/ngspice-28/src/include/ngspice/ngspice.h
++++ ngspice-28/src/include/ngspice/ngspice.h
+@@ -306,8 +306,10 @@
+ #undef fprintf
+ #define fprintf sh_fprintf
+ 
++/*
+ #undef perror
+ #define perror(string) fprintf(stderr, "%s: %s\n", string, sys_errlist[errno])
++*/
+ 
+ #undef fputs
+ #define fputs sh_fputs

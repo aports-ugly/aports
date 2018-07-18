@@ -1,0 +1,30 @@
+# Contributor:
+# Maintainer:
+pkgname=ngspice
+pkgver=28
+pkgrel=0
+pkgdesc="Mixed level/signal circuit simulator"
+url="http://ngspice.sourceforge.net/"
+arch="all"
+license="BSD"
+depends=""
+makedepends="libxaw-dev"
+install=""
+subpackages="$pkgname-dev $pkgname-doc"
+source="http://downloads.sourceforge.net/${pkgname}/$pkgname-$pkgver.tar.gz
+sys_errlist.patch"
+_builddir="$srcdir/$pkgname-$pkgver"
+
+build() {
+  cd "$_builddir"
+  ./configure --prefix=/usr --with-ngshared --enable-xspice
+  make
+}
+
+package() {
+  cd "$_builddir"
+  make DESTDIR="$pkgdir" install
+}
+
+sha512sums="e698e07662a9fb68051adc89dbee7be45e14eeee7592c1f0293e17d6b1edd39a3ecfb61b804530600f172117f4f2a8717ff916adf19de4099f352b1eff75c54c  ngspice-28.tar.gz
+3bbcdddd5e1ac0de51b63d075559e91f8688bee5b535c493389393166dafecbdc372f297a88d8046b57399e448e03cdbda6a102806e195ee552e4e90ea7d50f8  sys_errlist.patch"

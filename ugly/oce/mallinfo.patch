@@ -1,0 +1,11 @@
+--- src/oce-OCE-0.18.3/src/OSD/OSD_MemInfo.cxx
++++ oce-OCE-0.18.3/src/OSD/OSD_MemInfo.cxx
+@@ -96,7 +96,7 @@
+       myCounters[MemHeapUsage] += hinfo._size;
+   }
+ 
+-#elif (defined(__linux__) || defined(__linux))
++#elif defined(__GLIBC__)
+   // use procfs on Linux
+   char aBuff[4096];
+   snprintf (aBuff, sizeof(aBuff), "/proc/%d/status", getpid());

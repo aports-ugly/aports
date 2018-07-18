@@ -1,0 +1,34 @@
+# Contributor:
+# Maintainer:
+pkgname=oce
+pkgver=0.18.3
+pkgrel=0
+pkgdesc="Open CASCADE community edition"
+url="http://github.com/tpaviot/oce"
+arch="all"
+license="GPL2.1"
+depends=""
+makedepends="libtbb libtbb-dev gl2ps-dev freeimage-dev tk-dev glu-dev tk"
+install=""
+subpackages="$pkgname-dev"
+source="http://github.com/tpaviot/${pkgname}/archive/OCE-$pkgver.tar.gz
+mallinfo.patch
+feenableexcept.patch"
+builddir="$srcdir/$pkgname-OCE-$pkgver"
+
+build() {
+  cd "$builddir"
+  mkdir build
+  cd build
+  cmake -DCMAKE_INSTALL_PREFIX=/usr -DOCE_INSTALL_PREFIX=/usr -DOCE_MULTITHREAD_LIBRARY:STRING=TBB -DOCE_WITH_GL2PS=ON -DOCE_WITH_FREEIMAGE=ON -DOCE_DRAW=ON ..
+  make PREFIX="/usr"
+}
+
+package() {
+  cd "$builddir/build"
+  make DESTDIR="$pkgdir" install
+}
+
+sha512sums="6fdeb6ca4ce25361379872ccc465799d4a43407974c4f626b32df695e582b9e553cce17af6a6a7ff46ebed9b813d910ad23eb308a5356dabb9b9bbd4f42a8636  OCE-0.18.3.tar.gz
+5d211f35a7f7b505fd8424c29b2baaa9ee6af241c5b0c18911e688f266526adeb50c96a3a35a72c24cee106723b66eed570427deb672018ad7d3b910aeb34f18  mallinfo.patch
+ef826d5d626bf1ec16fcab9779a044a8a4c53d909a20b604995eabecdc3afccfc08b6eb92d192bed9f29efa9cf55f1ff30b0104adacbc02d819d1224b28a2830  feenableexcept.patch"
