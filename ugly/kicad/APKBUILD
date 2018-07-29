@@ -27,6 +27,10 @@ build() {
 package() {
 	cd "$builddir/build"
 	make DESTDIR="$pkgdir" install
+	mv $pkgdir/usr/lib64/kicad $pkgdir/usr/lib/
+	mv $pkgdir/usr/lib64/libkicad_3dsg.so $pkgdir/usr/lib/
+	mv $pkgdir/usr/lib64/libkicad_3dsg.so.2.0.0 $pkgdir/usr/lib/
+	rmdir $pkgdir/usr/lib64/
 }
 
 sha512sums="79d4d34e8eaa5b6e4c7baac39a76f86af89adbaf3f9181b8cd846ed3a8db1b4c6dd7a36efefda3394d33ef828917909ad3bd8bb22435af9c6f671efbff125b42  kicad-5.0.0.tar.xz"
