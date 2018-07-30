@@ -1,0 +1,26 @@
+# Contributor: stef <l0ls0fo2i@ctrlc.hu>
+pkgname=libsigrokdecode
+pkgver=0.5.1
+pkgrel=0
+pkgdesc="Protocol decoder lib"
+url="https://www.sigrok.org/wiki/Libsigrokdecode"
+arch="all"
+license="GPL3"
+makedepends="python3-dev glib-dev" #libsigrok-dev"
+install=""
+subpackages="$pkgname-dev"
+source="https://sigrok.org/download/source/$pkgname/$pkgname-$pkgver.tar.gz"
+builddir="$srcdir/$pkgname-${pkgver}"
+
+build() {
+	cd "$builddir"
+	./configure  --prefix=/usr/
+	make 
+}
+
+package() {
+	cd "$builddir"
+	make DESTDIR="$pkgdir" install
+}
+
+sha512sums="bda14475317863c06615f578f9d26e267da83f7d9fdd7cd24f4e1f23344694763fb78b3b77acfa83eafc792ecd8f4554a9bbdd24fa42bee760426df4a428be7a  libsigrokdecode-0.5.1.tar.gz"

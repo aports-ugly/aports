@@ -1,0 +1,28 @@
+# Contributor: stef <l0ls0fo2i@ctrlc.hu>
+pkgname=pulseview
+pkgver=0.4.0
+pkgrel=0
+pkgdesc="QT-based LA/scope/MSO GUI"
+url="https://www.sigrok.org/wiki/PulseView"
+arch="all"
+license="GPL3"
+makedepends="glib-dev glibmm-dev cmake qt5-qtsvg-dev boost-dev libsigrok-dev libsigrokdecode-dev"
+install=""
+subpackages="$pkgname-doc"
+source="https://sigrok.org/download/source/$pkgname/$pkgname-$pkgver.tar.gz"
+builddir="$srcdir/$pkgname-${pkgver}"
+
+build() {
+  cd "$builddir"
+  mkdir build
+  cd build
+  cmake .. -DCMAKE_INSTALL_PREFIX=/usr
+  make PREFIX="/usr"
+}
+
+package() {
+  cd "$builddir/build"
+  make DESTDIR="$pkgdir" install
+}
+
+sha512sums="833a86681925fb4fb2118bb9d0044fc80174aef299b7e6ba2df83bff490511b91cd18f63f45e9a63f21c0df5d8aad3ec27ab35f45cd9959a42831b0b8a71da33  pulseview-0.4.0.tar.gz"

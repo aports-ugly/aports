@@ -1,0 +1,26 @@
+# Contributor: stef <l0ls0fo2i@ctrlc.hu>
+pkgname=libsigrok
+pkgver=0.5.0
+pkgrel=0
+pkgdesc="Hardware access and backend lib"
+url="https://www.sigrok.org/wiki/Libsigrok"
+arch="all"
+license="GPL3"
+makedepends="libserialport-dev libzip-dev glib-dev glibmm-dev swig doxygen python-dev py-setuptools py-numpy py-numpy-dev py-gobject3-dev ruby ruby-dev libieee1284-dev libusb-dev libftdi1-dev"
+install=""
+subpackages="$pkgname-dev"
+source="https://sigrok.org/download/source/$pkgname/$pkgname-$pkgver.tar.gz"
+builddir="$srcdir/$pkgname-${pkgver}"
+
+build() {
+	cd "$builddir"
+	./configure  --prefix=/usr/
+	make 
+}
+
+package() {
+	cd "$builddir"
+	make DESTDIR="$pkgdir" install
+}
+
+sha512sums="56129da97830d9c98c73612a6ce21664b4365aafa2939c1dd9e4ff3f7397b3a07f82684b3d34fc998acd32a04f17a7a629dde455e4ed6310f0075dabaae0e5ec  libsigrok-0.5.0.tar.gz"
