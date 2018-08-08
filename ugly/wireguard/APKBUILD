@@ -1,14 +1,14 @@
 # Contributor: Jason A. Donenfeld <Jason@zx2c4.com>
 # Maintainer: Johannes Matheis <jomat+alpinebuild@jmt.gr>
 pkgname=wireguard
-pkgver=0.0.20170706
+pkgver=0.0.20180802
 pkgrel=0
 pkgdesc="WireGuard is an extremely simple yet fast and modern VPN that utilizes state-of-the-art cryptography"
 url="https://www.wireguard.io/"
 arch="all"
 license="GPL"
 depends=""
-makedepends="linux-headers linux-hardened-dev libmnl-dev"
+makedepends="linux-headers linux-vanilla-dev libmnl-dev"
 install=""
 subpackages="$pkgname-doc $pkgname-tools-bash-completion:bashcomp $pkgname-tools $pkgname-kmod"
 source="https://git.zx2c4.com/WireGuard/snapshot/WireGuard-${pkgver}.tar.xz
@@ -53,7 +53,7 @@ bashcomp() {
 		"$subpkgdir"/usr/share/bash-completion/completions/ || return 1
 }
 
-sha512sums="01ff9b284f80f20244ea89a8cea4906a507dc2bd1ffcda66db68138b81b4ecc370724d974e276e104c804f3bfd622770540c8e0fdb8c44b4ea6ce71157f37338  WireGuard-0.0.20170706.tar.xz
+sha512sums="73449764547d531ff5528b49d411c9a8aa9d36bdf659b03ff904272cceb9f09718da81ed204b623c189e194ad11257b05e0d8db27db0a3d3f751fc0abc17d76c  WireGuard-0.0.20180802.tar.xz
 582d451969c7987af5af3682ed672b9734ccb033362c0b0bbd80f49f28ef241efb3c4e4a1dfe8ee1d58b24ce1cdbbc74c6342d48a89b749e4b3aa6a10931d9cb  wireguard.ifupdown
 7d3cd33eaf0cfe1b4514aa665288a441a356ffd4d042e68c72b0bd6a0b8ab7b7ab5e195471b286a28e6613fe0a7fd507bf19c6db563e123da07dcaee4ca71647  README.alpine
 9e6ce4d394d606e5d5485bd746f00de17eab42c939e9b7173ef7237003e43f4a5586634a6425fe8d3f473bf72131d60f9ed30f4dc9a65bd244b1e08a06575ce0  wg_example.conf"
