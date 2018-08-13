@@ -1,44 +1,29 @@
 # Contributor: stef <l0ls0fo2i@ctrlc.hu>
 
 pkgname=volk
-pkgver=1.3
+pkgver=1.4
 pkgrel=0
 pkgdesc="The Vector-Optimized Library of Kernels from Gnuradio"
 arch='x86 x86_64'
 url="http://libvolk.org/"
 license='GPL3'
-makedepends='boost-dev orc-dev cmake py-cheetah python2'
-source="http://libvolk.org/releases/volk-$pkgver.tar.gz"
+makedepends='boost-dev orc-dev cmake py-cheetah py-six py-mako'
+source="http://github.com/gnuradio/$pkgname/archive/v$pkgver.tar.gz"
 subpackages="$pkgname-dev"
 
-_builddir="$srcdir/$pkgname-$pkgver"
-prepare() {
-	local i
-	cd "$_builddir"
-	for i in $source; do
-		case $i in
-		*.patch) msg $i; patch -p1 -i "$srcdir"/$i || return 1;;
-		esac
-	done
-  sed -i -e "s|#![ ]*/usr/bin/env python$|&2|" $(find ./ -name '*.py')
-}
+builddir="$srcdir/$pkgname-$pkgver/"
 
 build() {
-  cd "$_builddir"
-  export PYTHON=python2
-
+  cd "$builddir"
   mkdir -p build
   cd build
-  cmake \
-    -DPYTHON_EXECUTABLE=$(which python2) \
-    -DCMAKE_INSTALL_PREFIX=/usr -Wno-dev ../
+  cmake -DCMAKE_INSTALL_PREFIX=/usr -Wno-dev ..
   make
 }
 
 package() {
-  cd "$_builddir/build"
+  cd "$builddir/build"
   make DESTDIR="$pkgdir" install
 }
-md5sums="d04edc0779431c8660a8a592792a3680  volk-1.3.tar.gz"
-sha256sums="90b69515d3cc6d76bbc589cec63d600b690bffe2e2938be2f895176f18f7e3af  volk-1.3.tar.gz"
-sha512sums="5ee03d1e0f172e84b65ed3286f3ad2a0980552e8e309a20372d39629b3150f3d99518c6cd2930f173bd4cab327571fa5f3cb8c7fe3df9379e83378acd7242015  volk-1.3.tar.gz"
+
+sha512sums="3f5bd834b99313fc64db2205b9489690adb8ed396f6042549fa81cbc8e1626c3b11394a159567eb7155a1319d166c5ec57bea17631f4d9f126eb35577718cc67  v1.4.tar.gz"
