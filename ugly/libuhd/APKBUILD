@@ -1,18 +1,18 @@
 # Contributor: stef <l0ls0fo2i@ctrlc.hu>
 
 pkgname=libuhd
-pkgver=3.9.5
-_verstring='003_009_005'
+pkgver=3.13.0.0
 pkgrel=0
 pkgdesc="Universal Software Radio Peripheral (USRP) userspace driver"
 arch='all'
 url="http://www.ettus.com/kb/category/software-documentation/uhd-manual"
 license='GPL'
-makedepends='make boost-dev py-cheetah py-mako orc-dev libusb-dev doxygen'
+makedepends='cmake boost-dev py-cheetah py-mako orc-dev libusb-dev doxygen'
+subpackages="$pkgname-dev"
 
-source="$pkgname-$pkgver.tar.gz::https://github.com/EttusResearch/uhd/archive/release_${_verstring}.tar.gz"
+source="$pkgname-$pkgver.tar.gz::https://github.com/EttusResearch/uhd/archive/v${pkgver}.tar.gz"
 
-_builddir="$srcdir/uhd-release_$_verstring/host"
+_builddir="$srcdir/uhd-$pkgver/host"
 prepare() {
 	local i
 	cd "$_builddir"
@@ -44,6 +44,4 @@ package() {
 	make DESTDIR="$pkgdir" install
    install -Dm644 "../utils/uhd-usrp.rules" "$pkgdir/usr/lib/udev/rules.d/10-uhd-usrp.rules"
 }
-md5sums="d143e946543dadda670a163242ea0ad0  libuhd-3.9.5.tar.gz"
-sha256sums="8e642d724412712fa8a799f3ae4c6aff5352167942e5c4e77243fca8db14a7bb  libuhd-3.9.5.tar.gz"
-sha512sums="0a0283d1bfa75ce959f605a802e7f839fb1610d35293e7d040439d7ed3a17db87ebfb9e73df95f8caf907eb314351d274cf93bf5387910444d5bc257d79f34cd  libuhd-3.9.5.tar.gz"
+sha512sums="a41c4a5cd5f6cd4614451bbac8877ecf3297538f05a0b309dbe4f29a1c761e26b6bfd97a473bfd554f2566853c6754debd8cd5b43626e2978503ab86fb4b5564  libuhd-3.13.0.0.tar.gz"
