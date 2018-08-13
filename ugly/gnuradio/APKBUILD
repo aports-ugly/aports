@@ -1,16 +1,15 @@
 # Contributor: stef <l0ls0fo2i@ctrlc.hu>
 #
 pkgname=gnuradio
-pkgver=3.7.10.1
+pkgver=3.7.13.4
 pkgrel=0
 pkgdesc="General purpose DSP and SDR toolkit."
 arch='x86 x86_64'
 url="http://gnuradio.org"
 license='GPL'
 subpackages="$pkgname-dev"
-# libuhd
-makedepends='fftw-dev py-numpy@community cppunit-dev gsl-dev py-gtk wxgtk-dev@community volk-dev
-    libusb-dev portaudio-dev boost-dev zeromq-dev cmake py-lxml py-cheetah@testing glu swig wxPython-dev qwt-dev'
+makedepends='fftw-dev py-numpy cppunit-dev gsl-dev py-gtk wxgtk-dev volk-dev py-mako doxygen py-six qt-dev sdl2-dev py-qt python-dev
+    libusb-dev portaudio-dev boost-dev zeromq-dev cmake py-lxml py-cheetah glu swig wxPython wxPython-dev qwt-dev libuhd-dev'
     # py-pyqwt qwtplot3d'
 
 source="http://gnuradio.org/releases/$pkgname/$pkgname-$pkgver.tar.gz
@@ -44,11 +43,12 @@ build() {
   cd build
     #-DENABLE_INTERNAL_VOLK=OFF \
    
+    #-DENABLE_GR_WXGUI=ON \
+
   cmake \
     -DPYTHON_EXECUTABLE=$(which python2) \
     -DPYTHON_INCLUDE_DIR=$(echo /usr/include/python2*) \
     -DPYTHON_LIBRARY=$(echo /usr/lib/libpython2.*.so) \
-    -DENABLE_GR_WXGUI=ON \
     -DENABLE_GR_QTGUI=ON \
     -DENABLE_GRC=ON \
     -DCMAKE_INSTALL_PREFIX=/usr -Wno-dev ../
@@ -59,9 +59,5 @@ package() {
 	cd "$_builddir/build"
 	make DESTDIR="$pkgdir" install
 }
-md5sums="885d637669c2dfc2b005c24e16327c96  gnuradio-3.7.10.1.tar.gz
-9c9a556b2fed1fe2ed951e4a7f21b590  gnuradio-3.7.10.1.tar.gz.asc"
-sha256sums="63d7b65cc4abe22f47b8f41caaf7370a0a502b91e36e29901ba03e8838ab4937  gnuradio-3.7.10.1.tar.gz
-135f727d3252c802fe4cac2df8b112e187cb7bb25b45b5c87dbca7348d2121ce  gnuradio-3.7.10.1.tar.gz.asc"
-sha512sums="101ea704e25d8ddc1b124c3be23b5020f3f504cab7b2762ba41172d8d07822018e583179e8d15d2b4c224fb8fad68ea4b5e135bcb40126aa6317ee51c47883f6  gnuradio-3.7.10.1.tar.gz
-10c256e6a4bd82d035eb08295b1862d8de48dd86cd33f2c4569d2dcce267a4b11c6d609ccc9a5c786a2125f6178147d314765004480ab240f10589e9dd7df065  gnuradio-3.7.10.1.tar.gz.asc"
+sha512sums="85c265851b43d4b62590869c91a9b7b262601dce233515096f1a1e68a14ea2710f08cc07859326efdfde29a2f156477d3bbd42e3bdd9b8ac13f6769637bf794b  gnuradio-3.7.13.4.tar.gz
+0d1a3122285a57a890fc4e4f1715e1bf1f7e32698ab916f7c45ef5cade3d9e2bd57ef72a44b6211b1cc51c4bfceaeb4e324098c614a566ec4f40dc55f19a944e  gnuradio-3.7.13.4.tar.gz.asc"
