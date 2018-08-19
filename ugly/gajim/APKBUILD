@@ -1,0 +1,31 @@
+# Contributor: Johannes Matheis <jomat+alpinebuild@jmt.gr>
+# Maintainer: Johannes Matheis <jomat+alpinebuild@jmt.gr>
+pkgname=gajim
+pkgver=1.0.3
+pkgrel=0
+pkgdesc="Full featured and easy to use XMPP (Jabber) client"
+url="https://www.gajim.org/"
+arch="noarch"
+license="GPL"
+depends="py3-nbxmpp py-gobject3"
+makedepends=""
+install=""
+subpackages="$pkgname-doc $pkgname-lang"
+source="https://www.gajim.org/downloads/${pkgver%.*}/gajim-${pkgver}.tar.bz2"
+builddir="${srcdir}/${pkgname}-${pkgver}"
+
+build() {
+	cd "$builddir"
+	python3 setup.py build
+}
+
+check() {
+	cd "$builddir"
+}
+
+package() {
+	cd "$builddir"
+	python3 setup.py install --root="$pkgdir" --optimize=1
+}
+
+sha512sums="a6d7f92a22a9dddc8a4b07eda0aae0b6fb4db57c73133ee19937f7e2a2a82c5351051d1f3627c94a44434276ed001b83d375f708f177962125af66cda8579ec8  gajim-1.0.3.tar.bz2"
