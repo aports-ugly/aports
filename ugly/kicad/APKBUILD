@@ -5,6 +5,7 @@ pkgver=5.0.0
 pkgrel=0
 makedepends="python-dev glew-dev cairo-dev libressl-dev boost-dev swig doxygen curl-dev cmake wxWidgets-dev glew-dev glm-dev ngspice-dev oce-dev libtbb libtbb-dev" 
 pkgdesc="Electronic schematic and PCB design software"
+arch="all"
 license="GPL2"
 url="http://kicad-pcb.org"
 source="https://launchpad.net/${pkgname}/${pkgver%.*}/${pkgver}/+download/${pkgname}-${pkgver}.tar.xz"
