@@ -1,13 +1,16 @@
---- src/ngspice-28/src/include/ngspice/ngspice.h
-+++ ngspice-28/src/include/ngspice/ngspice.h
+diff -urw src/ngspice-29/src/include/ngspice/ngspice.h ngspice-29/src/include/ngspice/ngspice.h
+--- src/ngspice-29/src/include/ngspice/ngspice.h	2018-10-27 17:01:07.000000000 +0000
++++ ngspice-29/src/include/ngspice/ngspice.h	2018-11-18 14:41:45.540000000 +0000
 @@ -306,8 +306,10 @@
  #undef fprintf
  #define fprintf sh_fprintf
  
 +/*
  #undef perror
- #define perror(string) fprintf(stderr, "%s: %s\n", string, sys_errlist[errno])
+ #define perror(string) fprintf(stderr, "%s: %s\n", string, strerror(errno))
 +*/
  
  #undef fputs
  #define fputs sh_fputs
+Only in ngspice-29/src/include/ngspice: ngspice.h.orig
+Only in ngspice-29/src/include/ngspice: ngspice.h.rej
