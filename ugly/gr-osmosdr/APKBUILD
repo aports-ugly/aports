@@ -9,7 +9,7 @@ url="http://sdr.osmocom.org/trac/"
 license='GPL'
 subpackages="$pkgname-dev"
 # libuhd
-makedepends='gnuradio-dev boost-dev rtlsdr-dev hackrf-dev'
+makedepends='gnuradio-dev boost-dev rtlsdr-dev hackrf-dev cmake python-dev libuhd-dev doxygen swig py-cheetah'
 
 source="http://git.osmocom.org/gr-osmosdr/snapshot/$pkgname-$pkgver.tar.gz"
 
