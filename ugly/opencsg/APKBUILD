@@ -20,10 +20,13 @@ build() {
 
 package() {
 	cd "$builddir"
-	install -Dt "$pkgdir/usr/include" include/opencsg.h
-	install -Dt "$pkgdir/usr/lib"  lib/libopencsg*
-	install -Dt "$pkgdir/usr/share/doc/img" doc/img/*
-	install -Dt "$pkgdir/usr/share/doc" doc/*.html
+   mkdir -p "$pkgdir/usr/include"
+   cp include/opencsg.h "$pkgdir/usr/include"
+   mkdir -p "$pkgdir/usr/lib"
+   cp lib/libopencsg* "$pkgdir/usr/lib"
+   mkdir -p "$pkgdir/usr/share/doc/opencsg/img"
+   cp doc/img/* "$pkgdir/usr/share/doc/opencsg/img"
+   cp doc/*.html "$pkgdir/usr/share/doc/opencsg/"
 }
 
 sha512sums="fbe6f925982717ecca7bd0eacc4fc5b362c80c7663b1ff0d9a228f2b5e1d3625d3e6d324d9e634665c74e9c0fc37d10290ece293e59a3eba67035b6b700b7778  OpenCSG-1.4.2.tar.gz"
