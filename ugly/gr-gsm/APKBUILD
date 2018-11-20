@@ -1,0 +1,36 @@
+# Contributor: stef <l0ls0fo2i@ctrlc.hu>
+#
+pkgname=gr-gsm
+pkgver=0.42.2
+pkgrel=0
+pkgdesc="Gnuradio blocks and tools for receiving GSM transmissions"
+arch='all'
+url="https://github.com/ptrkrysik/gr-gsm"
+license='GPL'
+subpackages="$pkgname-dev"
+# libuhd
+makedepends="boost-dev gnuradio-dev python-dev gr-osmosdr-dev gr-osmosdr cmake swig cppunit-dev py2-numpy py-gtk-dev py2-lxml py2-cheetah rtlsdr-dev qt"
+
+source="https://github.com/ptrkrysik/$pkgname/archive/v$pkgver.tar.gz"
+
+_builddir="$srcdir/$pkgname-$pkgver"
+
+build() {
+  cd "$_builddir"
+  export PYTHON=python2
+  mkdir -p build
+  cd build
+  #  -DENABLE_GRGSM_LIVEMON=off \
+  cmake \
+    -DPYTHON_EXECUTABLE=$(which python2) \
+    -DPYTHON_INCLUDE_DIR=$(echo /usr/include/python2*) \
+    -DPYTHON_LIBRARY=$(echo /usr/lib/libpython2.*.so) \
+    -DCMAKE_INSTALL_PREFIX=/usr -Wno-dev ../
+  make VERBOSE=1
+}
+
+package() {
+	cd "$_builddir/build"
+	make VERBOSE=1 DESTDIR="$pkgdir" install
+}
+sha512sums="20fb7a0fbcd51c5ed05bcb1cbb3e96f6a7797b330158ce2a2f8b243742fc505cb286dd63fe1573c41f6a0229d6e57f0338eb82a9fa1070efc58209a7e505608e  v0.42.2.tar.gz"
