@@ -9,7 +9,7 @@ url="https://osmocom.org/projects/sdr/wiki/fosphor"
 license='GPL'
 subpackages="$pkgname-dev"
 # libuhd
-makedepends="boost-dev libxrandr-dev glu-dev glfw-dev opencl-icd-loader-dev libxcursor-dev gnuradio-dev qt-dev libxinerama-dev"
+makedepends="boost-dev cppunit-dev doxygen swig python-dev libxrandr-dev glu-dev glfw-dev opencl-icd-loader-dev libxcursor-dev gnuradio-dev qt-dev libxinerama-dev cmake opencl-headers"
 
 source="http://git.osmocom.org/gr-osmosdr/snapshot/$pkgname-$pkgver.tar.gz"
 source="https://github.com/aports-ugly/$pkgname/archive/v$pkgver.tar.gz"
@@ -30,7 +30,7 @@ build() {
 }
 
 package() {
-	cd "$_builddir/build"
-	make DESTDIR="$pkgdir" install
+        cd "$_builddir/build"
+        make DESTDIR="$pkgdir" install
 }
 sha512sums="c0e8fe1616be80cf4ea292aaf2f4541ab43b29e527940a0eeaa7ab134138dc31e50eee7805c463b69a30101ddd02c808c0e54b25b78e5bfbdd1dbdb245363f06  v0.1.tar.gz"
