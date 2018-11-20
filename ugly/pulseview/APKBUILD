@@ -1,6 +1,6 @@
 # Contributor: stef <l0ls0fo2i@ctrlc.hu>
 pkgname=pulseview
-pkgver=0.4.0
+pkgver=0.4.1
 pkgrel=0
 pkgdesc="QT-based LA/scope/MSO GUI"
 url="https://www.sigrok.org/wiki/PulseView"
@@ -25,4 +25,4 @@ package() {
   make DESTDIR="$pkgdir" install
 }
 
-sha512sums="833a86681925fb4fb2118bb9d0044fc80174aef299b7e6ba2df83bff490511b91cd18f63f45e9a63f21c0df5d8aad3ec27ab35f45cd9959a42831b0b8a71da33  pulseview-0.4.0.tar.gz"
+sha512sums="0bae4357be312bf6e997885270887a5bcc0a8dfb6914e63bb0d5abb35389b6681748e0e4667556ad432c5432c861185bcdd8da7815fb570fc8a2fbbf5eed3801  pulseview-0.4.1.tar.gz"
