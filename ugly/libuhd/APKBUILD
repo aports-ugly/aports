@@ -1,7 +1,7 @@
 # Contributor: stef <l0ls0fo2i@ctrlc.hu>
 
 pkgname=libuhd
-pkgver=3.13.0.0
+pkgver=3.13.0.1
 pkgrel=0
 pkgdesc="Universal Software Radio Peripheral (USRP) userspace driver"
 arch='all'
@@ -44,4 +44,4 @@ package() {
 	make DESTDIR="$pkgdir" install
    install -Dm644 "../utils/uhd-usrp.rules" "$pkgdir/usr/lib/udev/rules.d/10-uhd-usrp.rules"
 }
-sha512sums="a41c4a5cd5f6cd4614451bbac8877ecf3297538f05a0b309dbe4f29a1c761e26b6bfd97a473bfd554f2566853c6754debd8cd5b43626e2978503ab86fb4b5564  libuhd-3.13.0.0.tar.gz"
+sha512sums="83196212326ab43f7996bf297677980f1e2cb2e51fc6479f086e010078d2ff6ee42ffd5af6bdcaaf0d6c45a3e773b117f8bdbf2e8e0add2b8dc6f3e19ad777cd  libuhd-3.13.0.1.tar.gz"
