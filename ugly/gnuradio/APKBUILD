@@ -7,9 +7,9 @@ pkgdesc="General purpose DSP and SDR toolkit."
 arch='x86 x86_64'
 url="http://gnuradio.org"
 license='GPL'
-subpackages="$pkgname-dev"
+subpackages="$pkgname-dev $pkgname-doc"
 makedepends='fftw-dev py-numpy cppunit-dev gsl-dev py-gtk wxgtk-dev volk-dev py-mako doxygen py-six qt-dev sdl2-dev py-qt python-dev
-    libusb-dev portaudio-dev boost-dev zeromq-dev cmake py-lxml py-cheetah glu swig wxPython wxPython-dev qwt-dev libuhd-dev'
+    libusb-dev portaudio-dev boost-dev zeromq-dev cmake py-lxml py-cheetah glu swig wxPython wxPython-dev qwt-dev libuhd-dev texlive-dvi'
     # py-pyqwt qwtplot3d'
 
 source="http://gnuradio.org/releases/$pkgname/$pkgname-$pkgver.tar.gz
@@ -41,8 +41,6 @@ build() {
   msg "Starting build."
   mkdir -p build
   cd build
-    #-DENABLE_INTERNAL_VOLK=OFF \
-   
     #-DENABLE_GR_WXGUI=ON \
 
   cmake \
@@ -50,6 +48,7 @@ build() {
     -DPYTHON_INCLUDE_DIR=$(echo /usr/include/python2*) \
     -DPYTHON_LIBRARY=$(echo /usr/lib/libpython2.*.so) \
     -DENABLE_GR_QTGUI=ON \
+    -DENABLE_INTERNAL_VOLK=OFF \
     -DENABLE_GRC=ON \
     -DCMAKE_INSTALL_PREFIX=/usr -Wno-dev ../
   make
