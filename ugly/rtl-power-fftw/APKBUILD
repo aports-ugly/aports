@@ -1,0 +1,30 @@
+# Contributor: stef <l0ls0fo2i@ctrlc.hu>
+#
+pkgname=rtl-power-fftw
+pkgver=0.1
+pkgrel=0
+pkgdesc="Power spectrum for RTLSDR dongles."
+arch='all'
+url="https://github.com/AD-Vega/rtl-power-fftw"
+license='custom'
+subpackages="$pkgname-dbg $pkgname-doc"
+# libuhd
+makedepends="cmake fftw-dev tclap-dev rtlsdr-dev pkgconf libusb-dev"
+
+source="${pkgname}-${pkgver}.tar.gz::https://github.com/aports-ugly/$pkgname/archive/v$pkgver.tar.gz"
+
+_builddir="$srcdir/$pkgname-$pkgver"
+
+build() {
+  cd "$_builddir"
+  mkdir -p build
+  cd build
+  cmake -DCMAKE_INSTALL_PREFIX=/usr -Wno-dev ../
+  make
+}
+
+package() {
+        cd "$_builddir/build"
+        make DESTDIR="$pkgdir" install
+}
+sha512sums="515a20c134db1829a88b8f9b7d48a873eec222a89d02bfafb4f7427220792bbbffdf49fb00aa953daf420812dfd572391ab9d2cf426c1d747d452ba6c0e36ddd  rtl-power-fftw-0.1.tar.gz"
