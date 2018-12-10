@@ -1,7 +1,7 @@
 # Contributor: stef <l0ls0fo2i@ctrlc.hu>
 #
 pkgname=gr-osmosdr
-pkgver=0.1.4
+pkgver=0.1.4.9
 pkgrel=0
 pkgdesc="Source block for Funcube Dongle, RTL-SDR, USRP, OsmoSDR, BladeRF, HackRF and AirSpy devices"
 arch='all'
@@ -9,9 +9,10 @@ url="http://sdr.osmocom.org/trac/"
 license='GPL'
 subpackages="$pkgname-dev"
 # libuhd
-makedepends='gnuradio-dev boost-dev rtlsdr-dev hackrf-dev cmake python-dev libuhd-dev doxygen swig py-cheetah'
+makedepends='gnuradio-dev boost-dev rtlsdr-dev hackrf-dev cmake python-dev libuhd-dev doxygen swig py-cheetah soapy-sdr-dev graphviz'
 
-source="http://git.osmocom.org/gr-osmosdr/snapshot/$pkgname-$pkgver.tar.gz"
+#source="http://git.osmocom.org/gr-osmosdr/snapshot/$pkgname-$pkgver.tar.gz"
+source="$pkgname-$pkgver.tar.gz::https://github.com/aports-ugly/$pkgname/archive/v$pkgver.tar.gz"
 
 _builddir="$srcdir/$pkgname-$pkgver"
 
@@ -32,4 +33,4 @@ package() {
 	cd "$_builddir/build"
 	make DESTDIR="$pkgdir" install
 }
-sha512sums="7a76d98540874b32718f060dca9adfb975978ae321746f3d8f469840bf67025a276e0259a9725e20bf89a554447d9734be70c6a1abe119795e35e18e9b6f797a  gr-osmosdr-0.1.4.tar.gz"
+sha512sums="db6af185743285f9083a8b26ecaa9a6daa203ee695cbb8074c93f2049134ee9296520ddbc121a7dc735d5601734bdd2eb10ce1275f59295b6729ca2b700037ff  v0.1.4.9.tar.gz"
