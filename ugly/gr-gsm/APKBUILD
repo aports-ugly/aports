@@ -9,9 +9,9 @@ url="https://github.com/ptrkrysik/gr-gsm"
 license='GPL'
 subpackages="$pkgname-dev"
 # libuhd
-makedepends="boost-dev gnuradio-dev python-dev gr-osmosdr-dev gr-osmosdr cmake swig cppunit-dev py2-numpy py-gtk-dev py2-lxml py2-cheetah rtlsdr-dev qt"
+makedepends="boost-dev gnuradio-dev python-dev gr-osmosdr-dev gr-osmosdr cmake swig cppunit-dev py2-numpy py-gtk-dev py2-lxml py2-cheetah rtlsdr-dev qt-dev py-qt"
 
-source="https://github.com/ptrkrysik/$pkgname/archive/v$pkgver.tar.gz"
+source="${pkgname}-${pkgver}.tar.gz::https://github.com/ptrkrysik/$pkgname/archive/v$pkgver.tar.gz"
 
 _builddir="$srcdir/$pkgname-$pkgver"
 
