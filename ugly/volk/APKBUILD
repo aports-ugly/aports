@@ -8,7 +8,7 @@ arch='x86 x86_64'
 url="http://libvolk.org/"
 license='GPL3'
 makedepends='boost-dev orc-dev cmake py-cheetah py-six py-mako'
-source="http://github.com/gnuradio/$pkgname/archive/v$pkgver.tar.gz"
+source="${pkgname}-${pkgver}.tar.gz::http://github.com/gnuradio/$pkgname/archive/v$pkgver.tar.gz"
 subpackages="$pkgname-dev"
 
 builddir="$srcdir/$pkgname-$pkgver/"
