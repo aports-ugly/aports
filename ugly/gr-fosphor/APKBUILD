@@ -7,12 +7,11 @@ pkgdesc="GNURadio block for spectrum visualization using GPU"
 arch='all'
 url="https://osmocom.org/projects/sdr/wiki/fosphor"
 license='GPL'
-subpackages="$pkgname-dev"
+subpackages="$pkgname-dev $pkgname-dbg"
 # libuhd
 makedepends="boost-dev cppunit-dev doxygen swig python-dev libxrandr-dev glu-dev glfw-dev opencl-icd-loader-dev libxcursor-dev gnuradio-dev qt-dev libxinerama-dev cmake opencl-headers"
 
-source="http://git.osmocom.org/gr-osmosdr/snapshot/$pkgname-$pkgver.tar.gz"
-source="https://github.com/aports-ugly/$pkgname/archive/v$pkgver.tar.gz"
+source="${pkgname}-${pkgver}.tar.gz::https://github.com/aports-ugly/$pkgname/archive/v$pkgver.tar.gz"
 
 _builddir="$srcdir/$pkgname-$pkgver"
 
