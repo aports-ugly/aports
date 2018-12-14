@@ -1,0 +1,36 @@
+# Contributor: stef <l0ls0fo2i@ctrlc.hu>
+#
+pkgname="libxtrxdsp"
+pkgver=0.1
+pkgrel=0
+pkgdesc="DSP specific function for SDR in general and XTRX in specific"
+arch="x86 x86_64 armhf aarch64"
+url="https://github.com/xtrx-sdr/libxtrxdsp"
+license='LGPL'
+subpackages="$pkgname-dev $pkgname-dbg"
+makedepends="cmake gcc6"
+
+source="${pkgname}-${pkgver}.tar.gz::https://github.com/aports-ugly/$pkgname/archive/v$pkgver.tar.gz"
+
+_builddir="$srcdir/$pkgname-$pkgver"
+
+build() {
+  cd "$_builddir"
+  mkdir -p build
+  cd build
+  local larch
+  echo carch=$CARCH
+  case "$CARCH" in
+      x86|x86_64) larch=x86;;
+      arm*|aarch64) larch=arm;;
+  esac
+  export CC=gcc-6
+  cmake -DFORCE_ARCH=$larch -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX=/usr -Wno-dev ../
+  make VERBOSE=1
+}
+
+package() {
+        cd "$_builddir/build"
+        make DESTDIR="$pkgdir" install
+}
+sha512sums="45ccfe245d3144decae987ef4c4da5cc48fe2f3587ff256e3d281581fe7d5ddf3551392a93bac266095ec0cb400b1024902e0c222a8f053701d3df5baef91262  libxtrxdsp-0.1.tar.gz"
