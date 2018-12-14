@@ -1,0 +1,33 @@
+# Contributor: stef <l0ls0fo2i@ctrlc.hu>
+#
+pkgname="libxtrx"
+pkgver=0.1
+pkgrel=0
+pkgdesc="High level XTRX API"
+arch="x86 x86_64 armhf aarch64"
+url="https://github.com/xtrx-sdr/libxtrx"
+license='LGPL'
+subpackages="$pkgname-dev $pkgname-dbg"
+makedepends="cmake gcc6 libxtrxdsp-dev libxtrxll-dev qt5-qtbase-dev soapy-sdr-dev lms7002m-driver-dev liblms7002m-dev qcustomplot-dev liblms7002m"
+
+source="${pkgname}-${pkgver}.tar.gz::https://github.com/aports-ugly/$pkgname/archive/v$pkgver.tar.gz
+lms7002m-path.patch"
+
+_builddir="$srcdir/$pkgname-$pkgver"
+
+export CC=gcc-6
+
+build() {
+  cd "$_builddir"
+  mkdir -p build
+  cd build
+  cmake -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX=/usr -Wno-dev ../
+  make VERBOSE=1
+}
+
+package() {
+        cd "$_builddir/build"
+        make DESTDIR="$pkgdir" install
+}
+sha512sums="79df66af0c9131cb471bfed781ec5a98005abf654002d7dad477de6d6922db66989e72aaf9fec17b74b67768e183dae5233b7e6299897d0edc6261f039c36ab3  libxtrx-0.1.tar.gz
+9cebc95a0e5bb634356e44af2342186d688515bf5c1b0f5b393749e82d9aa06bcd2a8bdb8f1127792633de70952120fba75f2e17c201d44c7a3812ccdcc40293  lms7002m-path.patch"
