@@ -1,0 +1,29 @@
+# Contributor: stef <l0ls0fo2i@ctrlc.hu>
+#
+pkgname="libusb3380"
+pkgver=0.1
+pkgrel=0
+pkgdesc="USB3380 abstraction layer for libusb"
+arch='all'
+url="https://github.com/xtrx-sdr/libusb3380"
+license='LGPL'
+subpackages="$pkgname-dev $pkgname-dbg"
+makedepends="cmake libusb-dev"
+
+source="${pkgname}-${pkgver}.tar.gz::https://github.com/aports-ugly/$pkgname/archive/v$pkgver.tar.gz"
+
+_builddir="$srcdir/$pkgname-$pkgver"
+
+build() {
+  cd "$_builddir"
+  mkdir -p build
+  cd build
+  cmake -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX=/usr -Wno-dev ../
+  make
+}
+
+package() {
+        cd "$_builddir/build"
+        make DESTDIR="$pkgdir" install
+}
+sha512sums="df5d6674f6a71c7ff714498d89c0d8443d0d85126867554a30a77e9c6ccf070527b93d7cb779197554b2c74c36640dd67a680a522912cdc6e56a4aa2d8f45c63  libusb3380-0.1.tar.gz"
