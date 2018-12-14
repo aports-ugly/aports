@@ -1,0 +1,29 @@
+# Contributor: stef <l0ls0fo2i@ctrlc.hu>
+#
+pkgname="libxtrxll"
+pkgver=0.1
+pkgrel=0
+pkgdesc="Low level XTRX hardware abstraction library"
+arch='all'
+url="https://github.com/xtrx-sdr/libxtrxll"
+license='LGPL'
+subpackages="$pkgname-dev $pkgname-dbg"
+makedepends="cmake libusb3380-dev libusb-dev"
+
+source="${pkgname}-${pkgver}.tar.gz::https://github.com/aports-ugly/$pkgname/archive/v$pkgver.tar.gz"
+
+_builddir="$srcdir/$pkgname-$pkgver"
+
+build() {
+  cd "$_builddir"
+  mkdir -p build
+  cd build
+  cmake -DINSTALL_UDEV_RULES=ON -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX=/usr -Wno-dev ../
+  make
+}
+
+package() {
+        cd "$_builddir/build"
+        make DESTDIR="$pkgdir" install
+}
+sha512sums="d870628db0b59ad50331b767f9a77059f7c920d2fdfeab5b199e54369050149b0cb788835836d9065c03506b49a1fb018abdc945b03a3f5e8561840f95a37294  libxtrxll-0.1.tar.gz"
