@@ -1,0 +1,42 @@
+# Contributor:
+# Maintainer:
+pkgname=qcustomplot
+pkgver=2.0.1
+pkgrel=0
+pkgdesc="Qt C++ widget for plotting and data visualization."
+url="http://www.qcustomplot.com"
+arch="all"
+license="GPLv3"
+makedepends="qt5-qtbase-dev"
+subpackages="$pkgname-dev"
+source="$pkgname-sharedlib-$pkgver.tar.gz::http://www.qcustomplot.com/release/${pkgver}/QCustomPlot-sharedlib.tar.gz
+$pkgname-$pkgver.tar.gz::http://www.qcustomplot.com/release/$pkgver/QCustomPlot.tar.gz"
+
+_builddir="$srcdir/$pkgname-sharedlib/"
+
+build() {
+  #cd "$srcdir"
+  #tar xzvf $pkgname-$pkgver.tar.gz
+  #tar xzvf $pkgname-sharedlib-$pkgver.tar.gz
+  cd "$_builddir"
+  sed -i 's#../../qcustomplot#../../qcustomplot/qcustomplot#g' sharedlib-compilation/sharedlib-compilation.pro
+  qmake-qt5 sharedlib-compilation/sharedlib-compilation.pro
+  make release
+}
+
+package() {
+	cd "$_builddir"
+	mkdir -p "$pkgdir/usr/lib/"
+   cp -a libqcustomplot.so* "$pkgdir/usr/lib/"
+	mkdir -p "$pkgdir/usr/include/"
+   cp -a ../qcustomplot/qcustomplot.h "${pkgdir}/usr/include/"
+	mkdir -p "$pkgdir/usr/share/qcustomplot"
+   cp -a ../qcustomplot/examples "${pkgdir}/usr/share/qcustomplot/"
+	mkdir -p "${pkgdir}/usr/share/doc/qcustomplot/"
+   cp -a ../qcustomplot/documentation/html "${pkgdir}/usr/share/doc/qcustomplot/"
+	mkdir -p "${pkgdir}/usr/share/doc/qt/"
+   cp -a ../qcustomplot/documentation/qcustomplot.qch "${pkgdir}/usr/share/doc/qt/"
+}
+
+sha512sums="ce90540fca7226eac37746327e1939a9c7af38fc2595f385ed04d6d1f49560da08fb5fae15d1b9d22b6ba578583f70de8f89ef26796770d41bf599c1b15c535d  qcustomplot-sharedlib-2.0.1.tar.gz
+a15598718146ed3c6b5d38530a56661c16269e530fe0dedb71b4cb2722b5733a3b57689d668a75994b79c19c6e61dcc133dbcb9ed77b93a165f4ac826a5685b9  qcustomplot-2.0.1.tar.gz"
