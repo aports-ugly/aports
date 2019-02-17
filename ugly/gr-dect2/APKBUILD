@@ -1,0 +1,33 @@
+# Contributor: stef <l0ls0fo2i@ctrlc.hu>
+#
+pkgname=gr-dect2
+pkgver=0.1
+pkgrel=0
+pkgdesc="GNURadio DECT Audio Decoder"
+arch='all'
+url="https://github.com/SignalsEverywhere/gr-dect2"
+license='GPLv3'
+source="${pkgname}-${pkgver}.tar.gz::https://github.com/aports-ugly/$pkgname/archive/v$pkgver.tar.gz"
+subpackages="$pkgname-dev $pkgname-doc"
+makedepends="gnuradio-dev gr-osmosdr-dev swig"
+
+_builddir="$srcdir/$pkgname-$pkgver"
+
+build() {
+  cd "$_builddir"
+  export PYTHON=python2
+  mkdir -p build
+  cd build
+  cmake \
+    -DPYTHON_EXECUTABLE=$(which python2) \
+    -DPYTHON_INCLUDE_DIR=$(echo /usr/include/python2*) \
+    -DPYTHON_LIBRARY=$(echo /usr/lib/libpython2.*.so) \
+    -DCMAKE_INSTALL_PREFIX=/usr -Wno-dev ../
+  make VERBOSE=1
+}
+
+package() {
+	cd "$_builddir/build"
+	make DESTDIR="$pkgdir" install
+}
+sha512sums="e209b72736adebf2fa9e68f85f96846444db3878af202d709da2cff364feae0a5c358fd512e9abdc7110c9f56a0d82fbbe867254c20c2972f2d95e677bdb2322  gr-dect2-0.1.tar.gz"
