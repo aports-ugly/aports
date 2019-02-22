@@ -27,4 +27,4 @@ package() {
 	#install rtl-sdr.rules 644 usr/lib/udev/rules.d 53-rtl-sdr.rules
 }
 
-sha512sums="a08356a08672f03d86adb662e28923e7998b78c0f49432dc1b1e3844976158c467242e0c5eabf206fd257bdebcf91cd2767dabf13d2ef475f2f3e1d82e23ed75  0.6.0.tar.gz"
+sha512sums="a08356a08672f03d86adb662e28923e7998b78c0f49432dc1b1e3844976158c467242e0c5eabf206fd257bdebcf91cd2767dabf13d2ef475f2f3e1d82e23ed75  rtlsdr-0.6.0.tar.gz"
