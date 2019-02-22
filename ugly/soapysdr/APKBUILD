@@ -1,7 +1,7 @@
 # Contributor: stef <l0ls0fo2i@ctrlc.hu>
 #
 pkgname=soapy-sdr
-pkgver=0.7.0
+pkgver=0.7.1
 pkgrel=0
 pkgdesc="Vendor and platform neutral SDR support library."
 arch='all'
@@ -27,4 +27,4 @@ package() {
         cd "$_builddir/build"
         make DESTDIR="$pkgdir" install
 }
-sha512sums="3dc69f070a2fe7acee9239154e58b21aa9c321fe35e2de77dfed8561016a93d5e693b5288da6d05e3d8c0f9ab7552ea12c4fd74ddb8d3c118d576f58251fb632  soapy-sdr-0.7.0.tar.gz"
+sha512sums="9b2c4251d6362faecf770df021b74e3b387b99699ae4f7d3f145801e2acc901a3803f7b4d2cd50267013f1add6658703dfa5db6db28b8a645f1f8230117123cd  soapy-sdr-0.7.1.tar.gz"
