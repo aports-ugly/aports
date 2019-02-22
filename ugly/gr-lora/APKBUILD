@@ -30,4 +30,4 @@ package() {
 	cd "$_builddir/build"
 	make DESTDIR="$pkgdir" install
 }
-sha512sums="e43ac589d4d4f4d01cadaf5e99a5849eadcd0c70c5bb28d796c265052d38db90fcd9dba7343ff236d93439007a68b0f2aff2ba9f1f8b2a4ca27090a479b20ba1  v0.6.2.tar.gz"
+sha512sums="e43ac589d4d4f4d01cadaf5e99a5849eadcd0c70c5bb28d796c265052d38db90fcd9dba7343ff236d93439007a68b0f2aff2ba9f1f8b2a4ca27090a479b20ba1  gr-lora-0.6.2.tar.gz"
