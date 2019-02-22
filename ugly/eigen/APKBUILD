@@ -1,7 +1,7 @@
 # Maintainer: stef <l0ls0fo2i@ctrlc.hu>
 
 pkgname=eigen
-pkgver=3.3.5
+pkgver=3.3.7
 pkgrel=0
 pkgdesc="C++ template library for linear algebra"
 arch="all"
@@ -11,7 +11,7 @@ source="http://bitbucket.org/eigen/eigen/get/${pkgver}.tar.bz2"
 makedepends="cmake openblas-dev suitesparse-dev qt-dev mpfr-dev fftw-dev boost-dev gmp-dev glu-dev"
 subpackages="$pkgname-dev"
 
-builddir="$srcdir/eigen-eigen-b3f3d4950030/"
+builddir="$srcdir/eigen-eigen-323c052e1731"
 build() {
   cd "$builddir"
   mkdir -p build
@@ -26,4 +26,4 @@ package() {
 	make DESTDIR="$pkgdir" install
 }
 
-sha512sums="740ed41862c1e422a751b205513754e9c7bd04cc8ad4e3b08e2ccd1c1d30dea43a90896bc8eecd0cb4253b4adf803a814ddd48d6166fb5a53f507cf3e6940a38  3.3.5.tar.bz2"
+sha512sums="c12bfd034d0a1112bf2df3f773ad98f36b2b53fbbfceac5f143ee1793322746fb8a6546d7db7da2a1000da6a535bd8cea0c4125b549afc90a6570743b02dcf3d  3.3.7.tar.bz2"
