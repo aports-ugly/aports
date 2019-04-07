@@ -1,7 +1,7 @@
 # Contributor: stef <l0ls0fo2i@ctrlc.hu>
 #
 pkgname="libusb3380"
-pkgver=0.1
+pkgver=0.1.2
 pkgrel=0
 pkgdesc="USB3380 abstraction layer for libusb"
 arch='all'
@@ -26,4 +26,4 @@ package() {
         cd "$_builddir/build"
         make DESTDIR="$pkgdir" install
 }
-sha512sums="df5d6674f6a71c7ff714498d89c0d8443d0d85126867554a30a77e9c6ccf070527b93d7cb779197554b2c74c36640dd67a680a522912cdc6e56a4aa2d8f45c63  libusb3380-0.1.tar.gz"
+sha512sums="67525232bc62f3f618d0197b534990527988325f462d0b3367d5dba97c2c0f93d44439ba509aa403c6717807d9fa5ad6d5cec79e727c4ec7a8c30eb5930c1328  libusb3380-0.1.2.tar.gz"
