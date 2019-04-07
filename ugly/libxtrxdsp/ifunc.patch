@@ -1,0 +1,13 @@
+Only in libxtrxdsp-0.1/: .xtrxdsp.c.swp
+diff -urw src/libxtrxdsp-0.1/xtrxdsp.c libxtrxdsp-0.1/xtrxdsp.c
+--- src/libxtrxdsp-0.1/xtrxdsp.c	2018-10-19 15:08:38.000000000 +0000
++++ libxtrxdsp-0.1/xtrxdsp.c	2019-04-07 20:14:03.110000000 +0000
+@@ -387,7 +387,7 @@
+ 
+ #endif
+ 
+-#if defined(__linux) && (defined(__x86_64__) || defined(__i386__))
++#if defined(__linux) && (defined(__x86_64__) || defined(__i386__)) && !defined(HAVE_MUSL)
+ // ifunc is available not on all platforms!
+ 
+ void xtrxdsp_iq16_sc32(const int16_t *__restrict iq,

@@ -8,9 +8,10 @@ arch="x86 x86_64 armhf aarch64"
 url="https://github.com/xtrx-sdr/libxtrxdsp"
 license='LGPL'
 subpackages="$pkgname-dev $pkgname-dbg"
-makedepends="cmake gcc6"
+makedepends="cmake"
 
-source="${pkgname}-${pkgver}.tar.gz::https://github.com/aports-ugly/$pkgname/archive/v$pkgver.tar.gz"
+source="${pkgname}-${pkgver}.tar.gz::https://github.com/aports-ugly/$pkgname/archive/v$pkgver.tar.gz
+ifunc.patch"
 
 _builddir="$srcdir/$pkgname-$pkgver"
 
@@ -24,7 +25,7 @@ build() {
       x86|x86_64) larch=x86;;
       arm*|aarch64) larch=arm;;
   esac
-  export CC=gcc-6
+  export CFLAGS="-DHAVE_MUSL"
   cmake -DFORCE_ARCH=$larch -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX=/usr -Wno-dev ../
   make VERBOSE=1
 }
@@ -33,4 +34,5 @@ package() {
         cd "$_builddir/build"
         make DESTDIR="$pkgdir" install
 }
-sha512sums="45ccfe245d3144decae987ef4c4da5cc48fe2f3587ff256e3d281581fe7d5ddf3551392a93bac266095ec0cb400b1024902e0c222a8f053701d3df5baef91262  libxtrxdsp-0.1.tar.gz"
+sha512sums="45ccfe245d3144decae987ef4c4da5cc48fe2f3587ff256e3d281581fe7d5ddf3551392a93bac266095ec0cb400b1024902e0c222a8f053701d3df5baef91262  libxtrxdsp-0.1.tar.gz
+de0a9d1e19c1e8bdb6ee004f947df85e35003d25781b3057c99a525451de123ddf003838b434fa0dce9646961ceaf821e54a6e52ff16fef6d478b741f764b4af  ifunc.patch"
