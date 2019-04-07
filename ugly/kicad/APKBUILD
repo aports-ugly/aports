@@ -1,13 +1,13 @@
 # Contributor: stef <l0ls0fo2i@ctrlc.hu>
 pkgname=kicad
-pkgver=5.0.2
+pkgver=5.1.0
 pkgrel=0
 makedepends="python-dev glew-dev cairo-dev openssl-dev boost-dev swig doxygen curl-dev cmake wxgtk-dev glew-dev glm-dev ngspice-dev oce-dev libtbb libtbb-dev" 
 pkgdesc="Electronic schematic and PCB design software"
 license="GPL2"
 arch="all"
 url="http://kicad-pcb.org"
-source="https://launchpad.net/${pkgname}/${pkgver%.*}/${pkgver}/+download/${pkgname}-${pkgver}.tar.xz"
+source="https://launchpad.net/${pkgname}/5.0/${pkgver}/+download/${pkgname}-${pkgver}.tar.xz"
 subpackages="$pkgname-doc $pkgname-dbg"
 
 builddir="$srcdir/$pkgname-$pkgver"
@@ -32,4 +32,4 @@ package() {
 	rmdir $pkgdir/usr/lib64/
 }
 
-sha512sums="54fc92238e23e3dd3287f6df797e53561e6a0e9c5cfa50066ffd92883f79af94f26db611f6fe658eeabf2199b76cd763633326c89b3f34194bd8fd9094f5fd21  kicad-5.0.2.tar.xz"
+sha512sums="644865932d7e18e446c222cd85e969bb3462bca7fbf6c411e955cd460f5df45ed5221c0948ecd34262a2f5355e586c8fe04c1cb28fa51e4fd09d6f3f78c54761  kicad-5.1.0.tar.xz"
