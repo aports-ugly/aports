@@ -1,0 +1,27 @@
+# Contributor:
+# Maintainer:
+pkgname=sdrangel
+pkgver=4.5.3
+pkgrel=0
+pkgdesc="SDR Rx/Tx software for Airspy, Airspy HF+, BladeRF, HackRF, LimeSDR, PlutoSDR, RTL-SDR, SDRplay RSP1 and FunCube"
+url="https://github.com/f4exb/sdrangel"
+arch="all"
+#license="?"
+makedepends="cmake fftw-dev boost-dev qt5-qtbase-dev alsa-lib-dev libusb-dev rtlsdr-dev hackrf-dev ffmpeg-dev sqlite-dev libxml2-dev libxtrx-dev qt5-qttools qt5-qtbase-dev qt5-qtmultimedia-dev opus-dev soapy-sdr-dev cm256cc-dev codec2-dev mbelib-dev dsdcc-dev dsdcc" # todo for ATV enable opencv-dev
+source="${pkgname}-${pkgver}.tar.gz::https://github.com/f4exb/$pkgname/archive/v$pkgver.tar.gz"
+
+_builddir="$srcdir/$pkgname-$pkgver"
+
+build() {
+  cd "$_builddir"
+  mkdir -p build
+  cd build
+  cmake -DCMAKE_INSTALL_PREFIX=/usr -Wno-dev ../
+  make VERBOSE=1
+}
+
+package() {
+        cd "$_builddir/build"
+        make DESTDIR="$pkgdir" install
+}
+sha512sums="ef32c4f20fca5578e8d2de3b4ff822d25ee8f7430504578a81b231f987bdd11a1087e2e19135d5f02274e7a1c1d8a76808d9c2626330ae076adc07f6d778652e  sdrangel-4.5.3.tar.gz"
