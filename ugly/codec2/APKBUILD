@@ -1,0 +1,29 @@
+# Contributor:
+# Maintainer:
+pkgname=codec2
+pkgver=0.8
+pkgrel=0
+pkgdesc="Open source speech codec designed for communications quality speech between 700 and 3200 bit/s. The main application is low bandwidth HF/VHF digital radio."
+url="http://www.rowetel.com/?page_id=452"
+arch="all"
+license="LGPLv2.1"
+makedepends="cmake speexdsp-dev libsamplerate-dev"
+subpackages="$pkgname-dev"
+source="${pkgname}-${pkgver}.zip::https://sourceforge.net/code-snapshots/svn/f/fr/freetel/code/freetel-code-r4121-codec2-branches-0.8.zip"
+
+_builddir="$srcdir/freetel-code-r4121-codec2-branches-0.8/"
+
+build() {
+  cd "$_builddir"
+  mkdir -p build
+  cd build
+  cmake -DCMAKE_INSTALL_PREFIX=/usr -Wno-dev ../
+  make VERBOSE=1
+}
+
+package() {
+        cd "$_builddir/build"
+        make DESTDIR="$pkgdir" install
+        mv $pkgdir/usr/lib64/ $pkgdir/usr/lib/
+}
+sha512sums="df30e808be71019ab20bae8d4a8c7593499a49330d987e11bb2b5d69e010485975938bb8d1f7a87e13556eccb055006f28db512dde4f407077fab3e9d7093647  codec2-0.8.zip"
