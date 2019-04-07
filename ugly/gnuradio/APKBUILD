@@ -9,7 +9,7 @@ url="http://gnuradio.org"
 license='GPL'
 subpackages="$pkgname-dev $pkgname-doc"
 makedepends='fftw-dev py-numpy cppunit-dev gsl-dev py-gtk wxgtk-dev volk-dev py-mako doxygen py-six qt-dev sdl2-dev py-qt python-dev
-    libusb-dev portaudio-dev boost-dev zeromq-dev cmake py-lxml py-cheetah glu swig wxPython wxPython-dev qwt-dev libuhd-dev texlive-dvi'
+    libusb-dev portaudio-dev boost-dev zeromq-dev cmake py-lxml py-cheetah glu swig wxPython wxPython-dev qwt-dev libuhd-dev' # texlive-dvi'
     # py-pyqwt qwtplot3d'
 
 source="http://gnuradio.org/releases/$pkgname/$pkgname-$pkgver.tar.gz
