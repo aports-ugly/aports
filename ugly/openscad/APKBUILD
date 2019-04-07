@@ -12,6 +12,7 @@ makedepends="cmake glib-dev fontconfig-dev freetype-dev boost-dev gmp-dev mpfr-d
 _distver="${pkgver%.*}-${pkgver##*.}"
 subpackages="$pkgname-doc"
 source="http://files.openscad.org/${pkgname}-${_distver}.src.tar.gz
+       tribool.patch
        uic_qgettext.patch"
 
 _builddir="$srcdir/${pkgname}-${_distver}"
@@ -39,4 +40,5 @@ package() {
 }
 
 sha512sums="b2cee90563bdf2cb9f7b5a0d637b2266f5fcd62add6147c9326b843a5b0975b8ec900d13a2aa86485fce4a5e7e53a08cf4171a3d1d66355e813d01ca9096faee  openscad-2015.03-3.src.tar.gz
+bd6d7466f709d95112c0e310a372a81fad71064ec134f2915581c2b3ee3936d60bb0675205579269e2469483c32019c39663b83b381ae7c61bc24a23377cd257  tribool.patch
 2b7ad58fb4ec843e71597587423797d2685360294976884ba618fb8efb4df88b780ab1da310502f66058934c36e2a351b75e00b492e955478a1fc65917998cc1  uic_qgettext.patch"
