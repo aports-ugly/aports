@@ -1,0 +1,28 @@
+# Contributor:
+# Maintainer:
+pkgname=mbelib
+pkgver=1.3.0
+pkgrel=0
+pkgdesc="P25 Phase 1 and ProVoice vocoder"
+url="https://github.com/szechyjs/mbelib"
+arch="all"
+license="MIT0"
+makedepends="cmake"
+subpackages="$pkgname-dev"
+source="${pkgname}-${pkgver}.tar.gz::https://github.com/szechyjs/$pkgname/archive/v$pkgver.tar.gz"
+
+_builddir="$srcdir/$pkgname-$pkgver"
+
+build() {
+  cd "$_builddir"
+  mkdir -p build
+  cd build
+  cmake -DCMAKE_INSTALL_PREFIX=/usr -Wno-dev ../
+  make VERBOSE=1
+}
+
+package() {
+        cd "$_builddir/build"
+        make DESTDIR="$pkgdir" install
+}
+sha512sums="1148b2c2e6e26f92e2d9643a79dc7ed3616e5903268b0a970d97abc9aff9a19241f037f82814109a247251796c652287c557e04dd1da2d827fd068534ac20a99  mbelib-1.3.0.tar.gz"
