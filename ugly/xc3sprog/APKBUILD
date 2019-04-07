@@ -1,0 +1,32 @@
+# Contributor: stef <l0ls0fo2i@ctrlc.hu>
+#
+pkgname="xc3sprog"
+pkgver=0.0.0.1
+pkgrel=0
+pkgdesc="A suite of utilities for programming Xilinx FPGAs, CPLDs, and EEPROMs with the Xilinx Parallel Cable and other JTAG adapters under Linux. Special branch for XTRX over USB3 adapter"
+arch="all"
+url="https://github.com/xtrx-sdr/xc3sprog"
+license='GPLv2'
+subpackages="$pkgname-dbg"
+makedepends="cmake libftdi1 libftdi1-dev libusb-compat-dev libusb3380-dev"
+
+source="${pkgname}-${pkgver}.tar.gz::https://github.com/aports-ugly/$pkgname/archive/v$pkgver.tar.gz
+ftdi1.patch
+"
+
+_builddir="$srcdir/$pkgname-$pkgver"
+
+build() {
+  cd "$_builddir"
+  mkdir -p build
+  cd build
+  cmake -DUSE_FTD2XX=off -DCMAKE_INSTALL_PREFIX=/usr -Wno-dev ../
+  make VERBOSE=1
+}
+
+package() {
+        cd "$_builddir/build"
+        make DESTDIR="$pkgdir" install
+}
+sha512sums="9ed7667c173deb9ccfb947344388f98da692539d703955be5bd269b1d81e9ea8fc35884022ba15096310f14e4658ea81aa97240e6f5735c0705c7c1127f469fb  xc3sprog-0.0.0.1.tar.gz
+43d76b732d9de857ee085959058592a8a62b6ecc7d2d6b3358efcaaea7528d0af35363234da024e16ed5895941c7e58414f249d5177985496eb247f11dbbb70f  ftdi1.patch"

@@ -1,0 +1,47 @@
+Only in xc3sprog-0.0.0.1/: .Findlibftdi.cmake.swp
+--- src/xc3sprog-0.0.0.1/Findlibftdi.cmake
++++ xc3sprog-0.0.0.1/Findlibftdi.cmake
+@@ -17,7 +17,7 @@
+ 
+     if(NOT WIN32)
+         include(FindPkgConfig)
+-        pkg_check_modules(LIBFTDI_PKG libftdi)
++        pkg_check_modules(LIBFTDI_PKG libftdi1)
+     endif(NOT WIN32)
+ 
+     find_path(LIBFTDI_INCLUDE_DIR
+@@ -27,6 +27,7 @@
+             ${LIBFTDI_PKG_INCLUDE_DIRS}
+         PATHS
+             /usr/include
++            /usr/include/libftdi1
+             /usr/local/include
+     )
+ 
+@@ -37,7 +38,7 @@
+ 
+     find_library(LIBFTDI_LIBRARIES
+         NAMES
+-            ftdi
++            ftdi1
+         HINTS
+             ${LIBFTDI_PKG_LIBRARY_DIRS}
+         PATHS
+@@ -55,13 +56,13 @@
+     find_package_handle_standard_args(LIBFTDI DEFAULT_MSG LIBFTDI_LIBRARIES LIBFTDI_INCLUDE_DIR)
+ 
+     if(USE_STATIC_FTDI)
+-        add_library(libftdi STATIC IMPORTED)
++        add_library(libftdi1 STATIC IMPORTED)
+     else(USE_STATIC_FTDI)
+-        add_library(libftdi SHARED IMPORTED)
++        add_library(libftdi1 SHARED IMPORTED)
+     endif(USE_STATIC_FTDI)
+ 
+-    set_target_properties(libftdi PROPERTIES IMPORTED_LOCATION ${LIBFTDI_LIBRARIES})
+-    set(${LIBFTDI_LIBRARIES} libftdi)
++    set_target_properties(libftdi1 PROPERTIES IMPORTED_LOCATION ${LIBFTDI_LIBRARIES})
++    set(${LIBFTDI_LIBRARIES} libftdi1)
+ 
+     #mark_as_advanced(LIBFTDI_INCLUDE_DIR LIBFTDI_LIBRARIES)
+ 
