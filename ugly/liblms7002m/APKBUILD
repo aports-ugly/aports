@@ -1,7 +1,7 @@
 # Contributor: stef <l0ls0fo2i@ctrlc.hu>
 #
 pkgname="liblms7002m"
-pkgver=0.1
+pkgver=0.2
 pkgrel=0
 pkgdesc="Compact LMS7002 library suitable for MCU"
 arch="x86 x86_64 armhf aarch64"
@@ -28,4 +28,4 @@ package() {
         cd "$_builddir/build"
         make DESTDIR="$pkgdir" install
 }
-sha512sums="5cc6901a4ba1a880342c74d64f1b601abb20f122d5026f464cd41d198c951c5e09fd054293fb9c022b86d3be075e9f091da68554f9d53bfae9ceb6ffbba6b0c8  liblms7002m-0.1.tar.gz"
+sha512sums="b65e2640d37656575334f14ef587b0c0893702e8b97d339a2e9ac4ade01315b603a854ed06451f5a8450cfe6ac2bbb008c5fc00bbbe5dd546e3a41a468ad3bc9  liblms7002m-0.2.tar.gz"
