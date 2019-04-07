@@ -1,17 +1,18 @@
 # Contributor: stef <l0ls0fo2i@ctrlc.hu>
 #
 pkgname="libxtrx"
-pkgver=0.1
+pkgver=0.1.2
 pkgrel=0
 pkgdesc="High level XTRX API"
-arch="x86 x86_64 armhf aarch64"
+arch="all"
 url="https://github.com/xtrx-sdr/libxtrx"
 license='LGPL'
 subpackages="$pkgname-dev $pkgname-dbg"
 makedepends="cmake gcc6 libxtrxdsp-dev libxtrxll-dev qt5-qtbase-dev soapy-sdr-dev lms7002m-driver-dev liblms7002m-dev qcustomplot-dev liblms7002m"
 
 source="${pkgname}-${pkgver}.tar.gz::https://github.com/aports-ugly/$pkgname/archive/v$pkgver.tar.gz
-lms7002m-path.patch"
+qcustomplot.patch
+lms7002m.patch"
 
 _builddir="$srcdir/$pkgname-$pkgver"
 
@@ -21,13 +22,17 @@ build() {
   cd "$_builddir"
   mkdir -p build
   cd build
-  cmake -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX=/usr -Wno-dev ../
+  export CC=gcc-6
+  cmake -DCMAKE_SKIP_RPATH=ON -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX=/usr -Wno-dev ../
   make VERBOSE=1
 }
 
 package() {
         cd "$_builddir/build"
         make DESTDIR="$pkgdir" install
+        mkdir -p "${pkgdir}/usr/bin"
+        cp -a examples/xtrx_fft/mainwindow "${pkgdir}/usr/bin/xtrx_fft"
 }
-sha512sums="79df66af0c9131cb471bfed781ec5a98005abf654002d7dad477de6d6922db66989e72aaf9fec17b74b67768e183dae5233b7e6299897d0edc6261f039c36ab3  libxtrx-0.1.tar.gz
-9cebc95a0e5bb634356e44af2342186d688515bf5c1b0f5b393749e82d9aa06bcd2a8bdb8f1127792633de70952120fba75f2e17c201d44c7a3812ccdcc40293  lms7002m-path.patch"
+sha512sums="44e0f6b93de3b8e17ce89f69b5d146256923753109c7bdaa909f07451eea467c905aaf44e3691d5b2abf58f64d54b795964c966bc39bf4f7ae7e4c0a0c9076d3  libxtrx-0.1.2.tar.gz
+4d7254bc653e7b82cee1b7fcf35338c4d84b6c6ae760fe74f144dfc135b4b814ab235042bf99d04cd6c9ac1e92439711448b642b2c53ca956cd1a5422de27e23  qcustomplot.patch
+135841fb9f78d8e973f42b645a4003434addc3659ad7abbf870d72dd6215884d49a7d752da1947b10892fa6264cb5656a9ea694b8b28cc6e6ac23bbe258966f6  lms7002m.patch"
