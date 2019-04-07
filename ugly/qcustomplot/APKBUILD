@@ -8,24 +8,21 @@ url="http://www.qcustomplot.com"
 arch="all"
 license="GPLv3"
 makedepends="qt5-qtbase-dev"
-subpackages="$pkgname-dev"
+subpackages="$pkgname-dev qcustomplot-doc"
 source="$pkgname-sharedlib-$pkgver.tar.gz::http://www.qcustomplot.com/release/${pkgver}/QCustomPlot-sharedlib.tar.gz
 $pkgname-$pkgver.tar.gz::http://www.qcustomplot.com/release/$pkgver/QCustomPlot.tar.gz"
 
-_builddir="$srcdir/$pkgname-sharedlib/"
+builddir="$srcdir/$pkgname-sharedlib/"
 
 build() {
-  #cd "$srcdir"
-  #tar xzvf $pkgname-$pkgver.tar.gz
-  #tar xzvf $pkgname-sharedlib-$pkgver.tar.gz
-  cd "$_builddir"
+  cd "$builddir"
   sed -i 's#../../qcustomplot#../../qcustomplot/qcustomplot#g' sharedlib-compilation/sharedlib-compilation.pro
   qmake-qt5 sharedlib-compilation/sharedlib-compilation.pro
   make release
 }
 
 package() {
-	cd "$_builddir"
+	cd "$builddir"
 	mkdir -p "$pkgdir/usr/lib/"
    cp -a libqcustomplot.so* "$pkgdir/usr/lib/"
 	mkdir -p "$pkgdir/usr/include/"
