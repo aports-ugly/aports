@@ -1,7 +1,7 @@
 # Contributor: stef <l0ls0fo2i@ctrlc.hu>
 #
 pkgname="cm256cc"
-pkgver=1.0.4
+pkgver=1.0.5
 pkgrel=0
 pkgdesc="Fast GF(256) Cauchy MDS Block Erasure Codec in C++"
 arch="all"
