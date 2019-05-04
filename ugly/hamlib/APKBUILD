@@ -1,0 +1,27 @@
+# Contributor: stef <l0ls0fo2i@ctrlc.hu>
+pkgname=hamlib
+pkgver=3.3
+pkgrel=0
+pkgdesc="Ham radio control library"
+url="http://www.hamlib.org/"
+arch="all"
+license="LGPL2.1+"
+makedepends="autoconf automake libtool gd-dev libuhd-dev libxml2-dev python-dev readline-dev texinfo libusb-dev"
+install=""
+subpackages="$pkgname-dev $pkgname-doc"
+source="$pkgname-$pkgver.tar.gz::https://github.com/Hamlib/Hamlib/archive/$pkgver.tar.gz"
+builddir="$srcdir/Hamlib-${pkgver}"
+
+build() {
+	cd "$builddir"
+   ./bootstrap
+	./configure  --prefix=/usr/
+	make 
+}
+
+package() {
+	cd "$builddir"
+	make DESTDIR="$pkgdir" install
+}
+
+sha512sums="447adb98014337e9e9ce10e201d1b80a95d25716f99af5c670c83febed4df10f0715695a6a7fc48b7747dd7d8cddca75242c12a2a06b57ef42e980213d15818e  hamlib-3.3.tar.gz"
