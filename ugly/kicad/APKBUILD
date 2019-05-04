@@ -1,6 +1,6 @@
 # Contributor: stef <l0ls0fo2i@ctrlc.hu>
 pkgname=kicad
-pkgver=5.1.0
+pkgver=5.1.2
 pkgrel=0
 makedepends="python-dev glew-dev cairo-dev openssl-dev boost-dev swig doxygen curl-dev cmake wxgtk-dev glew-dev glm-dev ngspice-dev oce-dev libtbb libtbb-dev" 
 pkgdesc="Electronic schematic and PCB design software"
