@@ -1,0 +1,26 @@
+# Contributor: stef <l0ls0fo2i@ctrlc.hu>
+pkgname=fldigi
+pkgver=4.1.04.01
+pkgrel=0
+pkgdesc="Ham Radio Digital Modem Application"
+url="https://sourceforge.net/projects/fldigi/"
+arch="all"
+license="GPL3"
+makedepends="autoconf automake libtool hamlib-dev fltk-dev libsamplerate-dev portaudio-dev libsndfile-dev libusb-dev jpeg-dev"
+install=""
+subpackages="$pkgname-doc"
+source="http://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz"
+builddir="$srcdir/$pkgname-${pkgver}"
+
+build() {
+	cd "$builddir"
+	./configure  --prefix=/usr/ --enable-optimizations=native --with-hamlib
+	make 
+}
+
+package() {
+	cd "$builddir"
+	make DESTDIR="$pkgdir" install
+}
+
+sha512sums="9d5a36b0b1af4f8bc021ef420da6aeb8569a7c486777a65116bf19ac40d18ca81230650e8a952d785909ffa959a3882890354b8855fbdcd4da4105faf1c0ea72  fldigi-4.1.04.01.tar.gz"
