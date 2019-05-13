@@ -8,7 +8,7 @@ arch="x86 x86_64 armhf aarch64"
 url="https://github.com/xtrx-sdr/liblms7002m"
 license='LGPL'
 subpackages="$pkgname-dev $pkgname-dbg"
-makedepends="cmake gcc6 py-cheetah" # libxtrxdsp-dev libxtrxll-dev qt5-qtbase-dev soapy-sdr-dev lms7002m-driver-dev"
+makedepends="cmake gcc6 py-cheetah python2" # libxtrxdsp-dev libxtrxll-dev qt5-qtbase-dev soapy-sdr-dev lms7002m-driver-dev"
 
 source="${pkgname}-${pkgver}.tar.gz::https://github.com/aports-ugly/$pkgname/archive/v$pkgver.tar.gz"
 
