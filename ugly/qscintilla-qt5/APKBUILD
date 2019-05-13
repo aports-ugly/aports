@@ -11,7 +11,7 @@ depends=""
 makedepends="qt5-qtbase-dev"
 install=""
 subpackages="$pkgname-dev"
-source="https://www.riverbankcomputing.com/static/Downloads/QScintilla/QScintilla_gpl-$pkgver.tar.gz"
+source="https://www.riverbankcomputing.com/static/Downloads/QScintilla/$pkgver/QScintilla_gpl-$pkgver.tar.gz"
 
 _builddir="$srcdir/QScintilla_gpl-${pkgver}/Qt4Qt5"
 
