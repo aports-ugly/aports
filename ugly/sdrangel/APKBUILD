@@ -1,14 +1,15 @@
 # Contributor:
 # Maintainer:
 pkgname=sdrangel
-pkgver=4.6.0
+pkgver=4.11.6
 pkgrel=0
 pkgdesc="SDR Rx/Tx software for Airspy, Airspy HF+, BladeRF, HackRF, LimeSDR, PlutoSDR, RTL-SDR, SDRplay RSP1 and FunCube"
 url="https://github.com/f4exb/sdrangel"
 arch="all"
 #license="?"
-makedepends="cmake fftw-dev boost-dev qt5-qtbase-dev alsa-lib-dev libusb-dev rtlsdr-dev hackrf-dev ffmpeg-dev sqlite-dev libxml2-dev libxtrx-dev qt5-qttools qt5-qtbase-dev qt5-qtmultimedia-dev opus-dev soapy-sdr-dev cm256cc-dev codec2-dev mbelib-dev dsdcc-dev dsdcc" # todo for ATV enable opencv-dev
-source="${pkgname}-${pkgver}.tar.gz::https://github.com/f4exb/$pkgname/archive/v$pkgver.tar.gz"
+makedepends="cmake fftw-dev boost-dev qt5-qtbase-dev alsa-lib-dev libusb-dev rtlsdr-dev hackrf-dev ffmpeg-dev sqlite-dev libxml2-dev libxtrx-dev qt5-qttools qt5-qtbase-dev qt5-qtmultimedia-dev opus-dev soapy-sdr-dev cm256cc-dev codec2-dev mbelib-dev dsdcc-dev dsdcc qt5-qtwebsockets-dev opencv-dev serialDV-dev"
+source="${pkgname}-${pkgver}.tar.gz::https://github.com/f4exb/$pkgname/archive/v$pkgver.tar.gz
+        opencv4.patch"
 
 _builddir="$srcdir/$pkgname-$pkgver"
 
@@ -17,11 +18,12 @@ build() {
   mkdir -p build
   cd build
   cmake -DCMAKE_INSTALL_PREFIX=/usr -Wno-dev ../
-  make VERBOSE=1
+  make #VERBOSE=1
 }
 
 package() {
         cd "$_builddir/build"
         make DESTDIR="$pkgdir" install
 }
-sha512sums="ef32c4f20fca5578e8d2de3b4ff822d25ee8f7430504578a81b231f987bdd11a1087e2e19135d5f02274e7a1c1d8a76808d9c2626330ae076adc07f6d778652e  sdrangel-4.5.3.tar.gz"
+sha512sums="f6add785ce577f3c1bc6c6478930c402f6a7a02316f50798dea618c0cb30ce8cb9c1841ce5e1427e8aeac64bff6cf73c40a2df9d115ab3ee3a59e2d309bf3570  sdrangel-4.11.6.tar.gz
+6918ea8dea33a7b5f01a3cb99471cc0dc166b5be68e311f0c67028819c82c9a38f9be1b20a00a3f3303ea1a7478c7ec3978d8ce03cadf39f3a61c8ac767faa13  opencv4.patch"
