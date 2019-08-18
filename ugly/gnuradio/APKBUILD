@@ -1,15 +1,14 @@
 # Contributor: stef <l0ls0fo2i@ctrlc.hu>
 #
 pkgname=gnuradio
-pkgver=3.7.13.4
+pkgver=3.8.0.0
 pkgrel=0
 pkgdesc="General purpose DSP and SDR toolkit."
 arch='x86 x86_64'
 url="http://gnuradio.org"
 license='GPL'
 subpackages="$pkgname-dev $pkgname-doc"
-makedepends='fftw-dev py-numpy cppunit-dev gsl-dev py-gtk wxgtk-dev volk-dev py-mako doxygen py-six qt-dev sdl2-dev py-qt python-dev
-    libusb-dev portaudio-dev boost-dev zeromq-dev cmake py-lxml py-cheetah glu swig wxPython wxPython-dev qwt-dev libuhd-dev' # texlive-dvi'
+makedepends='fftw-dev py3-numpy cppunit-dev volk-dev gsl-dev py-gtk py-mako doxygen py-six qt5-qtbase-dev sdl-dev py3-qt5 python3-dev libusb-dev portaudio-dev boost-dev zeromq-dev cmake py3-lxml py3-cheetah glu swig qwt-dev libuhd-dev texlive-dvi log4cpp-dev gmp-dev py-sphinx py3-yaml py3-gobject3 py-gobject3-dev py-gtk-dev gtk+3.0-dev py3-cairo py-cairo-dev gobject-introspection-dev qwt-dev cairo-gobject py3-click py-click-plugins cppzmq texmf-dist-latexextra ghostscript'
     # py-pyqwt qwtplot3d'
 
 source="http://gnuradio.org/releases/$pkgname/$pkgname-$pkgver.tar.gz
@@ -24,29 +23,29 @@ prepare() {
 		*.patch) msg $i; patch -p1 -i "$srcdir"/$i || return 1;;
 		esac
 	done
-  sed -i -e "s|#![ ]*/usr/bin/env python$|#!/usr/bin/env python2|" \
+  sed -i -e "s|#![ ]*/usr/bin/env python$|#!/usr/bin/env python3|" \
     $(find ./ -name '*.py') \
     $(find ./ -name 'gnuradio-companion' -o -name 'flow_graph.tmpl')
-  sed -i -e "s|#![ ]*/usr/bin/env /usr/bin/python$|#!/usr/bin/env python2|" \
+  sed -i -e "s|#![ ]*/usr/bin/env /usr/bin/python$|#!/usr/bin/env python3|" \
     $(find ./ -name '*.py')
 }
 
 build() {
   cd "$_builddir"
-  export PYTHON=python2
+  export PYTHON=python3
   cd "$srcdir/$pkgname-$pkgver"
   sed -i -e "s|GR_PKG_LIBEXEC_DIR|GR_RUNTIME_DIR|" grc/scripts/freedesktop/CMakeLists.txt
   #sed -i -e "s|/qwt$|/qwt5|" -e "s| qwt | qwt5 |" cmake/Modules/FindQwt.cmake
-  sed -i -e "s| sphinx-build$| sphinx-build2|" cmake/Modules/FindSphinx.cmake
+  #sed -i -e "s| sphinx-build$| sphinx-build2|" cmake/Modules/FindSphinx.cmake
   msg "Starting build."
   mkdir -p build
   cd build
-    #-DENABLE_GR_WXGUI=ON \
+
 
   cmake \
-    -DPYTHON_EXECUTABLE=$(which python2) \
-    -DPYTHON_INCLUDE_DIR=$(echo /usr/include/python2*) \
-    -DPYTHON_LIBRARY=$(echo /usr/lib/libpython2.*.so) \
+    -DPYTHON_EXECUTABLE=$(which python3) \
+    -DPYTHON_INCLUDE_DIR=$(echo /usr/include/python3*) \
+    -DPYTHON_LIBRARY=$(echo /usr/lib/libpython3.*.so) \
     -DENABLE_GR_QTGUI=ON \
     -DENABLE_INTERNAL_VOLK=OFF \
     -DENABLE_GRC=ON \
@@ -58,5 +57,5 @@ package() {
 	cd "$_builddir/build"
 	make DESTDIR="$pkgdir" install
 }
-sha512sums="85c265851b43d4b62590869c91a9b7b262601dce233515096f1a1e68a14ea2710f08cc07859326efdfde29a2f156477d3bbd42e3bdd9b8ac13f6769637bf794b  gnuradio-3.7.13.4.tar.gz
-0d1a3122285a57a890fc4e4f1715e1bf1f7e32698ab916f7c45ef5cade3d9e2bd57ef72a44b6211b1cc51c4bfceaeb4e324098c614a566ec4f40dc55f19a944e  gnuradio-3.7.13.4.tar.gz.asc"
+sha512sums="1a3be19f26183d0e953ad1b484de68eb8d452a80a58a76a3982191f6a7964f6f1ea7d37b0c7e309317965432c0b239ab5c3f4d1db60cdc26e8d65aec119cc7bc  gnuradio-3.8.0.0.tar.gz
+1b19610b55bb3188bd17f45e9fc7331489924e03e94c5c454a17310a2a0aa2e846a29806dafc06ad47e2d97f2f0042a00239b014f0b4fb472e0930dff1accedc  gnuradio-3.8.0.0.tar.gz.asc"
