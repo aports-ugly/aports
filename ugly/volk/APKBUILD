@@ -1,13 +1,13 @@
 # Contributor: stef <l0ls0fo2i@ctrlc.hu>
 
 pkgname=volk
-pkgver=1.4
+pkgver=2.0.0
 pkgrel=0
 pkgdesc="The Vector-Optimized Library of Kernels from Gnuradio"
 arch='x86 x86_64'
 url="http://libvolk.org/"
 license='GPL3'
-makedepends='boost-dev orc-dev cmake py-cheetah py-six py-mako'
+makedepends='boost-dev orc-dev cmake py3-cheetah py3-six py3-mako python3 doxygen'
 source="${pkgname}-${pkgver}.tar.gz::http://github.com/gnuradio/$pkgname/archive/v$pkgver.tar.gz"
 subpackages="$pkgname-dev"
 
@@ -17,7 +17,10 @@ build() {
   cd "$builddir"
   mkdir -p build
   cd build
-  cmake -DCMAKE_INSTALL_PREFIX=/usr -Wno-dev ..
+  export PYTHON=python3
+  cmake \
+    -DPYTHON_EXECUTABLE=$(which python3) \
+    -DCMAKE_INSTALL_PREFIX=/usr -Wno-dev ..
   make
 }
 
@@ -26,4 +29,4 @@ package() {
   make DESTDIR="$pkgdir" install
 }
 
-sha512sums="3f5bd834b99313fc64db2205b9489690adb8ed396f6042549fa81cbc8e1626c3b11394a159567eb7155a1319d166c5ec57bea17631f4d9f126eb35577718cc67  volk-1.4.tar.gz"
+sha512sums="16b2b3511372eb7055aea60f744f1935e1dd889a6750bf2f4c04e0792123a96382c37390419482d661cc2c1795b3ac85c925d140881ed4f03d415175948b15a3  volk-2.0.0.tar.gz"
