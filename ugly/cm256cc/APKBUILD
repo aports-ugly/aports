@@ -27,4 +27,4 @@ package() {
         make DESTDIR="$pkgdir" install
         mv $pkgdir/usr/lib64/ $pkgdir/usr/lib/
 }
-sha512sums="606e66c4242b571e5d25e4d95b58d6014397105f5f267ff33546a10b73f13a4059ac94a10972cba2829adfea7a600d141fadcea4240cc7dc5a785abbff0d645a  cm256cc-1.0.4.tar.gz"
+sha512sums="2bf86a155becf64f91430a1380f152716e20785e05de42791498dd577b9051a0d6f9e6818bab0f5b1f88141f70cc46390fabdb4fbdef1aff9a3e51c2085c1ebd  cm256cc-1.0.5.tar.gz"
