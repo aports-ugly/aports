@@ -1,0 +1,32 @@
+# Contributor: stef <l0ls0fo2i@ctrlc.hu>
+#
+pkgname="serialDV"
+pkgver=1.1.1
+pkgrel=0
+pkgdesc="C++ Minimal interface to encode and decode audio with AMBE3000 based devices in packet mode over a serial link."
+arch="all"
+url="https://github.com/f4exb/serialDV"
+license='MIT'
+subpackages="$pkgname-dev $pkgname-dbg"
+makedepends="cmake boost-dev"
+
+source="${pkgname}-${pkgver}.tar.gz::https://github.com/f4exb/$pkgname/archive/v$pkgver.tar.gz
+        includes.patch"
+
+_builddir="$srcdir/$pkgname-$pkgver"
+
+build() {
+  cd "$_builddir"
+  mkdir -p build
+  cd build
+  cmake -DCMAKE_INSTALL_PREFIX=/usr -Wno-dev ../
+  make VERBOSE=1
+}
+
+package() {
+        cd "$_builddir/build"
+        make DESTDIR="$pkgdir" install
+        mv $pkgdir/usr/lib64/ $pkgdir/usr/lib/
+}
+sha512sums="7154d20efc45dc8f285fdff5933538362b30185ecce57fe1107a1dcb34216873160e89d1f2f892816acb32adf9371ea09ccd6a480912197e9fd67502ea6746eb  serialDV-1.1.1.tar.gz
+b67eae475391d1ed418c365aceb4b3136cfc7dc2a19e3c1dd335488a0d40971836cc50b524c8dd4746425fabb2177b69893c406392954017b0ab14c18dcee913  includes.patch"
