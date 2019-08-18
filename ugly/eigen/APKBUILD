@@ -1,5 +1,4 @@
 # Maintainer: stef <l0ls0fo2i@ctrlc.hu>
-
 pkgname=eigen
 pkgver=3.3.7
 pkgrel=0
@@ -8,7 +7,7 @@ arch="all"
 url="http://eigen.tuxfamily.org/"
 license="MPL-2.0, GPL-3, LGPL-2.1"
 source="http://bitbucket.org/eigen/eigen/get/${pkgver}.tar.bz2"
-makedepends="cmake openblas-dev suitesparse-dev qt-dev mpfr-dev fftw-dev boost-dev gmp-dev glu-dev"
+makedepends="cmake openblas-dev suitesparse-dev mpfr-dev fftw-dev boost-dev gmp-dev glu-dev freeglut-dev"
 subpackages="$pkgname-dev"
 
 builddir="$srcdir/eigen-eigen-323c052e1731"
