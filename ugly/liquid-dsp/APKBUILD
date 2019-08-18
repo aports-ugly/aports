@@ -1,6 +1,6 @@
 # Contributor: stef <l0ls0fo2i@ctrlc.hu>
 pkgname=liquid-dsp
-pkgver=1.3.1
+pkgver=1.3.2
 pkgrel=0
 pkgdesc="digital signal processing library for software-defined radios"
 url="http://liquidsdr.org/"
@@ -23,4 +23,4 @@ package() {
 	make DESTDIR="$pkgdir" install
 }
 
-sha512sums="6da76030fc346e3fadfe70e72be14d1f2ff198d3e9bb5ffb5f4d9b89945686d2474d3bb4911a2b923aad22feabebf2744d47afbffabab87737fe46a24af68917  liquid-dsp-1.3.1.tar.gz"
+sha512sums="1af317512f56078a79396fd3c7a0135c97ef63fd187d52db1b62ddabca683a37fa6b358adafd76d81c3cb06c54f9c7c8fd66f8bb86c0bfebec9e9ef1441ca5d2  liquid-dsp-1.3.2.tar.gz"
