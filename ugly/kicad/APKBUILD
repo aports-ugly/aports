@@ -1,8 +1,8 @@
 # Contributor: stef <l0ls0fo2i@ctrlc.hu>
 pkgname=kicad
-pkgver=5.1.2
+pkgver=5.1.4
 pkgrel=0
-makedepends="python-dev glew-dev cairo-dev openssl-dev boost-dev swig doxygen curl-dev cmake wxgtk-dev glew-dev glm-dev ngspice-dev oce-dev libtbb libtbb-dev" 
+makedepends="python3-dev glew-dev cairo-dev openssl-dev boost-dev swig doxygen curl-dev cmake wxgtk-dev glew-dev glm-dev ngspice-dev oce-dev libtbb libtbb-dev" 
 pkgdesc="Electronic schematic and PCB design software"
 license="GPL2"
 arch="all"
@@ -15,12 +15,17 @@ build() {
   cd "$builddir"
   mkdir -p build
   cd build
+  export PYTHON=python3
   CXXFLAGS="-std=c++11 -g" \
   cmake -DCMAKE_INSTALL_PREFIX=/usr \
+        -DPYTHON_EXECUTABLE=$(which python3) \
+        -DPYTHON_INCLUDE_DIR=$(echo /usr/include/python3*) \
+        -DPYTHON_LIBRARY=$(echo /usr/lib/libpython3.*.so) \
+        -DKICAD_SCRIPTING_PYTHON3=ON \
         -DKICAD_BUILD_VERSION=$pkgver -DKICAD_SKIP_BOOST=ON \
         -DKICAD_SCRIPTING=ON -DKICAD_SCRIPTING_MODULES=ON  -DKICAD_SCRIPTING_WXPYTHON=OFF \
         "$builddir"
-  make
+  make #VERBOSE=1
 }
 
 package() {
@@ -32,4 +37,4 @@ package() {
 	rmdir $pkgdir/usr/lib64/
 }
 
-sha512sums="644865932d7e18e446c222cd85e969bb3462bca7fbf6c411e955cd460f5df45ed5221c0948ecd34262a2f5355e586c8fe04c1cb28fa51e4fd09d6f3f78c54761  kicad-5.1.0.tar.xz"
+sha512sums="ce0efb740686eafdbbdf8cda68ad800a70c8991302f984be3db4bbdb3bfafe1634871ec6ea26bb6854a417db6336880e5a043dc022ef8126c0e98abc90671337  kicad-5.1.4.tar.xz"
