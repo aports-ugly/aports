@@ -1,7 +1,7 @@
 # Contributor: stef <l0ls0fo2i@ctrlc.hu>
 #
 pkgname=gr-osmosdr
-pkgver=0.1.4.9
+pkgver=0.1.4.9.1
 pkgrel=1
 pkgdesc="Source block for Funcube Dongle, RTL-SDR, USRP, OsmoSDR, BladeRF, HackRF and AirSpy devices"
 arch='all'
@@ -9,23 +9,23 @@ url="http://sdr.osmocom.org/trac/"
 license='GPL'
 subpackages="$pkgname-dev"
 # libuhd
-makedepends='gnuradio-dev boost-dev rtlsdr-dev hackrf-dev cmake python-dev libuhd-dev doxygen swig py-cheetah soapy-sdr-dev graphviz'
+makedepends='gnuradio gnuradio-dev boost-dev rtlsdr-dev hackrf-dev cmake python3-dev libuhd-dev doxygen swig py3-cheetah py3-mako py3-six soapy-sdr-dev graphviz log4cpp-dev gmp-dev libxtrx-dev'
 
 #source="http://git.osmocom.org/gr-osmosdr/snapshot/$pkgname-$pkgver.tar.gz"
 source="$pkgname-$pkgver.tar.gz::https://github.com/aports-ugly/$pkgname/archive/v$pkgver.tar.gz
-xtrx.patch"
+        xtrx.patch"
 
 _builddir="$srcdir/$pkgname-$pkgver"
 
 build() {
   cd "$_builddir"
-  export PYTHON=python2
+  export PYTHON=python3
   mkdir -p build
   cd build
   cmake \
-    -DPYTHON_EXECUTABLE=$(which python2) \
-    -DPYTHON_INCLUDE_DIR=$(echo /usr/include/python2*) \
-    -DPYTHON_LIBRARY=$(echo /usr/lib/libpython2.*.so) \
+    -DPYTHON_EXECUTABLE=$(which python3) \
+    -DPYTHON_INCLUDE_DIR=$(echo /usr/include/python3*) \
+    -DPYTHON_LIBRARY=$(echo /usr/lib/libpython3.*.so) \
     -DCMAKE_INSTALL_PREFIX=/usr -Wno-dev ../
   make
 }
@@ -34,5 +34,5 @@ package() {
 	cd "$_builddir/build"
 	make DESTDIR="$pkgdir" install
 }
-sha512sums="db6af185743285f9083a8b26ecaa9a6daa203ee695cbb8074c93f2049134ee9296520ddbc121a7dc735d5601734bdd2eb10ce1275f59295b6729ca2b700037ff  gr-osmosdr-0.1.4.9.tar.gz
-5f6d355a9d117aff50dc0e2a7bdae83b10ecbe57e43233415dc2430451df16f16a6bf1d16ce398ee5f09b8cbf9041f36433a999a54a0b0f42bb9fbd976834b97  xtrx.patch"
+sha512sums="7f2207b72e14d3e5f029ed6a9c24eaa3d068935bd94fd6cef8497c8f8c574ac5fccd36fc6e255c3e47a4874ab44b20d55ee93158a8aed2e5efb3fc2c2b11ea30  gr-osmosdr-0.1.4.9.1.tar.gz
+38dcd1e2fa5a500405db814d498e7fb9a9762a027c08e40fdcb5e904f8ab80ea9730a343338898ce87ab765e86cad58b8c6114301405ebdf70682a076e657b0c  xtrx.patch"
