@@ -1,0 +1,63 @@
+# Contributor: Carlo Landmeter <clandmeter@gmail.com>
+# Maintainer:
+pkgname=opencv
+pkgver=4.1.1
+pkgrel=4
+pkgdesc="Computer vision and machine learning software library"
+url="http://opencv.org"
+arch="all"
+license="BSD"
+depends=""
+depends_dev=""
+makedepends="cmake ffmpeg-dev libpng-dev libjpeg-turbo-dev tiff-dev jasper-dev openblas-dev
+	libgomp openexr-dev gtk+3.0-dev gtk+-dev gst-plugins-base-dev eigen-dev protobuf-c-dev opencl-headers
+	libgphoto2-dev v4l-utils-dev libwebp-dev libdc1394-dev doxygen python-dev python3-dev"
+install=""
+subpackages="$pkgname-dev $pkgname-libs"
+source="opencv-$pkgver.tar.gz::https://github.com/opencv/opencv/archive/$pkgver.tar.gz"
+builddir="$srcdir/opencv-$pkgver"
+
+prepare() {
+	default_prepare || return 1
+	for i in "$builddir"/3rdparty/*; do
+		case $i in
+      */quirc*) continue;;
+      */ittnotify*) continue;;
+		*/carotene*) continue;;
+      */include*) continue;;
+		esac
+		rm -rf "$i"
+	done
+}
+
+build() {
+	cd "$builddir"
+   mkdir -p build
+   cd build
+	if [ "$CARCH" != "x86_64" ]; then
+		local _sse="-DENABLE_SSE=OFF -DENABLE_SSE2=OFF"
+	fi
+   export CFLAGS=-U_FORTIFY_SOURCE
+   export CXXFLAGS=-U_FORTIFY_SOURCE
+	cmake \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_INSTALL_LIBDIR=lib \
+		-DBUILD_SHARED_LIBS=True \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_CXX_FLAGS="$CXXFLAGS" \
+		-DCMAKE_C_FLAGS="$CFLAGS" \
+		-DENABLE_PRECOMPILED_HEADERS=OFF \
+		-DWITH_OPENMP=ON \
+      -DBUILD_PROTOBUF=OFF \
+		-WITH_OPENCL=ON \
+		-DWITH_IPP=OFF \
+		$_sse .. 
+	make
+}
+
+package() {
+	cd "$builddir/build"
+	make DESTDIR="$pkgdir" install || return 1
+}
+
+sha512sums="80fa48d992ca06a2a4ab6740df6d8c21f4926165486b393969da2c5bbe2f3a0b799fb76dee5e3654e90c743e49bbd2b5b02ad59a4766896bbf4cd5b4e3251e0f  opencv-4.1.1.tar.gz"
