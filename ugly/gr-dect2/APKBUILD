@@ -7,21 +7,23 @@ pkgdesc="GNURadio DECT Audio Decoder"
 arch='all'
 url="https://github.com/SignalsEverywhere/gr-dect2"
 license='GPLv3'
-source="${pkgname}-${pkgver}.tar.gz::https://github.com/aports-ugly/$pkgname/archive/v$pkgver.tar.gz"
+source="${pkgname}-${pkgver}.tar.gz::https://github.com/aports-ugly/$pkgname/archive/v$pkgver.tar.gz
+        gr3.8.patch"
 subpackages="$pkgname-dev $pkgname-doc"
-makedepends="gnuradio-dev gr-osmosdr-dev swig cmake boost-dev cppunit-dev doxygen python-dev"
+makedepends="boost-dev py3-six py3-numpy py3-scipy swig cppunit-dev fftw-dev gnuradio-dev gnuradio volk-dev log4cpp-dev cmake liquid-dsp-dev doxygen gmp-dev"
+#  py3-yaml py3-gobject3 py3-setuptools py3-click py-click-plugins py3-docutils talloc-dev fftw-dev py-docutils doxygen py3-six
 
 _builddir="$srcdir/$pkgname-$pkgver"
 
 build() {
   cd "$_builddir"
-  export PYTHON=python2
+  export PYTHON=python3
   mkdir -p build
   cd build
   cmake \
-    -DPYTHON_EXECUTABLE=$(which python2) \
-    -DPYTHON_INCLUDE_DIR=$(echo /usr/include/python2*) \
-    -DPYTHON_LIBRARY=$(echo /usr/lib/libpython2.*.so) \
+    -DPYTHON_EXECUTABLE=$(which python3) \
+    -DPYTHON_INCLUDE_DIR=$(echo /usr/include/python3*) \
+    -DPYTHON_LIBRARY=$(echo /usr/lib/libpython3.*.so) \
     -DCMAKE_INSTALL_PREFIX=/usr -Wno-dev ../
   make VERBOSE=1
 }
@@ -30,4 +32,5 @@ package() {
 	cd "$_builddir/build"
 	make DESTDIR="$pkgdir" install
 }
-sha512sums="e209b72736adebf2fa9e68f85f96846444db3878af202d709da2cff364feae0a5c358fd512e9abdc7110c9f56a0d82fbbe867254c20c2972f2d95e677bdb2322  gr-dect2-0.1.tar.gz"
+sha512sums="e209b72736adebf2fa9e68f85f96846444db3878af202d709da2cff364feae0a5c358fd512e9abdc7110c9f56a0d82fbbe867254c20c2972f2d95e677bdb2322  gr-dect2-0.1.tar.gz
+757fc5640976125e960349f137279cac42afcb89b3d33871c80a46fbf488024c6a09501a51d71742cab3437b9280089b49ecaa8d9533a8f9efed8bb3a2f583fa  gr3.8.patch"
