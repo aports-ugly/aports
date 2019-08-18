@@ -1,0 +1,41 @@
+diff -urN libosmocore-1.2.0/include/Makefile.am src/libosmocore-1.2.0/include/Makefile.am
+--- libosmocore-1.2.0/include/Makefile.am	2019-08-17 13:32:52.170000000 +0000
++++ src/libosmocore-1.2.0/include/Makefile.am	2019-08-17 13:32:56.170000000 +0000
+@@ -178,8 +178,9 @@
+ 	$(AM_V_GEN)$(MKDIR_P) $(dir $@)
+ 	$(AM_V_GEN)sed -e's/XX/$*/g' $< > $@
+ 
++PYTHON ?= python
+ osmocom/gsm/gsm0503.h: $(top_srcdir)/utils/conv_gen.py $(top_srcdir)/utils/conv_codes_gsm.py
+-	$(AM_V_GEN)python $(top_srcdir)/utils/conv_gen.py gen_header gsm \
++	$(AM_V_GEN)$(PYTHON) $(top_srcdir)/utils/conv_gen.py gen_header gsm \
+ 		--target-path $(builddir)/osmocom/gsm
+ 
+ CLEANFILES = osmocom/gsm/gsm0503.h
+diff -urN libosmocore-1.2.0/src/gsm/Makefile.am src/libosmocore-1.2.0/src/gsm/Makefile.am
+--- libosmocore-1.2.0/src/gsm/Makefile.am	2019-08-17 13:32:52.160000000 +0000
++++ src/libosmocore-1.2.0/src/gsm/Makefile.am	2019-08-17 13:32:56.170000000 +0000
+@@ -48,7 +48,8 @@
+ EXTRA_DIST = libosmogsm.map
+ 
+ # Convolutional codes generation
++PYTHON ?= python
+ gsm0503_conv.c: $(top_srcdir)/utils/conv_gen.py $(top_srcdir)/utils/conv_codes_gsm.py
+-	$(AM_V_GEN)python $(top_srcdir)/utils/conv_gen.py gen_codes gsm
++	$(AM_V_GEN)$(PYTHON) $(top_srcdir)/utils/conv_gen.py gen_codes gsm
+ 
+ CLEANFILES = gsm0503_conv.c
+diff -urN libosmocore-1.2.0/tests/Makefile.am src/libosmocore-1.2.0/tests/Makefile.am
+--- libosmocore-1.2.0/tests/Makefile.am	2019-08-17 13:32:52.160000000 +0000
++++ src/libosmocore-1.2.0/tests/Makefile.am	2019-08-17 13:33:26.440000000 +0000
+@@ -349,8 +349,9 @@
+ 	$(AUTOTEST) -I '$(srcdir)' -o $@.tmp $@.at
+ 	mv $@.tmp $@
+ 
++PYTHON ?= python
+ conv/gsm0503_test_vectors.c: $(top_srcdir)/utils/conv_gen.py $(top_srcdir)/utils/conv_codes_gsm.py
+-	$(AM_V_GEN)python $(top_srcdir)/utils/conv_gen.py gen_vectors gsm \
++	$(AM_V_GEN)$(PYTHON) $(top_srcdir)/utils/conv_gen.py gen_vectors gsm \
+ 		--target-path $(builddir)/conv
+ 
+ if ENABLE_EXT_TESTS

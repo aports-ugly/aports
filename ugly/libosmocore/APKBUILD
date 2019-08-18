@@ -1,0 +1,29 @@
+# Contributor: stef <l0ls0fo2i@ctrlc.hu>
+pkgname=libosmocore
+pkgver=1.2.0
+pkgrel=0
+pkgdesc="Libraries that form the core infrastructure of many Osmocom Open Source Mobile Communications projects"
+url="https://osmocom.org/projects/libosmocore"
+arch="all"
+license="GPL2"
+makedepends="autoconf automake libtool pcsc-lite-dev gnutls-dev python3 doxygen talloc-dev libexecinfo-dev linux-headers"
+install=""
+subpackages="$pkgname-dev $pkgname-doc"
+source="${pkgname}-${pkgver}.tar.gz::https://github.com/osmocom/$pkgname/archive/$pkgver.tar.gz
+        py3.patch"
+builddir="$srcdir/$pkgname-${pkgver}"
+
+build() {
+	cd "$builddir"
+   autoreconf -i
+	PYTHON=python3 ./configure  --prefix=/usr/
+	make
+}
+
+package() {
+	cd "$builddir"
+	make DESTDIR="$pkgdir" install
+}
+
+sha512sums="f13be109dd2bae3fa06ab0e5c278809762556d41dbebf20ed88b6b9d97fed3a14f049d648dc7b9d6d1ea1be573a96c6d6ec5ee430615bffd3b47e61d81c1d8bf  libosmocore-1.2.0.tar.gz
+2600b23490c7e61f6b0affb44a43f8a865e10ac49f62c46e7cfdf36a5ca4a17446ccc46dc1ff28b8bd7a1112da43f1cf31e3dcede9c8752c940305b0f51fc8d6  py3.patch"
