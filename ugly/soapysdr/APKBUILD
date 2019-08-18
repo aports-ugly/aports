@@ -9,7 +9,7 @@ url="https://github.com/pothosware/SoapySDR/wiki"
 license='custom'
 subpackages="$pkgname-dev $pkgname-dbg $pkgname-doc"
 # libuhd
-makedepends="cmake"
+makedepends="cmake python3-dev doxygen swig"
 
 source="https://github.com/pothosware/SoapySDR/archive/$pkgname-$pkgver.tar.gz"
 
