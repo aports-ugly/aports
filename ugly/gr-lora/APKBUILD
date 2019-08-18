@@ -7,21 +7,22 @@ pkgdesc="GNU Radio blocks for receiving LoRa modulated radio messages using SDR"
 arch='all'
 url="https://github.com/rpp0/gr-lora"
 license='GPLv3'
-source="${pkgname}-${pkgver}.tar.gz::https://github.com/rpp0/$pkgname/archive/v$pkgver.tar.gz"
+source="${pkgname}-${pkgver}.tar.gz::https://github.com/rpp0/$pkgname/archive/v$pkgver.tar.gz
+        gr3.8.patch"
 subpackages="$pkgname-dev"
-makedepends="boost-dev py2-numpy py2-scipy swig cppunit-dev fftw-dev gnuradio-dev volk-dev log4cpp-dev cmake wxgtk-dev liquid-dsp-dev"
+makedepends="boost-dev py3-six py3-numpy py3-scipy swig cppunit-dev fftw-dev gnuradio-dev gnuradio volk-dev log4cpp-dev cmake liquid-dsp-dev doxygen gmp-dev"
 
 _builddir="$srcdir/$pkgname-$pkgver"
 
 build() {
   cd "$_builddir"
-  export PYTHON=python2
+  export PYTHON=python3
   mkdir -p build
   cd build
   cmake \
-    -DPYTHON_EXECUTABLE=$(which python2) \
-    -DPYTHON_INCLUDE_DIR=$(echo /usr/include/python2*) \
-    -DPYTHON_LIBRARY=$(echo /usr/lib/libpython2.*.so) \
+    -DPYTHON_EXECUTABLE=$(which python3) \
+    -DPYTHON_INCLUDE_DIR=$(echo /usr/include/python3*) \
+    -DPYTHON_LIBRARY=$(echo /usr/lib/libpython3.*.so) \
     -DCMAKE_INSTALL_PREFIX=/usr -Wno-dev ../
   make VERBOSE=1
 }
@@ -30,4 +31,5 @@ package() {
 	cd "$_builddir/build"
 	make DESTDIR="$pkgdir" install
 }
-sha512sums="e43ac589d4d4f4d01cadaf5e99a5849eadcd0c70c5bb28d796c265052d38db90fcd9dba7343ff236d93439007a68b0f2aff2ba9f1f8b2a4ca27090a479b20ba1  gr-lora-0.6.2.tar.gz"
+sha512sums="e43ac589d4d4f4d01cadaf5e99a5849eadcd0c70c5bb28d796c265052d38db90fcd9dba7343ff236d93439007a68b0f2aff2ba9f1f8b2a4ca27090a479b20ba1  gr-lora-0.6.2.tar.gz
+81d030bffb7fc5cf5e41612afad6ef696a279258c2f596df467d63255abb9754addb439b701b5237c944fa09408f61d11ff638368ab4ec4cb7287828de42be7f  gr3.8.patch"
