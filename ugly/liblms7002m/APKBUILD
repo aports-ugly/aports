@@ -8,9 +8,10 @@ arch="x86 x86_64 armhf aarch64"
 url="https://github.com/xtrx-sdr/liblms7002m"
 license='LGPL'
 subpackages="$pkgname-dev $pkgname-dbg"
-makedepends="cmake gcc6 py-cheetah" # libxtrxdsp-dev libxtrxll-dev qt5-qtbase-dev soapy-sdr-dev lms7002m-driver-dev"
+makedepends="cmake gcc6 py3-cheetah python3"
 
-source="${pkgname}-${pkgver}.tar.gz::https://github.com/aports-ugly/$pkgname/archive/v$pkgver.tar.gz"
+source="${pkgname}-${pkgver}.tar.gz::https://github.com/aports-ugly/$pkgname/archive/v$pkgver.tar.gz
+        py3.patch"
 
 _builddir="$srcdir/$pkgname-$pkgver"
 
@@ -20,7 +21,9 @@ build() {
   cd "$_builddir"
   mkdir -p build
   cd build
-  cmake -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX=/usr -Wno-dev ../
+  cmake -DBUILD_SHARED_LIBS=ON \
+    -DPYTHON_EXECUTABLE=$(which python3) \
+    -DCMAKE_INSTALL_PREFIX=/usr -Wno-dev ..
   make VERBOSE=1
 }
 
@@ -28,4 +31,5 @@ package() {
         cd "$_builddir/build"
         make DESTDIR="$pkgdir" install
 }
-sha512sums="b65e2640d37656575334f14ef587b0c0893702e8b97d339a2e9ac4ade01315b603a854ed06451f5a8450cfe6ac2bbb008c5fc00bbbe5dd546e3a41a468ad3bc9  liblms7002m-0.2.tar.gz"
+sha512sums="b65e2640d37656575334f14ef587b0c0893702e8b97d339a2e9ac4ade01315b603a854ed06451f5a8450cfe6ac2bbb008c5fc00bbbe5dd546e3a41a468ad3bc9  liblms7002m-0.2.tar.gz
+c57a28106a7c5f962adb1458b99c3e3f5015b708c48566c69f4d75d9930b9996b81b8eafa66a7b312217f65631b299d8a77b9479b1ec09bd5a0c374c059de10c  py3.patch"
