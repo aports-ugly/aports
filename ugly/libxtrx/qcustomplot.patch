@@ -1,22 +1,20 @@
-Only in libxtrx-0.1.2/: .CMakeLists.txt.swp
-diff -urw src/libxtrx-0.1.2/CMakeLists.txt libxtrx-0.1.2/CMakeLists.txt
---- src/libxtrx-0.1.2/CMakeLists.txt	2019-04-05 13:01:23.000000000 +0000
-+++ libxtrx-0.1.2/CMakeLists.txt	2019-04-07 16:22:26.600000000 +0000
-@@ -109,8 +109,8 @@
+diff -urw src/libxtrx-0.1.3/CMakeLists.txt libxtrx-0.1.3/CMakeLists.txt
+--- src/libxtrx-0.1.3/CMakeLists.txt	2019-08-03 14:58:54.000000000 +0000
++++ libxtrx-0.1.3/CMakeLists.txt	2019-08-06 13:57:22.270000000 +0000
+@@ -110,8 +110,8 @@
  ########################################################################
  find_package(Qt5Widgets)
  find_package(Qt5PrintSupport)
 -find_package(QCustomPlot)
 -if(Qt5Widgets_FOUND AND Qt5PrintSupport_FOUND AND QCustomPlot_FOUND)
 +#find_package(QCustomPlot)
-+if(Qt5Widgets_FOUND AND Qt5PrintSupport_FOUND) # AND QCustomPlot_FOUND)
++if(Qt5Widgets_FOUND AND Qt5PrintSupport_FOUND)# AND QCustomPlot_FOUND)
      set(LIBXTRX_FOUND TRUE "libxtrx found")
      set(LIBXTRX_LIBRARIES xtrx)
      set(LIBXTRX_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR})
-Only in libxtrx-0.1.2/examples/xtrx_fft: .CMakeLists.txt.swp
-diff -urw src/libxtrx-0.1.2/examples/xtrx_fft/CMakeLists.txt libxtrx-0.1.2/examples/xtrx_fft/CMakeLists.txt
---- src/libxtrx-0.1.2/examples/xtrx_fft/CMakeLists.txt	2019-04-05 13:01:23.000000000 +0000
-+++ libxtrx-0.1.2/examples/xtrx_fft/CMakeLists.txt	2019-04-07 16:22:26.600000000 +0000
+diff -urw src/libxtrx-0.1.3/examples/xtrx_fft/CMakeLists.txt libxtrx-0.1.3/examples/xtrx_fft/CMakeLists.txt
+--- src/libxtrx-0.1.3/examples/xtrx_fft/CMakeLists.txt	2019-08-03 14:58:54.000000000 +0000
++++ libxtrx-0.1.3/examples/xtrx_fft/CMakeLists.txt	2019-08-06 13:57:22.270000000 +0000
 @@ -12,7 +12,7 @@
  # Find the QtWidgets library
  find_package(Qt5Widgets CONFIG REQUIRED)
@@ -26,10 +24,11 @@ diff -urw src/libxtrx-0.1.2/examples/xtrx_fft/CMakeLists.txt libxtrx-0.1.2/examp
  find_package(LibXTRX REQUIRED)
  
  # Populate a CMake variable with the sources
-@@ -27,4 +27,5 @@
+@@ -27,5 +27,6 @@
  include_directories(${LIBXTRX_INCLUDE_DIRS})
  
- add_executable(mainwindow ${mainwindow_SRCS})
--target_link_libraries(mainwindow Qt5::Widgets Qt5::PrintSupport ${QCustomPlot_LIBRARIES} ${LIBXTRX_LIBRARIES})
-+#target_link_libraries(mainwindow Qt5::Widgets Qt5::PrintSupport ${QCustomPlot_LIBRARIES} ${LIBXTRX_LIBRARIES})
-+target_link_libraries(mainwindow Qt5::Widgets Qt5::PrintSupport qcustomplot ${LIBXTRX_LIBRARIES})
+ add_executable(xtrx_fft ${mainwindow_SRCS})
+-target_link_libraries(xtrx_fft Qt5::Widgets Qt5::PrintSupport ${QCustomPlot_LIBRARIES} ${LIBXTRX_LIBRARIES})
++#target_link_libraries(xtrx_fft Qt5::Widgets Qt5::PrintSupport ${QCustomPlot_LIBRARIES} ${LIBXTRX_LIBRARIES})
++target_link_libraries(xtrx_fft Qt5::Widgets Qt5::PrintSupport qcustomplot ${LIBXTRX_LIBRARIES})
+ install(TARGETS xtrx_fft DESTINATION ${XTRX_UTILS_DIR})

@@ -1,7 +1,7 @@
 # Contributor: stef <l0ls0fo2i@ctrlc.hu>
 #
 pkgname="libxtrx"
-pkgver=0.1.2
+pkgver=0.1.3
 pkgrel=0
 pkgdesc="High level XTRX API"
 arch="all"
@@ -11,8 +11,8 @@ subpackages="$pkgname-dev $pkgname-dbg"
 makedepends="cmake gcc6 libxtrxdsp-dev libxtrxll-dev qt5-qtbase-dev soapy-sdr-dev lms7002m-driver-dev liblms7002m-dev qcustomplot-dev liblms7002m"
 
 source="${pkgname}-${pkgver}.tar.gz::https://github.com/aports-ugly/$pkgname/archive/v$pkgver.tar.gz
-qcustomplot.patch
-lms7002m.patch"
+qcustomplot.patch"
+
 
 _builddir="$srcdir/$pkgname-$pkgver"
 
@@ -30,9 +30,7 @@ build() {
 package() {
         cd "$_builddir/build"
         make DESTDIR="$pkgdir" install
-        mkdir -p "${pkgdir}/usr/bin"
-        cp -a examples/xtrx_fft/mainwindow "${pkgdir}/usr/bin/xtrx_fft"
+        mv ${pkgdir}/usr/lib/xtrx "${pkgdir}/usr/bin"
 }
-sha512sums="44e0f6b93de3b8e17ce89f69b5d146256923753109c7bdaa909f07451eea467c905aaf44e3691d5b2abf58f64d54b795964c966bc39bf4f7ae7e4c0a0c9076d3  libxtrx-0.1.2.tar.gz
-4d7254bc653e7b82cee1b7fcf35338c4d84b6c6ae760fe74f144dfc135b4b814ab235042bf99d04cd6c9ac1e92439711448b642b2c53ca956cd1a5422de27e23  qcustomplot.patch
-135841fb9f78d8e973f42b645a4003434addc3659ad7abbf870d72dd6215884d49a7d752da1947b10892fa6264cb5656a9ea694b8b28cc6e6ac23bbe258966f6  lms7002m.patch"
+sha512sums="dc7524ab953430af4d75abb632023ca0a28a867526fe5857c1758e47751b10700d5881d6a9280b0304fa347d1d143e8eeda20001edd8c844406200f3a1f1514a  libxtrx-0.1.3.tar.gz
+80f4e86dfdaa6d047ba6a3c95977584ebdfee51cd32d9d2dc8dc481714f222e85ab636c1960a3f028c5f78b714ba2a154d7441cec2568bd659fac02308da56a8  qcustomplot.patch"
