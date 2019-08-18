@@ -8,7 +8,7 @@ arch="all"
 url="https://github.com/xtrx-sdr/xc3sprog"
 license='GPLv2'
 subpackages="$pkgname-dbg"
-makedepends="cmake libftdi1 libftdi1-dev libusb-compat-dev libusb3380-dev"
+makedepends="cmake libftdi1 libftdi1-dev libusb-compat-dev libusb3380-dev linux-headers"
 
 source="${pkgname}-${pkgver}.tar.gz::https://github.com/aports-ugly/$pkgname/archive/v$pkgver.tar.gz
 ftdi1.patch
