@@ -7,24 +7,26 @@ pkgdesc="Gnuradio blocks and tools for receiving GSM transmissions"
 arch='all'
 url="https://github.com/ptrkrysik/gr-gsm"
 license='GPL'
-subpackages="$pkgname-dev"
+subpackages="$pkgname-dev $pkgname-doc"
 # libuhd
-makedepends="boost-dev gnuradio-dev python-dev gr-osmosdr-dev gr-osmosdr cmake swig cppunit-dev py2-numpy py-gtk-dev py2-lxml py2-cheetah rtlsdr-dev qt-dev py-qt"
+makedepends="boost-dev gnuradio-dev python3-dev gr-osmosdr-dev volk volk-dev gr-osmosdr cmake swig gnuradio log4cpp-dev cppunit-dev py3-numpy py-gtk-dev py3-lxml py3-cheetah rtlsdr-dev qt5-qtbase-dev py3-qt5 gmp-dev libosmocore-dev py3-yaml py3-gobject3 py3-setuptools py3-click py-click-plugins py3-docutils talloc-dev fftw-dev py-docutils doxygen py3-six"
 
-source="${pkgname}-${pkgver}.tar.gz::https://github.com/ptrkrysik/$pkgname/archive/v$pkgver.tar.gz"
+source="${pkgname}-${pkgver}.tar.gz::https://github.com/ptrkrysik/$pkgname/archive/v$pkgver.tar.gz
+gr3.8.patch
+"
 
 _builddir="$srcdir/$pkgname-$pkgver"
 
 build() {
   cd "$_builddir"
-  export PYTHON=python2
+  export PYTHON=python3
   mkdir -p build
   cd build
   #  -DENABLE_GRGSM_LIVEMON=off \
   cmake \
-    -DPYTHON_EXECUTABLE=$(which python2) \
-    -DPYTHON_INCLUDE_DIR=$(echo /usr/include/python2*) \
-    -DPYTHON_LIBRARY=$(echo /usr/lib/libpython2.*.so) \
+    -DPYTHON_EXECUTABLE=$(which python3) \
+    -DPYTHON_INCLUDE_DIR=$(echo /usr/include/python3*) \
+    -DPYTHON_LIBRARY=$(echo /usr/lib/libpython3.*.so) \
     -DCMAKE_INSTALL_PREFIX=/usr -Wno-dev ../
   make VERBOSE=1
 }
@@ -33,4 +35,5 @@ package() {
 	cd "$_builddir/build"
 	make VERBOSE=1 DESTDIR="$pkgdir" install
 }
-sha512sums="20fb7a0fbcd51c5ed05bcb1cbb3e96f6a7797b330158ce2a2f8b243742fc505cb286dd63fe1573c41f6a0229d6e57f0338eb82a9fa1070efc58209a7e505608e  gr-gsm-0.42.2.tar.gz"
+sha512sums="20fb7a0fbcd51c5ed05bcb1cbb3e96f6a7797b330158ce2a2f8b243742fc505cb286dd63fe1573c41f6a0229d6e57f0338eb82a9fa1070efc58209a7e505608e  gr-gsm-0.42.2.tar.gz
+8366ac158cf2c0fdf0e5697b3cfeeca0047d70344777d63d44697d9c3e29a8e85177d2debfb16ff6a7d309041748372af875e438c081570c4369e39f860821cd  gr3.8.patch"
