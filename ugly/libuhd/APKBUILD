@@ -10,29 +10,27 @@ license='GPL'
 makedepends='python3 python3-dev py3-cheetah py3-mako py3-numpy py3-requests py3-markupsafe cmake boost-python3 py3-setuptools py3-numpy-dev boost-dev eudev-dev ncurses-dev orc-dev libusb-dev doxygen chrpath'
 subpackages="$pkgname-dev $pkgname-doc"
 
-source="$pkgname-$pkgver.tar.gz::https://github.com/EttusResearch/uhd/archive/v${pkgver}.tar.gz"
+source="$pkgname-$pkgver.tar.gz::https://github.com/EttusResearch/uhd/archive/v${pkgver}.tar.gz
+boost_python_ver_fix.patch"
 
-_builddir="$srcdir/uhd-$pkgver/host"
+builddir="$srcdir/uhd-$pkgver/host"
+
 prepare() {
-	local i
-	cd "$_builddir"
-	for i in $source; do
-		case $i in
-		*.patch) msg $i; patch -p1 -i "$srcdir"/$i || return 1;;
-		esac
-	done
-  find -name "*.py" -or -name '*.py.in' | xargs sed -i "s|#!/usr/bin/env python$|#!/usr/bin/env python3|"
+	default_prepare
+	find -name "*.py" -or -name '*.py.in' | xargs sed -i "s|#!/usr/bin/env python$|#!/usr/bin/env python3|"
 }
 
 build() {
-  cd "$_builddir"
+  cd "$builddir"
   mkdir -p build
   cd build
+  # -DBoost_PYHTON3 defines are workarounds for cmake not finding boost_python37
   cmake .. -DCMAKE_INSTALL_PREFIX=/usr/ \
            -DENABLE_PYTHON_API=ON \
            -DENABLE_PYTHON3=ON \
            -DPYTHON_EXECUTABLE=/usr/bin/python3 \
            -DBoost_PYTHON3_LIBRARY=$(echo /usr/lib/libboost_python37.so*) \
+			  -DBoost_PYTHON3_FOUND=1 \
            -DENABLE_UTILS=ON \
            -DENABLE_TESTS=OFF \
            -DENABLE_E100=ON \
@@ -42,7 +40,7 @@ build() {
 }
 
 package() {
-	cd "$_builddir/build"
+	cd "$builddir/build"
 	make DESTDIR="$pkgdir" install
    install -Dm644 "../utils/uhd-usrp.rules" "$pkgdir/usr/lib/udev/rules.d/10-uhd-usrp.rules"
 
@@ -52,4 +50,5 @@ package() {
 	chrpath -d "$pkgdir"/usr/lib/python3.7/site-packages/uhd/libpyuhd.so
 
 }
-sha512sums="afb58b2f75b9855a4252c21c40e0f8816626910a134719321fa98ec78ce13aa32577a959da11d13d1e40dc61f143442ab7c2993edec111267de4664730c6eb82  libuhd-3.14.1.0.tar.gz"
+sha512sums="afb58b2f75b9855a4252c21c40e0f8816626910a134719321fa98ec78ce13aa32577a959da11d13d1e40dc61f143442ab7c2993edec111267de4664730c6eb82  libuhd-3.14.1.0.tar.gz
+558dd49fbdef27b28a933d4c26137a40c1f1ad1bcb9458dca2957ae7dbd770fa6b80c1ecae441dcad4a4cb038e3f830b07b8292ee758ddd6b1a9bcc7661474fd  boost_python_ver_fix.patch"
