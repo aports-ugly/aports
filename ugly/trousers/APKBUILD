@@ -3,12 +3,11 @@
 pkgname=trousers
 pkgver=0.3.14
 pkgrel=0
-makedepends="libressl-dev"
+makedepends="openssl-dev"
 pkgdesc="Trusted Computing Software Stack for the TPM"
 license="BSD"
 url="http://trousers.sourceforge.net/"
 source="https://downloads.sourceforge.net/project/${pkgname}/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz
-       fix-libressl.patch
        musl-getpwent_r.patch"
 subpackages="$pkgname-doc $pkgname-dev"
 
@@ -46,5 +45,4 @@ package() {
 }
 
 sha512sums="bf87f00329cf1d76a12cf6b6181fa22f90e76af3c5786e6e2db98438d2d3f0c0e05364374664173f45e3a2f6c0e2364948d0b958a7845cb23fcb340150cd9b21  trousers-0.3.14.tar.gz
-f330c142c34fe6320d2ac486422c0caba9592a20304c7701cf8c774a162da07ff91b9f9faf23ea22c789c136e12af8a94de7d4eaa01d2a0aae32c6d904643927  fix-libressl.patch
 f7e876fd3fc24bf8ed305f3361f45c272541c37c779bb4326b71ee61fb1d6d6bf49f8a9a541dcd21b363824f57ba7da57170fdc57567ba34494f3f1fdaed3ec7  musl-getpwent_r.patch"
