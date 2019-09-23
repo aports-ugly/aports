@@ -1,0 +1,28 @@
+# Contributor: stef <l0ls0fo2i@ctrlc.hu>
+pkgname=icestorm
+gitver=0ec00d892a91cc68e45479b46161f649caea2933
+pkgver=git$gitver
+pkgrel=0
+pkgdesc="Project IceStorm - Lattice iCE40 FPGAs Bitstream Documentaion (Reverse Engineered)"
+url="http://www.clifford.at/icestorm/"
+
+source="${pkgname}-${pkgver}.tar.gz::https://github.com/cliffordwolf/$pkgname/archive/$gitver.tar.gz"
+
+arch="all"
+license="ISL"
+makedepends="libftdi1-dev clang"
+#clang bison flex readline-dev gawk tcl-dev ffi-dev graphviz pkgconf python3 libftdi1-dev qt5-default python3-dev boost-dev
+
+builddir="$srcdir/$pkgname-${gitver}"
+
+build() {
+	cd "$builddir"
+   make PREFIX=/usr 
+}
+
+package() {
+	cd "$builddir"
+	 make install PREFIX=/usr DESTDIR="$pkgdir"
+}
+
+sha512sums="d3a10d0f64b837b3e837682a6a9f7550b64acd25ac19f60e88ab5df147365f1213b2d45072bb4338bbdf0d00a4b8fb9375c1e59a96d9780b15e4c366ef6475a5  icestorm-git0ec00d892a91cc68e45479b46161f649caea2933.tar.gz"
