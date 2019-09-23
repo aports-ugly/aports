@@ -9,7 +9,8 @@ license="GPL3"
 makedepends="libserialport-dev libzip-dev glib-dev glibmm-dev swig doxygen python3-dev py3-setuptools py3-numpy py3-numpy-dev py-gobject3-dev ruby ruby-dev libieee1284-dev libusb-dev libftdi1-dev"
 install=""
 subpackages="$pkgname-dev"
-source="https://sigrok.org/download/source/$pkgname/$pkgname-$pkgver.tar.gz"
+source="https://sigrok.org/download/source/$pkgname/$pkgname-$pkgver.tar.gz
+doxygen-1.8.16-bug-workaround.patch"
 builddir="$srcdir/$pkgname-${pkgver}"
 
 build() {
@@ -23,4 +24,5 @@ package() {
 	make DESTDIR="$pkgdir" install
 }
 
-sha512sums="48337fc4625dc0abc162ae54e04ce091047835aa1e49ba1ab84542805008d1ff5646b143fde57e317f3b34514c0e6d4dcb7b1c5944f3f16bdef1a7169edc3517  libsigrok-0.5.1.tar.gz"
+sha512sums="48337fc4625dc0abc162ae54e04ce091047835aa1e49ba1ab84542805008d1ff5646b143fde57e317f3b34514c0e6d4dcb7b1c5944f3f16bdef1a7169edc3517  libsigrok-0.5.1.tar.gz
+ab5dcec3e48c53467649ad69f0fd25b21735a7cd46a252e072e10c73dbe75412242071c409fe8c5f83d3ac37418c1423b021bc8adff18aea1ea518bc1bdabdde  doxygen-1.8.16-bug-workaround.patch"
