@@ -15,8 +15,16 @@ Packages are automatically build on Travis CI for x86_64 architecture and synchr
 
 == Repositories
 
+=== Ugly
+
 http://links.ctrlc.hu/packages/ugly
 
+This repo contains a few major ecosystems, such as:
+
+ - gnuradio, and other SDR and HAM related tools
+ - sigrok
+ - kicad
+ - yosys FPGA toolchain
 
 == How to use
 
