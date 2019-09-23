@@ -9,7 +9,7 @@ arch="all"
 license="BSD"
 depends=""
 depends_dev=""
-makedepends="cmake ffmpeg-dev libpng-dev libjpeg-turbo-dev tiff-dev jasper-dev openblas-dev
+makedepends="cmake ffmpeg-dev libpng-dev libjpeg-turbo-dev tiff-dev openblas-dev
 	libgomp openexr-dev gtk+3.0-dev gtk+-dev gst-plugins-base-dev eigen-dev protobuf-c-dev opencl-headers
 	libgphoto2-dev v4l-utils-dev libwebp-dev libdc1394-dev doxygen python-dev python3-dev"
 install=""
@@ -48,6 +48,7 @@ build() {
 		-DCMAKE_C_FLAGS="$CFLAGS" \
 		-DENABLE_PRECOMPILED_HEADERS=OFF \
 		-DWITH_OPENMP=ON \
+      -DWITH_JASPER=OFF \
       -DBUILD_PROTOBUF=OFF \
 		-WITH_OPENCL=ON \
 		-DWITH_IPP=OFF \
