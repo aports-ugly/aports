@@ -1,0 +1,32 @@
+# Contributor: stef <l0ls0fo2i@ctrlc.hu>
+pkgname=nextpnr
+gitver=c2299c8972e0cd22641d7d3b8e0bf7c19a42c3cb
+pkgver=git$gitver
+pkgrel=0
+pkgdesc="nextpnr portable FPGA place and route tool"
+url="https://github.com/YosysHQ/nextpnr"
+
+source="${pkgname}-${pkgver}.tar.gz::https://github.com/YosysHQ/$pkgname/archive/$gitver.tar.gz
+boostpy.patch"
+
+arch="all"
+license="ISL"
+makedepends="cmake qt5-qtbase-dev python3-dev boost-dev eigen eigen-dev yosys icestorm boost-python3 zlib-dev expat-dev"
+
+builddir="$srcdir/$pkgname-${gitver}"
+
+build() {
+	cd "$builddir"
+   mkdir build
+   cd build
+   cmake -DCMAKE_INSTALL_PREFIX=/usr -DARCH=ice40 -DICEBOX_ROOT=/usr/share/icebox ..
+   make VERBOSE=1
+}
+
+package() {
+	cd "$builddir/build"
+	make DESTDIR="$pkgdir" install
+}
+
+sha512sums="3d13186ccaa2e3637f604c6b04fd07c26dcbd5359ce2cabc73af31be1ab9d9b47ff73e8446054f79d1bb1235d0c0cd0a15ee6a21f4292ef30f53a3fe8422437d  nextpnr-gitc2299c8972e0cd22641d7d3b8e0bf7c19a42c3cb.tar.gz
+4bd4e78dabb876fec7da9b95af40ee247e0fdb52ecdc93812edbb2f4c12b4c5c025985b99e754a3f4ae4c6871322aefa81c667d91bfef2bda61ee18e572008a4  boostpy.patch"

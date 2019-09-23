@@ -1,0 +1,80 @@
+diff -ur src/nextpnr-c2299c8972e0cd22641d7d3b8e0bf7c19a42c3cb/CMakeLists.txt nextpnr/CMakeLists.txt
+--- src/nextpnr-c2299c8972e0cd22641d7d3b8e0bf7c19a42c3cb/CMakeLists.txt	2019-09-15 14:59:16.000000000 +0000
++++ nextpnr/CMakeLists.txt	2019-09-19 22:55:45.765127541 +0000
+@@ -95,7 +95,12 @@
+ find_package(Sanitizers)
+ 
+ # List of Boost libraries to include
+-set(boost_libs filesystem thread program_options iostreams)
++if (BUILD_PYTHON)
++   set(boost_libs filesystem thread program_options iostreams python37)
++else()
++   set(boost_libs filesystem thread program_options iostreams)
++endif()
++
+ 
+ if (BUILD_GUI AND NOT BUILD_PYTHON)
+     message(FATAL_ERROR "GUI requires Python to build")
+@@ -142,53 +147,6 @@
+     ${CMAKE_CURRENT_SOURCE_DIR}/common/version.h.in ${CMAKE_CURRENT_BINARY_DIR}/generated/version.h
+ )
+ 
+-if (BUILD_PYTHON)
+-    # Find Boost::Python of a suitable version in a cross-platform way
+-    # Some distributions (Arch) call it libboost_python3, others such as Ubuntu
+-    # call it libboost_python35. In the latter case we must consider all minor versions
+-    # Original source: https://github.com/BVLC/caffe/blob/master/cmake/Dependencies.cmake#L148
+-    set(version ${PYTHONLIBS_VERSION_STRING})
+-
+-    STRING(REGEX REPLACE "[^0-9]" "" boost_py_version "${version}")
+-    find_package(Boost QUIET COMPONENTS "python-py${boost_py_version}" ${boost_libs})
+-    set(Boost_PYTHON_FOUND ${Boost_PYTHON-PY${boost_py_version}_FOUND})
+-
+-    while (NOT "${version}" STREQUAL "" AND NOT Boost_PYTHON_FOUND)
+-        STRING(REGEX REPLACE "([0-9.]+).[0-9]+" "\\1" version "${version}")
+-
+-        STRING(REGEX REPLACE "[^0-9]" "" boost_py_version "${version}")
+-        find_package(Boost QUIET COMPONENTS "python-py${boost_py_version}" ${boost_libs})
+-        set(Boost_PYTHON_FOUND ${Boost_PYTHON-PY${boost_py_version}_FOUND})
+-
+-        STRING(REGEX MATCHALL "([0-9.]+).[0-9]+" has_more_version "${version}")
+-        if ("${has_more_version}" STREQUAL "")
+-            break()
+-        endif ()
+-    endwhile ()
+-
+-    if (NOT Boost_PYTHON_FOUND)
+-        foreach (PyVer 3 36 37 38)
+-            find_package(Boost QUIET COMPONENTS python${PyVer} ${boost_libs})
+-            if ("${Boost_LIBRARIES}" MATCHES ".*(python|PYTHON).*" )
+-                set(Boost_PYTHON_FOUND TRUE)
+-                break()
+-            endif ()
+-        endforeach ()
+-    endif ()
+-
+-    if (NOT Boost_PYTHON_FOUND)
+-        STRING(REGEX REPLACE "([0-9]+\\.[0-9]+).*" "\\1" gentoo_version "${PYTHONLIBS_VERSION_STRING}")
+-        find_package(Boost QUIET COMPONENTS python-${gentoo_version} ${boost_libs})
+-        if ("${Boost_LIBRARIES}" MATCHES ".*(python|PYTHON).*" )
+-            set(Boost_PYTHON_FOUND TRUE)
+-        endif ()
+-    endif ()
+-
+-    if (NOT Boost_PYTHON_FOUND )
+-        message( FATAL_ERROR "No version of Boost::Python 3.x could be found.")
+-    endif ()
+-endif()
+-
+ include_directories(common/ json/ ${Boost_INCLUDE_DIRS} ${PYTHON_INCLUDE_DIRS})
+ 
+ if(BUILD_HEAP)
+@@ -209,6 +167,7 @@
+ 
+ include(bba/bba.cmake)
+ 
++message(STATUS "boost libs ${Boost_LIBRARIES}")
+ foreach (family ${ARCH})
+     message(STATUS "Configuring architecture : ${family}")
+     string(TOUPPER ${family} ufamily)
+Only in nextpnr: nextpnr-c2299c8972e0cd22641d7d3b8e0bf7c19a42c3cb
