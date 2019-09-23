@@ -1,0 +1,17 @@
+sudo: required
+branches:
+  except:
+  - template
+env:
+  global:
+  - TRAVIS_USER_UID=$(id -u)
+  - secure: VRoU4a+2GKHmCD09mKHJdIhmKMiL/yk4KrPpTDZhVlbfi0Yd3BozVdbHigz1JNd/vzEg1/iLalhvybc6E57dn/4DMz4YrA4j/od3emBoeQUHV9X+gsFMZojEkpVkmofl4+mVwBNtS1nAmXyAc4hKM70XSl8NjuT6I9Rl5aAMXPTzi9gXbaDOt5XJa5g3Oc0w/Ys7Gj/VviGBnW5w9giEBBzg9H60riuFH6GEn8gC+4dRZ2fnIdcOeUnUqzGrWj/zYYBUse3tGUsXZJU+YConG3CJmbqtu3NbQcxdRQsxkhmiHTqAaz8QEGYrl8hoYl9rCX6f4va5HENB/0dahmtbTSCMUP8qauX/EbEowQDWokUH3Qet/rF+nrpgYLbpmaGzVkh6phHFUiExHWT8DxH21xEiJ7evKvHy0zuO39/lJ/iRIqjWoOiEjVHXgDNjLtH3RHw7a35WG7S4bWT1UAVEnUTsyWUhLNxjrSwlGnWpC9+0D+KL/9L0JQ+x9g+wcQ50cKDZpMbiT6Xu1Dr30euaPc8GgRWrDCJAO4/5uB6DxmVvJD4jHXDTuafdznUGePknayvHB5813N9NanxzUzt29FdTHSLbL+BPmySoDKTXdvNyDZ2i12DetQ279vy/rJlTY70D3uywqTNAyA189cATiw4dWuOCKWP4RLIFTq6wzPc=
+install:
+- sudo apt-get install sshfs
+- sudo .travis/install-alpine
+- sudo .travis/setup-alpine
+script:
+- sudo .travis/buildrepo
+before_install:
+- openssl aes-256-cbc -K $encrypted_78fa6e9651bd_key -iv $encrypted_78fa6e9651bd_iv
+  -in .travis/deploy-key.enc -out .travis/deploy-key -d

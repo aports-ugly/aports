@@ -12,3 +12,7 @@ src
 pkg
 pkg-*
 build.log
+/.travis/deploy-key
+/.keys/*
+!/.keys/*.pub
+!/.keys/.keep
