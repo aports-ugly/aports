@@ -1,0 +1,48 @@
+diff -ur src/abc-3709744c60696c5e3f4cc123939921ce8107fe04/src/opt/dau/dauCanon.c abc/src/opt/dau/dauCanon.c
+--- src/abc-3709744c60696c5e3f4cc123939921ce8107fe04/src/opt/dau/dauCanon.c	2019-04-18 01:48:08.000000000 +0000
++++ abc/src/opt/dau/dauCanon.c	2019-09-19 17:11:05.843018873 +0000
+@@ -317,7 +317,7 @@
+ {   
+     int nWords = Abc_TtWordNum( nVars );
+     int k, Counter = 0;
+-    Abc_TtVerifySmallTruth(pTruth, nVars);
++    //Abc_TtVerifySmallTruth(pTruth, nVars);
+     for ( k = 0; k < nWords; k++ )
+         if ( pTruth[k] )
+             Counter += Abc_TtCountOnes( pTruth[k] );
+@@ -329,7 +329,7 @@
+     int i, k, Counter, nWords;
+     if ( nVars <= 6 )
+     {
+-        Abc_TtVerifySmallTruth(pTruth, nVars);
++        //Abc_TtVerifySmallTruth(pTruth, nVars);
+         for ( i = 0; i < nVars; i++ )
+             pStore[i] = Abc_TtCountOnes( pTruth[0] & s_Truths6Neg[i] );
+         return;
+@@ -1549,7 +1549,7 @@
+     int nWords = Abc_TtWordNum(nVars);
+     char pCanonPermCopy[16];
+     static word pCopy2[1024];
+-    Abc_TtVerifySmallTruth(pTruth, nVars);
++    //Abc_TtVerifySmallTruth(pTruth, nVars);
+     Abc_TtCopy(pCopy2, pTruth, nWords, 0);
+     memcpy(pCanonPermCopy, pCanonPerm, sizeof(char) * nVars);
+     Abc_TtImplementNpnConfig(pCopy2, nVars, pCanonPermCopy, uCanonPhase);
+@@ -2582,7 +2582,7 @@
+         return 0;
+     }
+ 
+-    Abc_TtVerifySmallTruth(pTruth, nVars);
++    //Abc_TtVerifySmallTruth(pTruth, nVars);
+ #ifdef CANON_VERIFY
+     Abc_TtCopy(gpVerCopy, pTruth, nWords, 0);
+ #endif
+@@ -2643,7 +2643,7 @@
+         return 0;
+     }
+ 
+-    Abc_TtVerifySmallTruth(pTruth, nVars);
++    //Abc_TtVerifySmallTruth(pTruth, nVars);
+ #ifdef CANON_VERIFY
+     Abc_TtCopy(gpVerCopy, pTruth, nWords, 0);
+ #endif

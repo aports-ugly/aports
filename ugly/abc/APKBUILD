@@ -1,0 +1,32 @@
+# Contributor: stef <l0ls0fo2i@ctrlc.hu>
+pkgname=abc
+gitver=3709744
+pkgver=git$gitver
+pkgrel=0
+pkgdesc="ABC: System for Sequential Logic Synthesis and Formal Verification"
+url="https://github.com/berkeley-abc/abc"
+
+source="${pkgname}-${pkgver}.tar.gz::https://github.com/berkeley-abc/$pkgname/archive/$gitver.tar.gz
+kill-Abc_TtVerifySmallTruth.patch"
+
+arch="all"
+license="BSD"
+subpackages="$pkgname-static" # $pkgname-dev"
+makedepends=""
+#clang bison flex readline-dev gawk tcl-dev ffi-dev graphviz pkgconf python3 libftdi1-dev qt5-default python3-dev boost-dev
+
+builddir="$srcdir/$pkgname-3709744c60696c5e3f4cc123939921ce8107fe04"
+
+build() {
+	cd "$builddir"
+   ARCHFLAGS="-DABC_USE_STDINT_H" make abc libabc.a ABC_USE_LIBSTDCXX=1 ABC_USE_NO_READLINE=1 ABC_USE_NO_PTHREADS=1
+}
+
+package() {
+	cd "$builddir"
+	install -D abc "$pkgdir/usr/bin/abc"
+	install -D libabc.a "$pkgdir/usr/lib/libabc.a"
+}
+
+sha512sums="ccca5180fd236082b4a53866d2ac3194e4f3a4773cec276db81b68073c5cc15845030c38c28950b740c7fcdeb26f19fad1b359bef7332af97d652671badf3b7c  abc-git3709744.tar.gz
+86d51ea2df5b664e41c01266daf703b881ea1755c086db98dadf849f021f27b63654d26ef0365fc8ee6ae79142637a4b590e1c7bc1e6c295643d21926079313a  kill-Abc_TtVerifySmallTruth.patch"
