@@ -1,0 +1,40 @@
+# Contributor: stef <l0ls0fo2i@ctrlc.hu>
+pkgname=yosys
+pkgver=0.9
+pkgrel=0
+pkgdesc="Yosys Open SYnthesis Suite"
+url="http://www.clifford.at/yosys/"
+abcgitver=3709744
+
+source="${pkgname}-${pkgver}.tar.gz::https://github.com/YosysHQ/$pkgname/archive/$pkgname-$pkgver.tar.gz
+abcrev.patch
+yosys-0.9...e25a22015f1b422a7a5cb176fd1c509af056e796.patch
+"
+arch="all"
+license="ISL"
+makedepends="bison flex readline-dev gawk tcl-dev libffi-dev git graphviz pkgconf python3 boost-dev zlib-dev abc abc-static bash"
+
+builddir="$srcdir/$pkgname-$pkgname-${pkgver}"
+
+prepare() {
+	cd "$builddir"
+   default_prepare
+   mkdir abc
+   ln -s /usr/bin/abc abc/abc-default
+   ln -s /usr/lib/libabc.a abc/libabc-default.a
+}
+
+build() {
+	cd "$builddir"
+   make config-gcc
+	ABCREV=default ABCEXTERNAL=/usr/bin/abc make
+}
+
+package() {
+	cd "$builddir"
+	PREFIX="$pkgdir" ABCREV=default ABCEXTERNAL=/usr/bin/abc make install
+}
+
+sha512sums="6ae0f822ca0e3ec749773dae89e948488b698aaa149e73f04604dd899ac403a3073645f0e27382801f5f1a9483d87ef4066fde5dc797181eff06684de7a5b138  yosys-0.9.tar.gz
+146b0a0dfd55f8ac6bfb9545924ff7e3a416d1ebfec0b7906c7874a57ba9c4a5b0f126573645fd169015edf72290e9f062ff016ad54e25ad9e8b856ea09d0a78  abcrev.patch
+8be30cbbcaa0244d6c6f467fc97a4e966ac6788680f008b8a96292c6badfd7401f92a2bb4955201cf9d8b922218e4c254ebb2fcb29741c93943a03b73ad89816  yosys-0.9...e25a22015f1b422a7a5cb176fd1c509af056e796.patch"

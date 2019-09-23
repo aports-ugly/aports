@@ -1,0 +1,12 @@
+diff -ur src/yosys-yosys-0.9/Makefile yosys/Makefile
+--- src/yosys-yosys-0.9/Makefile	2019-08-26 08:37:53.000000000 +0000
++++ yosys/Makefile	2019-09-19 18:49:34.722966929 +0000
+@@ -124,7 +124,7 @@
+ # is just a symlink to your actual ABC working directory, as 'make mrproper'
+ # will remove the 'abc' directory and you do not want to accidentally
+ # delete your work on ABC..
+-ABCREV = 3709744
++ABCREV ?= 3709744
+ ABCPULL = 1
+ ABCURL ?= https://github.com/berkeley-abc/abc
+ ABCMKARGS = CC="$(CXX)" CXX="$(CXX)" ABC_USE_LIBSTDCXX=1
