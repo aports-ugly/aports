@@ -8,7 +8,7 @@ license="GPL2"
 arch="all"
 url="http://kicad-pcb.org"
 source="https://launchpad.net/${pkgname}/5.0/${pkgver}/+download/${pkgname}-${pkgver}.tar.xz"
-subpackages="$pkgname-doc $pkgname-dbg"
+subpackages="$pkgname-doc"
 
 builddir="$srcdir/$pkgname-$pkgver"
 build() {
@@ -22,7 +22,6 @@ build() {
         -DPYTHON_INCLUDE_DIR=$(echo /usr/include/python3*) \
         -DPYTHON_LIBRARY=$(echo /usr/lib/libpython3.*.so) \
         -DKICAD_SCRIPTING_PYTHON3=ON \
-        -DKICAD_BUILD_VERSION=$pkgver -DKICAD_SKIP_BOOST=ON \
         -DKICAD_SCRIPTING=ON -DKICAD_SCRIPTING_MODULES=ON  -DKICAD_SCRIPTING_WXPYTHON=OFF \
         "$builddir"
   make #VERBOSE=1
