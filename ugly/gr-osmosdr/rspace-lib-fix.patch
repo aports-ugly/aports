@@ -1,0 +1,10 @@
+diff -urw src/gr-osmosdr-0.1.4.9.1/lib/rfspace/CMakeLists.txt gr-osmosdr-0.1.4.9.1/lib/rfspace/CMakeLists.txt
+--- src/gr-osmosdr-0.1.4.9.1/lib/rfspace/CMakeLists.txt	2019-08-10 22:47:43.000000000 +0000
++++ gr-osmosdr-0.1.4.9.1/lib/rfspace/CMakeLists.txt	2019-09-22 11:07:57.850000000 +0000
+@@ -33,5 +33,4 @@
+ # Append gnuradio-osmosdr library sources
+ ########################################################################
+ list(APPEND gr_osmosdr_srcs ${rfspace_srcs})
+-#list(APPEND gr_osmosdr_libs ...)
+-
++list(APPEND gr_osmosdr_libs -lboost_chrono)
