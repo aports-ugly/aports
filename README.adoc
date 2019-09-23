@@ -1,9 +1,9 @@
 = My aports
 :source-language: sh
-:gh-name: jirutka/aports
-:gh-branch: edge
-:key-file: change-me@example.org-56d0d9fd.rsa.pub
-:repos-uri: http://alpine.example.org/packages
+:gh-name: ugly-aports/aports
+:gh-branch: master
+:key-file: 7o5rfu92t@ctrlc.hu-5d89072f.rsa.pub
+:repos-uri: http://links.ctrlc.hu/packages
 
 ifdef::env-github[]
 image:https://travis-ci.org/{gh-name}.svg?branch={gh-branch}["Build Status", link="https://travis-ci.org/{gh-name}"]
@@ -15,7 +15,7 @@ Packages are automatically build on Travis CI for x86_64 architecture and synchr
 
 == Repositories
 
-TODO: Add list of your repositories.
+http://links.ctrlc.hu/packages/ugly
 
 
 == How to use
