@@ -3,7 +3,8 @@
 pkgname=tpm-tools
 pkgver=1.3.9.1
 pkgrel=0
-makedepends="libressl-dev trousers-dev"
+arch='all'
+makedepends="openssl-dev trousers-dev"
 pkgdesc="Manage and diagnose tools for a Trusted Platform Module (TPM)"
 license="CPL"
 url="http://trousers.sourceforge.net/"
