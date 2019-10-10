@@ -2,7 +2,10 @@
 pkgname=kicad
 pkgver=5.1.4
 pkgrel=0
-makedepends="python3-dev glew-dev cairo-dev openssl-dev boost-dev swig doxygen curl-dev cmake wxgtk-dev glew-dev glm-dev ngspice-dev oce-dev libtbb libtbb-dev" 
+makedepends="python3-dev glew-dev cairo-dev openssl-dev boost-dev swig doxygen curl-dev cmake wxgtk-dev glew-dev glm-dev ngspice-dev oce-dev"
+case "$CARCH" in
+   x86*) makedepends="$makedepends libtbb libtbb-dev";;
+esac
 pkgdesc="Electronic schematic and PCB design software"
 license="GPL2"
 arch="all"
