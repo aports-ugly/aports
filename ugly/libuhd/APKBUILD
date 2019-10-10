@@ -1,7 +1,7 @@
 # Contributor: stef <l0ls0fo2i@ctrlc.hu>
 
 pkgname=libuhd
-pkgver=3.14.1.0
+pkgver=3.14.1.1
 pkgrel=0
 pkgdesc="Universal Software Radio Peripheral (USRP) userspace driver"
 arch='all'
@@ -50,5 +50,5 @@ package() {
 	chrpath -d "$pkgdir"/usr/lib/python3.7/site-packages/uhd/libpyuhd.so
 
 }
-sha512sums="afb58b2f75b9855a4252c21c40e0f8816626910a134719321fa98ec78ce13aa32577a959da11d13d1e40dc61f143442ab7c2993edec111267de4664730c6eb82  libuhd-3.14.1.0.tar.gz
+sha512sums="461f9314dd0af5feed91b18196cccb7828cee91a712dec0bb8b59878d54500906beea9f6dd938a90eae041dca6a1f6b564b6924d8e53e4b2fb507f2ed7be0ff4  libuhd-3.14.1.1.tar.gz
 558dd49fbdef27b28a933d4c26137a40c1f1ad1bcb9458dca2957ae7dbd770fa6b80c1ecae441dcad4a4cb038e3f830b07b8292ee758ddd6b1a9bcc7661474fd  boost_python_ver_fix.patch"
