@@ -8,7 +8,10 @@ url="http://github.com/tpaviot/oce"
 arch="all"
 license="GPL2.1"
 depends=""
-makedepends="cmake libtbb libtbb-dev gl2ps-dev freeimage-dev tk-dev glu-dev tk"
+makedepends="cmake gl2ps-dev freeimage-dev tk-dev glu-dev tk" # libtbb libtbb-dev # only exists for intel processors
+case "$CARCH" in
+   x86*) makedepends="$makedepends libtbb libtbb-dev"; OML='-DOCE_MULTITHREAD_LIBRARY:STRING=TBB' ;;
+esac
 install=""
 subpackages="$pkgname-dev"
 source="http://github.com/tpaviot/${pkgname}/archive/OCE-$pkgver.tar.gz
@@ -20,7 +23,7 @@ build() {
   cd "$builddir"
   mkdir build
   cd build
-  cmake -DCMAKE_INSTALL_PREFIX=/usr -DOCE_INSTALL_PREFIX=/usr -DOCE_MULTITHREAD_LIBRARY:STRING=TBB -DOCE_WITH_GL2PS=ON -DOCE_WITH_FREEIMAGE=ON -DOCE_DRAW=ON ..
+  cmake -DCMAKE_INSTALL_PREFIX=/usr -DOCE_INSTALL_PREFIX=/usr $OML -DOCE_WITH_GL2PS=ON -DOCE_WITH_FREEIMAGE=ON -DOCE_DRAW=ON ..
   make PREFIX="/usr"
 }
 
