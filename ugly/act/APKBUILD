@@ -1,0 +1,30 @@
+# Contributor: stef <l0ls0fo2i@ctrlc.hu>
+pkgname=AutomaticComponentToolkit
+pkgver=1.6.0
+pkgrel=1
+pkgdesc="A toolkit to automatically generate software components: abstract API, implementation stubs and language bindings"
+url="https://github.com/Autodesk/AutomaticComponentToolkit"
+arch="all"
+license="BSD-2-Clause"
+makedepends="go"
+source="$pkgname-$pkgver.tar.gz::https://github.com/Autodesk/$pkgname/archive/v$pkgver.tar.gz"
+builddir="$srcdir"/$pkgname-$pkgver
+
+builddir="$srcdir/src/github.com/golang/$pkgname"
+
+prepare() {
+   mkdir -p ${builddir%/*}
+   mv "$srcdir"/$pkgname-$pkgver "$builddir"/
+   default_prepare
+}
+
+build() {
+   cd "$builddir/Source/"
+	GOOS="linux" go build -o "$builddir/act.linux" actutils.go automaticcomponenttoolkit.go buildbindingccpp.go buildbindingcsharp.go buildbindinggo.go buildbindingnode.go buildbindingpascal.go buildbindingpython.go buildimplementationcpp.go buildimplementationpascal.go componentdefinition.go componentdiff.go languagewriter.go languagec.go languagecpp.go languagepascal.go
+}
+
+package() {
+   cd "$builddir"
+   install -Dm755 act.linux "$pkgdir"/usr/bin/act.linux
+}
+sha512sums="1a99b628eea87151e6efdafecc80aa590e679925d8e3c03251888b72bce3026de8149ad6111605bcae52ea5006a4ecfe97b4eb4e860d545c2b536475a67282e6  AutomaticComponentToolkit-1.6.0.tar.gz"
