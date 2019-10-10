@@ -1,7 +1,7 @@
 # Contributor:
 # Maintainer:
 pkgname=ngspice
-pkgver=30
+pkgver=31
 pkgrel=0
 pkgdesc="Mixed level/signal circuit simulator"
 url="http://ngspice.sourceforge.net/"
@@ -26,5 +26,5 @@ package() {
   make DESTDIR="$pkgdir" install
 }
 
-sha512sums="baa67527a05586b6da19e96203889fe013eb19a9e60b159ab9e3828dd5bb865f44bd683e622b256c3c434d77fe7adb5fe1badab75bdeaa9f24faafe7aaaae2e2  ngspice-30.tar.gz
+sha512sums="95d61fe4acdba8b4d8c22eeb2cff5e49976d324e93fdcf6b88b73d59a679bc9a6e7d2b39c3523dface52a2653533830c627259be8171794f1f363a573add1cef  ngspice-31.tar.gz
 c0840e5fb3366b76974af4a2425079d5d4d92149cf5c0ccd8c2ebbc7649c009bba8c72c46fdb319680d1976e5aa28d08838e8d6856994842fa947fdce3db075d  sys_errlist.patch"
