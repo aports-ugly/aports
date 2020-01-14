@@ -1,7 +1,7 @@
 # Contributor: stef <l0ls0fo2i@ctrlc.hu>
 #
 pkgname="serialDV"
-pkgver=1.1.2
+pkgver=1.1.4
 pkgrel=0
 pkgdesc="C++ Minimal interface to encode and decode audio with AMBE3000 based devices in packet mode over a serial link."
 arch="all"
@@ -27,4 +27,4 @@ package() {
         make DESTDIR="$pkgdir" install
         mv $pkgdir/usr/lib64/ $pkgdir/usr/lib/
 }
-sha512sums="fe6a5e0f78b13649043fb20f45c893ebe1aeb29b3f27637f03a3e799e10ee0894acd177734fa896dfaa4f55070f45b2f2a368a7fc7f655bfeb0b7645c267837a  serialDV-1.1.2.tar.gz"
+sha512sums="879b2ae84a18ca4f4e0eda72208b596a9988e32eba0b3be4b5818b15b600d71c3ee53e6215126ff013d993237d29077ffedfb6be0477c852d4215e5e036bebc9  serialDV-1.1.4.tar.gz"
