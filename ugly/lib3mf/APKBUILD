@@ -8,9 +8,10 @@ arch="all"
 url="http://3mf.io/"
 license='BSD2'
 subpackages="$pkgname-dev $pkgname-dbg"
-makedepends="cmake util-linux-dev"
+makedepends="cmake util-linux-dev AutomaticComponentToolkit"
 
-source="${pkgname}-${pkgver}.tar.gz::https://github.com/3MFConsortium/$pkgname/archive/v$pkgver.tar.gz"
+source="${pkgname}-${pkgver}.tar.gz::https://github.com/3MFConsortium/$pkgname/archive/v$pkgver.tar.gz
+	act.patch"
 
 build() {
   cd "$builddir"
@@ -25,4 +26,5 @@ package() {
         make DESTDIR="$pkgdir" install
         mv $pkgdir/usr/lib64/ $pkgdir/usr/lib/
 }
-sha512sums="79683cab67640c1f6b4653ae705e13a39a322dfab72d82fe1f162cb01745f629f3df58819eb15edf4fca44794170277b5c996b5c829364387fd7bb0fddc8ba57  lib3mf-2.0.0.tar.gz"
+sha512sums="79683cab67640c1f6b4653ae705e13a39a322dfab72d82fe1f162cb01745f629f3df58819eb15edf4fca44794170277b5c996b5c829364387fd7bb0fddc8ba57  lib3mf-2.0.0.tar.gz
+d0437f90e404ab2a36aff532e13113a15849f95f690b6769e7b8729e7b5b4356594fce4a105509f3b792828d572e1f59692771d7276b792dd355c721eaeb4470  act.patch"

@@ -1,0 +1,13 @@
+There's some ownership problem when moving files from local FS to
+a remote FS mounted via SSHFS (mv: can't preserve ownership).
+--- a/usr/bin/abuild-sign
++++ b/usr/bin/abuild-sign
+@@ -36,7 +36,7 @@
+ 		cat "$tmptargz" "$i" > "$tmpsigned"
+ 		rm -f "$tmptargz" "$sig"
+ 		chmod 644 "$tmpsigned"
+-		mv "$tmpsigned" "$i"
++		cp "$tmpsigned" "$i"
+ 		msg "Signed $i"
+ 		) || die "failed to sign $i"
+ 	done

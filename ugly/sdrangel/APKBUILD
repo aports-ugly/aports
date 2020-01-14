@@ -1,6 +1,5 @@
 # Contributor:
 # Maintainer:
-pkgname=sdrangel
 pkgver=5.0.0
 pkgrel=0
 pkgdesc="SDR Rx/Tx software for Airspy, Airspy HF+, BladeRF, HackRF, LimeSDR, PlutoSDR, RTL-SDR, SDRplay RSP1 and FunCube"

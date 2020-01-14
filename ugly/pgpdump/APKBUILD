@@ -1,0 +1,24 @@
+# Contributor: stef <l0ls0fo2i@ctrlc.hu>
+pkgname=pgpdump
+pkgver=0.33
+pkgrel=0
+pkgdesc="A PGP packet visualizer"
+url="http://www.mew.org/~kazu/proj/pgpdump/"
+arch="all"
+license="BSD"
+makedepends= #"autoconf automake libtool hamlib-dev fltk-dev libsamplerate-dev portaudio-dev libsndfile-dev libusb-dev jpeg-dev"
+install=""
+subpackages="$pkgname-doc"
+source="${pkgname}-${pkgver}.tar.gz::https://github.com/kazu-yamamoto/$pkgname/archive/v$pkgver.tar.gz"
+
+build() {
+	./configure  --prefix=/usr/
+	make 
+}
+
+package() {
+	cd "$builddir"
+	make DESTDIR="$pkgdir" install
+}
+
+sha512sums="154880459005411a4237cb38d4dfd7578aad6cbb69bf4f27d8cc4fc98c5a24495cb48f1040b9fc63fdbeac15b7b7221a32648be0a7324dd8bc5bc8c87e512e46  pgpdump-0.33.tar.gz"

@@ -14,7 +14,10 @@ builddir="$srcdir/$pkgname-${pkgver}"
 
 build() {
 	cd "$builddir"
-	./configure  --prefix=/usr/ --enable-optimizations=native --with-hamlib
+	case "$CARCH" in
+	   x86*) export OPT="--enable-optimizations=native"
+	esac
+	./configure  --prefix=/usr/ $OPT --with-hamlib
 	make 
 }
 

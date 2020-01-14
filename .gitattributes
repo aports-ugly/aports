@@ -1,0 +1,4 @@
+# Settings for github/linguist
+APKBUILD linguist-language=Shell
+*.initd linguist-language=Shell
+*.confd linguist-language=Shell

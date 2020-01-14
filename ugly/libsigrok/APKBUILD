@@ -6,7 +6,10 @@ pkgdesc="Hardware access and backend lib"
 url="https://www.sigrok.org/wiki/Libsigrok"
 arch="all"
 license="GPL3"
-makedepends="libserialport-dev libzip-dev glib-dev glibmm-dev swig doxygen python3-dev py3-setuptools py3-numpy py3-numpy-dev py-gobject3-dev ruby ruby-dev libieee1284-dev libusb-dev libftdi1-dev"
+makedepends="libserialport-dev libzip-dev glib-dev glibmm-dev swig doxygen python3-dev py3-setuptools py3-numpy py3-numpy-dev py-gobject3-dev ruby ruby-dev libusb-dev libftdi1-dev"
+case "$CARCH" in
+   x86*) makedepends="$makedepends libieee1284-dev";;
+esac
 install=""
 subpackages="$pkgname-dev"
 source="https://sigrok.org/download/source/$pkgname/$pkgname-$pkgver.tar.gz
