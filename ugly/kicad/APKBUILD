@@ -1,6 +1,6 @@
 # Contributor: stef <l0ls0fo2i@ctrlc.hu>
 pkgname=kicad
-pkgver=5.1.4
+pkgver=5.1.5
 pkgrel=0
 makedepends="python3-dev glew-dev cairo-dev openssl-dev boost-dev swig doxygen curl-dev cmake wxgtk-dev glew-dev glm-dev ngspice-dev oce-dev libtbb libtbb-dev" 
 pkgdesc="Electronic schematic and PCB design software"
@@ -36,4 +36,4 @@ package() {
 	rmdir $pkgdir/usr/lib64/
 }
 
-sha512sums="ce0efb740686eafdbbdf8cda68ad800a70c8991302f984be3db4bbdb3bfafe1634871ec6ea26bb6854a417db6336880e5a043dc022ef8126c0e98abc90671337  kicad-5.1.4.tar.xz"
+sha512sums="5ca19e219da07a906f13e236849eb4497c9f827726a5cd13aceffe1d8c7dee480823bf3e949527f59a805eb3b8176fad51576ae663dd07b10e2822f2b37866a5  kicad-5.1.5.tar.xz"
