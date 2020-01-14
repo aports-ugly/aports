@@ -1,6 +1,7 @@
---- src/sdrangel-4.11.6/plugins/channeltx/modatv/atvmod.cpp	2019-08-13 10:18:47.000000000 +0000
-+++ sdrangel-4.11.6/plugins/channeltx/modatv/atvmod.cpp	2019-08-16 17:04:55.330000000 +0000
-@@ -346,7 +346,7 @@
+diff -urw src/sdrangel-5.0.0/plugins/channeltx/modatv/atvmodsource.cpp sdrangel-5.0.0/plugins/channeltx/modatv/atvmodsource.cpp
+--- src/sdrangel-5.0.0/plugins/channeltx/modatv/atvmodsource.cpp	2020-01-02 22:40:00.000000000 +0000
++++ sdrangel-5.0.0/plugins/channeltx/modatv/atvmodsource.cpp	2020-01-11 21:33:43.210000000 +0000
+@@ -316,7 +316,7 @@
              		        mixImageAndText(colorFrame);
              		    }
  
@@ -9,7 +10,7 @@
              		    resizeVideo();
              		}
              	}
-@@ -466,7 +466,7 @@
+@@ -443,7 +443,7 @@
                          mixImageAndText(colorFrame);
                      }
  
@@ -18,25 +19,16 @@
                      resizeCamera();
                  }
  
-@@ -576,7 +576,7 @@
+@@ -648,7 +648,7 @@
  
-         if (m_videoOK && m_video.isOpened())
-         {
--            framesCount = m_video.get(CV_CAP_PROP_POS_FRAMES);;
-+            framesCount = m_video.get(cv::CAP_PROP_POS_FRAMES);;
-         } else {
-             framesCount = 0;
-         }
-@@ -807,7 +807,7 @@
- 
- void ATVMod::openImage(const QString& fileName)
+ void ATVModSource::openImage(const QString& fileName)
  {
 -    m_imageFromFile = cv::imread(qPrintable(fileName), CV_LOAD_IMAGE_GRAYSCALE);
 +    m_imageFromFile = cv::imread(qPrintable(fileName), cv::IMREAD_GRAYSCALE);
  	m_imageOK = m_imageFromFile.data != 0;
  
  	if (m_imageOK)
-@@ -837,11 +837,11 @@
+@@ -678,11 +678,11 @@
      if (m_videoOK)
      {
          m_settings.m_videoFileName = fileName;
@@ -52,8 +44,8 @@
 +        int ex = static_cast<int>(m_video.get(cv::CAP_PROP_FOURCC));
          char ext[] = {(char)(ex & 0XFF),(char)((ex & 0XFF00) >> 8),(char)((ex & 0XFF0000) >> 16),(char)((ex & 0XFF000000) >> 24),0};
  
-         qDebug("ATVMod::openVideo: %s FPS: %f size: %d x %d #frames: %d codec: %s",
-@@ -936,7 +936,7 @@
+         qDebug("ATVModSource::openVideo: %s FPS: %f size: %d x %d #frames: %d codec: %s",
+@@ -774,7 +774,7 @@
      if ((m_videoOK) && m_video.isOpened())
      {
          int seekPoint = ((m_videoLength * seekPercentage) / 100);
@@ -62,7 +54,7 @@
          m_videoFPSCount = m_videoFPSq;
          m_videoPrevFPSCount = 0;
          m_videoEOF = false;
-@@ -954,9 +954,9 @@
+@@ -792,9 +792,9 @@
  
  		if (m_cameras.back().m_camera.isOpened())
  		{
@@ -75,7 +67,7 @@
  
  			//m_cameras.back().m_videoFPS = m_cameras.back().m_videoFPS < 0 ? 16.3f : m_cameras.back().m_videoFPS;
  
-@@ -1027,7 +1027,7 @@
+@@ -865,7 +865,7 @@
      // position the text in the top left corner
      cv::Point textOrg(6, textSize.height+10);
      // then put the text itself
@@ -83,4 +75,13 @@
 +    cv::putText(image, m_settings.m_overlayText.toStdString(), textOrg, fontFace, fontScale, cv::Scalar::all(255*m_settings.m_uniformLevel), thickness, cv::LINE_AA);
  }
  
- void ATVMod::applyChannelSettings(int outputSampleRate, int inputFrequencyOffset, bool force)
+ void ATVModSource::applyChannelSettings(int channelSampleRate, int channelFrequencyOffset, bool force)
+@@ -1019,7 +1019,7 @@
+ 
+     if (m_videoOK && m_video.isOpened())
+     {
+-        framesCount = m_video.get(CV_CAP_PROP_POS_FRAMES);;
++        framesCount = m_video.get(cv::CAP_PROP_POS_FRAMES);;
+     } else {
+         framesCount = 0;
+     }
