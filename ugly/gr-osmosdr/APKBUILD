@@ -14,6 +14,7 @@ makedepends='gnuradio gnuradio-dev boost-dev rtlsdr-dev hackrf-dev cmake python3
 #source="http://git.osmocom.org/gr-osmosdr/snapshot/$pkgname-$pkgver.tar.gz"
 source="$pkgname-$pkgver.tar.gz::https://github.com/aports-ugly/$pkgname/archive/v$pkgver.tar.gz
         rspace-lib-fix.patch
+        gitversion.patch
         xtrx.patch"
 
 _builddir="$srcdir/$pkgname-$pkgver"
@@ -37,4 +38,5 @@ package() {
 }
 sha512sums="7f2207b72e14d3e5f029ed6a9c24eaa3d068935bd94fd6cef8497c8f8c574ac5fccd36fc6e255c3e47a4874ab44b20d55ee93158a8aed2e5efb3fc2c2b11ea30  gr-osmosdr-0.1.4.9.1.tar.gz
 2e6595e1e8b118d11221c95ebed05a9d5002dcbe95dc29d855309ad5a8a8dfea7442c13fd1c1e12078acebe9817fd0ffa5deb3d12557f5c215d3508c0046f5bc  rspace-lib-fix.patch
+a7d00dfbde0abbeb5fff19f0f8608fecec3f04ae53aedbf97ebcd17c42890125f3155caad7fc407794f85c91445bab945d51ef5b7d38d5b4caffec1c2dec9ec6  gitversion.patch
 38dcd1e2fa5a500405db814d498e7fb9a9762a027c08e40fdcb5e904f8ab80ea9730a343338898ce87ab765e86cad58b8c6114301405ebdf70682a076e657b0c  xtrx.patch"
