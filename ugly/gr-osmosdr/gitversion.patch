@@ -1,0 +1,12 @@
+diff -urw src/gr-osmosdr-0.1.4.9.1/cmake/Modules/GrVersion.cmake gr-osmosdr-0.1.4.9.1/cmake/Modules/GrVersion.cmake
+--- src/gr-osmosdr-0.1.4.9.1/cmake/Modules/GrVersion.cmake	2019-08-10 22:47:43.000000000 +0000
++++ gr-osmosdr-0.1.4.9.1/cmake/Modules/GrVersion.cmake	2020-01-09 22:46:21.430000000 +0000
+@@ -41,7 +41,7 @@
+         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+     )
+ else()
+-    set(GIT_DESCRIBE "v${MAJOR_VERSION}.${API_COMPAT}.x-xxx-xunknown")
++    set(GIT_DESCRIBE "v${MAJOR_VERSION}.${API_COMPAT}")
+ endif()
+ 
+ ########################################################################
