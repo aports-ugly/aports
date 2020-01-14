@@ -1,7 +1,7 @@
 # Contributor: stef <l0ls0fo2i@ctrlc.hu>
 
 pkgname=volk
-pkgver=2.0.0
+pkgver=2.1.0
 pkgrel=0
 pkgdesc="The Vector-Optimized Library of Kernels from Gnuradio"
 arch='x86 x86_64'
@@ -29,4 +29,4 @@ package() {
   make DESTDIR="$pkgdir" install
 }
 
-sha512sums="16b2b3511372eb7055aea60f744f1935e1dd889a6750bf2f4c04e0792123a96382c37390419482d661cc2c1795b3ac85c925d140881ed4f03d415175948b15a3  volk-2.0.0.tar.gz"
+sha512sums="db3a9b529e28629c50674cf2b40dcffe32eb29c30847c159e524c68772bfb13c8a3c349a7dc987ec56837ba46cd18159dee0b879c98ef59d01feaf2219402946  volk-2.1.0.tar.gz"
