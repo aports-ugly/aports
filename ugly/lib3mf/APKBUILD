@@ -1,7 +1,7 @@
 # Contributor: stef <l0ls0fo2i@ctrlc.hu>
 #
 pkgname="lib3mf"
-pkgver=1.8.1
+pkgver=2.0.0
 pkgrel=0
 pkgdesc="lib3mf is an implementation of the 3D Manufacturing Format file standard"
 arch="all"
@@ -25,4 +25,4 @@ package() {
         make DESTDIR="$pkgdir" install
         mv $pkgdir/usr/lib64/ $pkgdir/usr/lib/
 }
-sha512sums="f7fd75bcb6472de1595a018e5add516d0d78ab0aee92462b686b77f8d2bef05270e7b737cb7e1d31fc5850815056e753874c2f9ec456a455e8461c4010fe914a  lib3mf-1.8.1.tar.gz"
+sha512sums="79683cab67640c1f6b4653ae705e13a39a322dfab72d82fe1f162cb01745f629f3df58819eb15edf4fca44794170277b5c996b5c829364387fd7bb0fddc8ba57  lib3mf-2.0.0.tar.gz"
