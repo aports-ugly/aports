@@ -1,0 +1,12 @@
+diff -urw src/libsigrokdecode-0.5.3/configure libsigrokdecode-0.5.3/configure
+--- src/libsigrokdecode-0.5.3/configure	2020-01-09 13:15:53.220000000 +0000
++++ libsigrokdecode-0.5.3/configure	2020-01-09 13:15:31.400000000 +0000
+@@ -12869,7 +12869,7 @@
+ SRD_PACKAGE_VERSION=0.5.3
+ sr_git_deps=
+ # Check if we can get revision information from git.
+-sr_head=`git -C "$srcdir" rev-parse --verify --short HEAD 2>&5`
++#sr_head=`git -C "$srcdir" rev-parse --verify --short HEAD 2>&5`
+ 
+ if test "$?" = 0 && test "x$sr_head" != x; then :
+   	test ! -f "$srcdir/.git/HEAD" \
