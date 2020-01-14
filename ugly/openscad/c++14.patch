@@ -1,0 +1,12 @@
+diff -urw src/openscad-2019.05/c++11.pri openscad-2019.05/c++11.pri
+--- src/openscad-2019.05/c++11.pri	2020-01-11 23:27:05.850000000 +0000
++++ openscad-2019.05/c++11.pri	2020-01-11 23:26:26.890000000 +0000
+@@ -26,7 +26,7 @@
+ }
+ 
+ c++11 {
+-  QMAKE_CXXFLAGS += -std=c++11
++  QMAKE_CXXFLAGS += -std=c++14
+   message("Using C++11")
+ 
+   *clang*: {

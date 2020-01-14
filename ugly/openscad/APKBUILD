@@ -8,13 +8,16 @@ url="http://www.openscad.org"
 arch="all"
 license="GPLv2"
 depends=""
-makedepends="cmake glib-dev fontconfig-dev freetype-dev boost-dev gmp-dev mpfr-dev qscintilla-qt5-dev bison flex eigen-dev cgal-dev harfbuzz-dev qt5-qtbase-dev opencsg-dev glew-dev cgal opencsg libzip-dev libxml2-dev lib3mf-dev qt5-qtmultimedia-dev double-conversion-dev"
+makedepends="cmake glib-dev fontconfig-dev freetype-dev boost-dev gmp-dev mpfr-dev qscintilla-qt5-dev bison flex eigen-dev cgal-dev harfbuzz-dev qt5-qtbase-dev opencsg-dev glew-dev cgal opencsg libzip-dev libxml2-dev lib3mf-dev qt5-qtmultimedia-dev double-conversion-dev g++"
 subpackages="$pkgname-doc"
-source="http://files.openscad.org/${pkgname}-${pkgver}.src.tar.gz"
+source="http://files.openscad.org/${pkgname}-${pkgver}.src.tar.gz
+       cgal5.0.patch"
 
 build() {
-  qmake-qt5 PREFIX=/usr || exit 1
-  sed -i 's:-isystem /usr/include ::' Makefile || exit 1
+  qmake-qt5 PREFIX=/usr
+  sed -i 's:-isystem /usr/include ::' Makefile
+  sed -i 's:-std=c++11:-std=c++14:' Makefile
+  sed -i 's:-std=gnu++11:-std=gnu++14:' Makefile
   make
 }
 
@@ -22,4 +25,5 @@ package() {
    make INSTALL_ROOT=${pkgdir} install
 }
 
-sha512sums="073053f625ffa4fea6ed836396b7ff4b87b26cf7500b06c804983afc0f1dfd3d78bfb81b3fd217c3939b0ec915d85b0c7990773eaf968512a150deaa0399df13  openscad-2019.05.src.tar.gz"
+sha512sums="073053f625ffa4fea6ed836396b7ff4b87b26cf7500b06c804983afc0f1dfd3d78bfb81b3fd217c3939b0ec915d85b0c7990773eaf968512a150deaa0399df13  openscad-2019.05.src.tar.gz
+7c8bd5bdb8cc94b349eb4c7f442eccffd6220c7384e80bbabcb17bfcf132add4b4eac65511093b914d7a43df5820054c03e9050afe474388f7418efa1006c7e2  cgal5.0.patch"
