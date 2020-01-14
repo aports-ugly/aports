@@ -8,7 +8,7 @@ arch='x86 x86_64'
 url="http://gnuradio.org"
 license='GPL'
 subpackages="$pkgname-dev $pkgname-doc"
-makedepends='fftw-dev py3-numpy cppunit-dev volk-dev gsl-dev py-gtk py-mako doxygen py-six qt5-qtbase-dev sdl-dev py3-qt5 python3-dev libusb-dev portaudio-dev boost-dev zeromq-dev cmake py3-lxml py3-cheetah glu swig qwt-dev libuhd-dev texlive-dvi log4cpp-dev gmp-dev py-sphinx py3-yaml py3-gobject3 py-gobject3-dev py-gtk-dev gtk+3.0-dev py3-cairo py-cairo-dev gobject-introspection-dev qwt-dev cairo-gobject py3-click py-click-plugins cppzmq texmf-dist-latexextra ghostscript'
+makedepends='fftw-dev py3-numpy cppunit-dev volk-dev gsl-dev py-gtk py-mako doxygen py-six qt5-qtbase-dev sdl-dev py3-qt5 python3-dev libusb-dev portaudio-dev boost-dev zeromq-dev cmake py3-lxml py3-cheetah glu swig qwt-dev libuhd-dev texlive-dvi log4cpp-dev gmp-dev py3-sphinx py3-yaml py3-gobject3 py-gobject3-dev py-gtk-dev gtk+3.0-dev py3-cairo py-cairo-dev gobject-introspection-dev qwt-dev cairo-gobject py3-click py-click-plugins cppzmq texmf-dist-latexextra ghostscript'
     # py-pyqwt qwtplot3d'
 
 source="http://gnuradio.org/releases/$pkgname/$pkgname-$pkgver.tar.gz
