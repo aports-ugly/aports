@@ -1,7 +1,7 @@
 # Contributor: stef <l0ls0fo2i@ctrlc.hu>
 #
 pkgname=soapy-sdr
-pkgver=0.7.1
+pkgver=0.7.2
 pkgrel=0
 pkgdesc="Vendor and platform neutral SDR support library."
 arch='all'
@@ -13,10 +13,9 @@ makedepends="cmake python3-dev doxygen swig"
 
 source="https://github.com/pothosware/SoapySDR/archive/$pkgname-$pkgver.tar.gz"
 
-_builddir="$srcdir/SoapySDR-$pkgname-$pkgver"
+builddir="$srcdir/SoapySDR-$pkgname-$pkgver"
 
 build() {
-  cd "$_builddir"
   mkdir -p build
   cd build
   cmake -DCMAKE_INSTALL_PREFIX=/usr -Wno-dev ../
@@ -24,7 +23,7 @@ build() {
 }
 
 package() {
-        cd "$_builddir/build"
+        cd build
         make DESTDIR="$pkgdir" install
 }
-sha512sums="9b2c4251d6362faecf770df021b74e3b387b99699ae4f7d3f145801e2acc901a3803f7b4d2cd50267013f1add6658703dfa5db6db28b8a645f1f8230117123cd  soapy-sdr-0.7.1.tar.gz"
+sha512sums="2454b9b6bf4542f3bce2c6a8e1c886cee9179ca0e13e3c1e22817a05ef671428a3cb8fea69e496c8b62573f360c248508edf3d0871ec5063dfac8211b122d371  soapy-sdr-0.7.2.tar.gz"
