@@ -1,6 +1,6 @@
 # Contributor: stef <l0ls0fo2i@ctrlc.hu>
 pkgname=libsigrok
-pkgver=0.5.1
+pkgver=0.5.2
 pkgrel=0
 pkgdesc="Hardware access and backend lib"
 url="https://www.sigrok.org/wiki/Libsigrok"
@@ -10,12 +10,12 @@ makedepends="libserialport-dev libzip-dev glib-dev glibmm-dev swig doxygen pytho
 install=""
 subpackages="$pkgname-dev"
 source="https://sigrok.org/download/source/$pkgname/$pkgname-$pkgver.tar.gz
-doxygen-1.8.16-bug-workaround.patch"
+        fix-version.patch"
 builddir="$srcdir/$pkgname-${pkgver}"
 
 build() {
 	cd "$builddir"
-	./configure  --prefix=/usr/
+	./configure  --prefix=/usr/ --disable-ruby
 	make 
 }
 
@@ -24,5 +24,5 @@ package() {
 	make DESTDIR="$pkgdir" install
 }
 
-sha512sums="48337fc4625dc0abc162ae54e04ce091047835aa1e49ba1ab84542805008d1ff5646b143fde57e317f3b34514c0e6d4dcb7b1c5944f3f16bdef1a7169edc3517  libsigrok-0.5.1.tar.gz
-ab5dcec3e48c53467649ad69f0fd25b21735a7cd46a252e072e10c73dbe75412242071c409fe8c5f83d3ac37418c1423b021bc8adff18aea1ea518bc1bdabdde  doxygen-1.8.16-bug-workaround.patch"
+sha512sums="cf673dad6280302d69050c29490621f66c6d6a73932d019a53ec3501316d3f2e23e7667a04f866dbe6ed73f86a63de73d2173e2b6cea563631d705e06f887092  libsigrok-0.5.2.tar.gz
+e73ad64df735db7da2d017ffb02d5beffdab4e11d5dd086e84494dab0208969b271ea7abdca7a686f87359f320b0e05c139a562e0d7ca34b7be99471214acef9  fix-version.patch"
