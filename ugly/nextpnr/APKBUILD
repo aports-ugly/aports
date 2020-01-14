@@ -19,7 +19,7 @@ build() {
 	cd "$builddir"
    mkdir build
    cd build
-   cmake -DCMAKE_INSTALL_PREFIX=/usr -DARCH=ice40 -DICEBOX_ROOT=/usr/share/icebox ..
+   CMAKE_PREFIX_PATH=/usr/share/cmake/Modules cmake -DCMAKE_INSTALL_PREFIX=/usr -DARCH=ice40 -DICEBOX_ROOT=/usr/share/icebox ..
    make VERBOSE=1
 }
 
@@ -29,4 +29,4 @@ package() {
 }
 
 sha512sums="3d13186ccaa2e3637f604c6b04fd07c26dcbd5359ce2cabc73af31be1ab9d9b47ff73e8446054f79d1bb1235d0c0cd0a15ee6a21f4292ef30f53a3fe8422437d  nextpnr-gitc2299c8972e0cd22641d7d3b8e0bf7c19a42c3cb.tar.gz
-4bd4e78dabb876fec7da9b95af40ee247e0fdb52ecdc93812edbb2f4c12b4c5c025985b99e754a3f4ae4c6871322aefa81c667d91bfef2bda61ee18e572008a4  boostpy.patch"
+e7bcfb3dec51395260effbdafe570a28ce4d247c1143d528a8b958033228bd0357e4f92f03f1b88b2958f679814e9758cd4f0309e5568e0a5783913ace49fae2  boostpy.patch"

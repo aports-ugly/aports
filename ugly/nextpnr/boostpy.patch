@@ -7,7 +7,7 @@ diff -ur src/nextpnr-c2299c8972e0cd22641d7d3b8e0bf7c19a42c3cb/CMakeLists.txt nex
  # List of Boost libraries to include
 -set(boost_libs filesystem thread program_options iostreams)
 +if (BUILD_PYTHON)
-+   set(boost_libs filesystem thread program_options iostreams python37)
++   set(boost_libs filesystem thread program_options iostreams python38)
 +else()
 +   set(boost_libs filesystem thread program_options iostreams)
 +endif()
