@@ -1,7 +1,7 @@
 # Contributor: stef <l0ls0fo2i@ctrlc.hu>
 
 pkgname=libuhd
-pkgver=3.14.1.0
+pkgver=3.15.0.0
 pkgrel=0
 pkgdesc="Universal Software Radio Peripheral (USRP) userspace driver"
 arch='all'
@@ -10,8 +10,7 @@ license='GPL'
 makedepends='python3 python3-dev py3-cheetah py3-mako py3-numpy py3-requests py3-markupsafe cmake boost-python3 py3-setuptools py3-numpy-dev boost-dev eudev-dev ncurses-dev orc-dev libusb-dev doxygen chrpath'
 subpackages="$pkgname-dev $pkgname-doc"
 
-source="$pkgname-$pkgver.tar.gz::https://github.com/EttusResearch/uhd/archive/v${pkgver}.tar.gz
-boost_python_ver_fix.patch"
+source="$pkgname-$pkgver.tar.gz::https://github.com/EttusResearch/uhd/archive/v${pkgver}.tar.gz"
 
 builddir="$srcdir/uhd-$pkgver/host"
 
@@ -35,6 +34,7 @@ build() {
            -DENABLE_TESTS=OFF \
            -DENABLE_E100=ON \
            -DENABLE_E300=ON \
+           -DUHD_VERSION=$pkgver \
            -Wno-dev
   make
 }
@@ -47,8 +47,7 @@ package() {
 	cd "$pkgdir"/$_prefix
 
 	# Remove RPATHs.
-	chrpath -d "$pkgdir"/usr/lib/python3.7/site-packages/uhd/libpyuhd.so
+	chrpath -d "$pkgdir"/usr/lib/python3.8/site-packages/uhd/libpyuhd.so
 
 }
-sha512sums="afb58b2f75b9855a4252c21c40e0f8816626910a134719321fa98ec78ce13aa32577a959da11d13d1e40dc61f143442ab7c2993edec111267de4664730c6eb82  libuhd-3.14.1.0.tar.gz
-558dd49fbdef27b28a933d4c26137a40c1f1ad1bcb9458dca2957ae7dbd770fa6b80c1ecae441dcad4a4cb038e3f830b07b8292ee758ddd6b1a9bcc7661474fd  boost_python_ver_fix.patch"
+sha512sums="ef62639d956adb5b4815b8e57bf4d6e62519bcaf509ce87af4f6091b79b4bb78c2bc079ec6f678777c24a146d5d5e1c8f225ad7ac5dba46bec6f8e1cc20309b0  libuhd-3.15.0.0.tar.gz"
