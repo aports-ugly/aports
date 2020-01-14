@@ -1,0 +1,12 @@
+diff -urw src/libsigrok-0.5.2/configure libsigrok-0.5.2/configure
+--- src/libsigrok-0.5.2/configure	2019-12-25 20:29:36.000000000 +0000
++++ libsigrok-0.5.2/configure	2020-01-09 13:11:08.340000000 +0000
+@@ -17442,7 +17442,7 @@
+ SR_PACKAGE_VERSION=0.5.2
+ sr_git_deps=
+ # Check if we can get revision information from git.
+-sr_head=`git -C "$srcdir" rev-parse --verify --short HEAD 2>&5`
++#sr_head=`git -C "$srcdir" rev-parse --verify --short HEAD 2>&5`
+ 
+ if test "$?" = 0 && test "x$sr_head" != x; then :
+   	test ! -f "$srcdir/.git/HEAD" \
