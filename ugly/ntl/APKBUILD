@@ -1,0 +1,26 @@
+# Contributor: stef <l0ls0fo2i@ctrlc.hu>
+pkgname=ntl
+pkgver=11.4.3
+pkgrel=0
+pkgdesc="NTL is a high-performance, portable C++ library providing data structures and algorithms for manipulating signed, arbitrary length integers, and for vectors, matrices, and polynomials over the integers and over finite fields."
+url="https://www.shoup.net/ntl/"
+arch="all"
+license="LGPL"
+subpackages="$pkgname-dev $pkgname-doc"
+source="https://www.shoup.net/$pkgname/$pkgname-$pkgver.tar.gz"
+builddir="$srcdir/$pkgname-$pkgver"
+
+build() {
+	cd "$builddir/src"
+	./configure
+   sed 's%^DEF_PREFIX=/usr/local$%DEF_PREFIX=/usr%' makefile | sed "s%^DESTDIR=$%DESTDIR=$pkgdir%" > /tmp/makefile
+   mv /tmp/makefile makefile
+	make
+}
+
+package() {
+	cd "$builddir/src"
+	make DESTDIR="$pkgdir" install
+}
+
+sha512sums="26515ed73c8e74d0ff8bc161101f1b815f2c23e4bd633cc426f6da2741c6d8f43ad4f8df2cb7ad915475933599e0ee01cc360e75569f6f5d49cb5e5eae37b3f5  ntl-11.4.3.tar.gz"
