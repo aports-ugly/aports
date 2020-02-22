@@ -1,7 +1,7 @@
 # Contributor: stef <l0ls0fo2i@ctrlc.hu>
 
 pkgname=volk
-pkgver=2.1.0
+pkgver=2.2.0
 pkgrel=0
 pkgdesc="The Vector-Optimized Library of Kernels from Gnuradio"
 arch='x86 x86_64'
