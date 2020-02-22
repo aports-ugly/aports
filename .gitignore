@@ -16,3 +16,4 @@ build.log
 /.keys/*
 !/.keys/*.pub
 !/.keys/.keep
+other
