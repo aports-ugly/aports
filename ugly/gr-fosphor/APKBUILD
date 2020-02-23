@@ -1,7 +1,7 @@
 # Contributor: stef <l0ls0fo2i@ctrlc.hu>
 #
 pkgname=gr-fosphor
-pkgver=0.1.2
+pkgver=0.1.3
 pkgrel=0
 pkgdesc="GNURadio block for spectrum visualization using GPU"
 arch='all'
@@ -32,4 +32,4 @@ package() {
         cd "$_builddir/build"
         make DESTDIR="$pkgdir" install
 }
-sha512sums="c076dab376e46f4cdaf44bed1e2f67a60865a808962f901ab469d9a140919d7217359784b9e480444d8e333470af4d0f0fc9efa69a788a3432489c726875fdde  gr-fosphor-0.1.2.tar.gz"
+sha512sums="3a68f0c618e9e2dc8700e6e962f9c297b1860f0d34528b7bde718552b78b7cbdc0c749c4b7adf5f5fdbbc4cd0d150d89b71bb6a5bdcc31abb19ac7d18908b5c0  gr-fosphor-0.1.3.tar.gz"
