@@ -1,7 +1,7 @@
 # Contributor: stef <l0ls0fo2i@ctrlc.hu>
 #
 pkgname="libxtrxll"
-pkgver=0.1.2
+pkgver=0.1.3
 pkgrel=0
 pkgdesc="Low level XTRX hardware abstraction library"
 arch='all'
@@ -26,4 +26,4 @@ package() {
         cd "$_builddir/build"
         make DESTDIR="$pkgdir" install
 }
-sha512sums="68db236e89d5b8f27d0f641d577fce17cc636960767f6f6b3175d9f0edb0afa32a4013c5873517426ee2fdf87f06aa137205d268c0ebcd929ca1718559229946  libxtrxll-0.1.2.tar.gz"
+sha512sums="88de7d0988956002a141d1b6efbde532277024a7e86a365e2d456b918352669023ea744d3ec58ab063e31c8ff85b13d80a0d2c010aabdaa17d4ce6b6a34f5326  libxtrxll-0.1.3.tar.gz"
