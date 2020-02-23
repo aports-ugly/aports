@@ -1,7 +1,7 @@
 # Contributor: stef <l0ls0fo2i@ctrlc.hu>
 #
 pkgname=gr-osmosdr
-pkgver=0.1.4.9.1
+pkgver=0.2.0
 pkgrel=1
 pkgdesc="Source block for Funcube Dongle, RTL-SDR, USRP, OsmoSDR, BladeRF, HackRF and AirSpy devices"
 arch='all'
@@ -9,12 +9,11 @@ url="http://sdr.osmocom.org/trac/"
 license='GPL'
 subpackages="$pkgname-dev"
 # libuhd
-makedepends='gnuradio gnuradio-dev boost-dev rtlsdr-dev hackrf-dev cmake python3-dev libuhd-dev doxygen swig py3-cheetah py3-mako py3-six soapy-sdr-dev graphviz log4cpp-dev gmp-dev libxtrx-dev'
+makedepends='gnuradio gnuradio-dev boost-dev rtlsdr-dev hackrf-dev cmake python3-dev libuhd-dev doxygen swig py3-cheetah py3-mako py3-six soapy-sdr-dev graphviz log4cpp-dev gmp-dev libxtrx-dev fftw-dev'
 
-#source="http://git.osmocom.org/gr-osmosdr/snapshot/$pkgname-$pkgver.tar.gz"
-source="$pkgname-$pkgver.tar.gz::https://github.com/aports-ugly/$pkgname/archive/v$pkgver.tar.gz
-        rspace-lib-fix.patch
-        gitversion.patch
+#source="http://git.osmocom.org/gr-osmosdr/snapshot/$pkgname-$pkgver.tar.gz
+#source="$pkgname-$pkgver.tar.gz::https://github.com/aports-ugly/$pkgname/archive/v$pkgver.tar.gz
+source="$pkgname-$pkgver.tar.gz::https://github.com/osmocom/$pkgname/archive/v$pkgver.tar.gz
         xtrx.patch"
 
 _builddir="$srcdir/$pkgname-$pkgver"
@@ -36,7 +35,5 @@ package() {
 	cd "$_builddir/build"
 	make DESTDIR="$pkgdir" install
 }
-sha512sums="7f2207b72e14d3e5f029ed6a9c24eaa3d068935bd94fd6cef8497c8f8c574ac5fccd36fc6e255c3e47a4874ab44b20d55ee93158a8aed2e5efb3fc2c2b11ea30  gr-osmosdr-0.1.4.9.1.tar.gz
-2e6595e1e8b118d11221c95ebed05a9d5002dcbe95dc29d855309ad5a8a8dfea7442c13fd1c1e12078acebe9817fd0ffa5deb3d12557f5c215d3508c0046f5bc  rspace-lib-fix.patch
-a7d00dfbde0abbeb5fff19f0f8608fecec3f04ae53aedbf97ebcd17c42890125f3155caad7fc407794f85c91445bab945d51ef5b7d38d5b4caffec1c2dec9ec6  gitversion.patch
-38dcd1e2fa5a500405db814d498e7fb9a9762a027c08e40fdcb5e904f8ab80ea9730a343338898ce87ab765e86cad58b8c6114301405ebdf70682a076e657b0c  xtrx.patch"
+sha512sums="96eb8ff0a05cf0d5b49384cdc80e0a3d924ba452485acbe852266fd73a5335668b40454421d9f5a52ea610f7100557e51d6a5d9cf6931fe68e8757eb5f02d126  gr-osmosdr-0.2.0.tar.gz
+5249900361087ae289d6b5283aa5ff00f786c57f34cc0fc19b52f694d3027fbef615f2c368d8f7f17414426c71f5916d5bb1f20ffd8d28359c8fca81f9cb51ae  xtrx.patch"
