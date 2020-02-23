@@ -3,13 +3,13 @@
 pkgname=gr-osmosdr
 pkgver=0.2.0
 pkgrel=1
-pkgdesc="Source block for Funcube Dongle, RTL-SDR, USRP, OsmoSDR, BladeRF, HackRF and AirSpy devices"
+pkgdesc="Source block for Funcube Dongle, RTL-SDR, USRP, OsmoSDR, BladeRF, HackRF AirSpy and XTRX devices"
 arch='all'
 url="http://sdr.osmocom.org/trac/"
 license='GPL'
 subpackages="$pkgname-dev"
 # libuhd
-makedepends='gnuradio gnuradio-dev boost-dev rtlsdr-dev hackrf-dev cmake python3-dev libuhd-dev doxygen swig py3-cheetah py3-mako py3-six soapy-sdr-dev graphviz log4cpp-dev gmp-dev libxtrx-dev fftw-dev'
+makedepends='gnuradio gnuradio-dev boost-dev rtlsdr-dev hackrf-dev cmake python3-dev libuhd-dev doxygen swig py3-cheetah py3-mako py3-six soapy-sdr-dev graphviz log4cpp-dev gmp-dev libxtrx-dev fftw-dev gr-iqbal-dev'
 
 #source="http://git.osmocom.org/gr-osmosdr/snapshot/$pkgname-$pkgver.tar.gz
 #source="$pkgname-$pkgver.tar.gz::https://github.com/aports-ugly/$pkgname/archive/v$pkgver.tar.gz
