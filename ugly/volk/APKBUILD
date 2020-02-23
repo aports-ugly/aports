@@ -29,4 +29,4 @@ package() {
   make DESTDIR="$pkgdir" install
 }
 
-sha512sums="db3a9b529e28629c50674cf2b40dcffe32eb29c30847c159e524c68772bfb13c8a3c349a7dc987ec56837ba46cd18159dee0b879c98ef59d01feaf2219402946  volk-2.1.0.tar.gz"
+sha512sums="3118cef255fe6d668823f2ec0348734d8ddfc57f15ad8affca67328bc004b4167d7df073afad0e213e620ad4c7beffd21c82bf83d76bb3acb407578b2af7734b  volk-2.2.0.tar.gz"
