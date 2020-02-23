@@ -9,6 +9,7 @@ license="LGPL"
 subpackages="$pkgname-dev $pkgname-doc"
 source="https://www.shoup.net/$pkgname/$pkgname-$pkgver.tar.gz"
 builddir="$srcdir/$pkgname-$pkgver"
+makedepends="perl gmp-dev"
 
 build() {
 	cd "$builddir/src"
