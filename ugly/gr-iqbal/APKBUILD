@@ -1,0 +1,31 @@
+# Contributor: stef <l0ls0fo2i@ctrlc.hu>
+#
+pkgname=gr-iqbal
+pkgver=0.38.1
+pkgrel=0
+pkgdesc="GNU Radio block to correct IQ imbalance in quadrature receivers tags"
+arch='all'
+url="https://git.osmocom.org/gr-iqbal/"
+license='GPL'
+subpackages="$pkgname-dev"
+makedepends='gnuradio gnuradio-dev log4cpp-dev gmp-dev boost-dev python3-dev doxygen fftw-dev swig cmake graphviz py3-six texlive-dvi texmf-dist-latexextra'
+
+source="$pkgname-$pkgver.tar.gz::https://github.com/osmocom/$pkgname/archive/v$pkgver.tar.gz
+        libosmo-dsp.patch"
+
+_builddir="$srcdir/$pkgname-$pkgver"
+
+build() {
+  cd "$_builddir"
+  mkdir -p build
+  cd build
+  cmake -DCMAKE_INSTALL_PREFIX=/usr -Wno-dev ../
+  make
+}
+
+package() {
+	cd "$_builddir/build"
+	make DESTDIR="$pkgdir" install
+}
+sha512sums="b2f74bba560478b746ad1b11d70202fa2d396462f4806918379543fc69a915346745b34f9ffb2914091ec677295f6f378a5b22641c26aa37c5e23092623b5cee  gr-iqbal-0.38.1.tar.gz
+4401cee3621397b8648c93604575a07a689a22ec134bc5f1b18be9838443c2a842b07f9b85edd6e21c89a5982a37eb0804a35159eb9d21ebc89407b969c8223f  libosmo-dsp.patch"
