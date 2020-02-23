@@ -1,7 +1,7 @@
 # Maintainer: stef <l0ls0fo2i@ctrlc.hu>
 
 pkgname=cgal
-pkgver=5.0
+pkgver=5.0.1
 pkgrel=0
 pkgdesc="Computational Geometry Algorithms Library"
 arch="all"
@@ -27,4 +27,4 @@ package() {
    mv "$pkgdir/usr/lib64" "$pkgdir/usr/lib"
 }
 
-sha512sums="c7462f1f5ca1ef154a3a20ce4c1b63e544ad7e62ea0afb9aee99872402362fa2001a52740d62ac779e75f1354ad9c955a895f3cad12186e3b75d91f0f3452847  CGAL-5.0.tar.gz"
+sha512sums="656e207bdc7003dd2e3e4b31b33f9ac3af5074e4892dda645f67fccdc0ac22982d8bf3c62f9c556847ba0447c14f79923712fc6320f8c10ea77e17bf77eb3e2f  CGAL-5.0.1.tar.gz"
