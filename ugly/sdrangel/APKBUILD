@@ -1,6 +1,7 @@
 # Contributor:
 # Maintainer:
-pkgver=5.0.0
+pkgname=sdrangel
+pkgver=5.1.0
 pkgrel=0
 pkgdesc="SDR Rx/Tx software for Airspy, Airspy HF+, BladeRF, HackRF, LimeSDR, PlutoSDR, RTL-SDR, SDRplay RSP1 and FunCube"
 url="https://github.com/f4exb/sdrangel"
@@ -24,5 +25,5 @@ package() {
         cd "$_builddir/build"
         make DESTDIR="$pkgdir" install
 }
-sha512sums="4295328f62bda70a031e8970f148812a77ffaa9da4d74f248c6413cf424493c939a8c6265bc5023489c0ceaaac011a9104a4217bb7db4c114b5a0b438c7dc748  sdrangel-5.0.0.tar.gz
+sha512sums="151c94ad5daf4db0f9d4d4ac9739c04bda706f7f91beb422a75f6c0f3692de7b132db5802ed628b0456630e5ba04316a173a61ab8fea146977d15cbe9bfd0aca  sdrangel-5.1.0.tar.gz
 1e0669ac5ca85888a7e314cd05569d506353368aaec6d820976f86e1ad7b894153f037ca005b53c6eeeffe9d8578336adfbcfd737c685707a68f023647da772e  opencv4.patch"
