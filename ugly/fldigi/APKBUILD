@@ -1,6 +1,6 @@
 # Contributor: stef <l0ls0fo2i@ctrlc.hu>
 pkgname=fldigi
-pkgver=4.1.08
+pkgver=4.1.09
 pkgrel=0
 pkgdesc="Ham Radio Digital Modem Application"
 url="https://sourceforge.net/projects/fldigi/"
@@ -26,4 +26,4 @@ package() {
 	make DESTDIR="$pkgdir" install
 }
 
-sha512sums="e1262aa87ddeed0618cd74327696ef9542afc3c6c4529db0224d8278ef8a270f83c51a64b0957d17f6ada07ba0d99bdd4124e453e3d0268ffa283e90fbe322d2  fldigi-4.1.08.tar.gz"
+sha512sums="b4c284f599f7985205c8198df32f02fade55bfba6c4630b0c385f9f2d734ef0be11b5620e73324d88a5d5dfc4258c44c8e1759a57cd8da77186bb7d4277e1503  fldigi-4.1.09.tar.gz"
