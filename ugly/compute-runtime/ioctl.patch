@@ -1,0 +1,24 @@
+diff -Nurw compute-runtime-20.08.15750/unit_tests/linux/mock_os_layer.h src/compute-runtime-20.08.15750/unit_tests/linux/mock_os_layer.h
+--- compute-runtime-20.08.15750/unit_tests/linux/mock_os_layer.h	2020-03-04 16:29:18.498605132 +0000
++++ src/compute-runtime-20.08.15750/unit_tests/linux/mock_os_layer.h	2020-03-04 16:29:31.308605717 +0000
+@@ -20,7 +20,7 @@
+ 
+ extern "C" {
+ int open(const char *pathname, int flags, ...);
+-int ioctl(int fd, unsigned long int request, ...) throw();
++int ioctl(int fd, int request, ...);
+ }
+ 
+ extern int (*c_open)(const char *pathname, int flags, ...);
+diff -Nurw compute-runtime-20.08.15750/core/os_interface/linux/sys_calls_linux.cpp src/compute-runtime-20.08.15750/core/os_interface/linux/sys_calls_linux.cpp
+--- compute-runtime-20.08.15750/core/os_interface/linux/sys_calls_linux.cpp	2020-03-04 19:47:02.252480862 +0000
++++ src/compute-runtime-20.08.15750/core/os_interface/linux/sys_calls_linux.cpp	2020-03-04 19:47:20.399148357 +0000
+@@ -20,7 +20,7 @@
+     return ::open(file, flags);
+ }
+ int ioctl(int fileDescriptor, unsigned long int request, void *arg) {
+-    return ::ioctl(fileDescriptor, request, arg);
++    return ::ioctl(fileDescriptor, (int) request, arg);
+ }
+ } // namespace SysCalls
+ } // namespace NEO

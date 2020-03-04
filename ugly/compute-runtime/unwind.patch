@@ -6,7 +6,43 @@ diff -Nurw compute-runtime-20.08.15750/offline_compiler/CMakeLists.txt src/compu
  
  if(UNIX)
 -  target_link_libraries(ocloc dl pthread)
-+  target_link_libraries(ocloc dl unwind execinfo igc)
++  target_link_libraries(ocloc dl unwind execinfo)
  endif()
  
  set_target_properties(ocloc PROPERTIES FOLDER "offline_compiler")
+diff -Nurw compute-runtime-20.08.15750/unit_tests/offline_compiler/CMakeLists.txt src/compute-runtime-20.08.15750/unit_tests/offline_compiler/CMakeLists.txt
+--- compute-runtime-20.08.15750/unit_tests/offline_compiler/CMakeLists.txt	2020-03-04 15:10:51.625056608 +0000
++++ src/compute-runtime-20.08.15750/unit_tests/offline_compiler/CMakeLists.txt	2020-03-04 15:11:01.208390380 +0000
+@@ -92,7 +92,7 @@
+ endif()
+ 
+ if(UNIX)
+-  target_link_libraries(ocloc_tests dl pthread)
++  target_link_libraries(ocloc_tests dl unwind execinfo)
+ endif()
+ 
+ get_property(CLOC_FOLDER TARGET ocloc PROPERTY FOLDER)
+diff -Nurw compute-runtime-20.08.15750/unit_tests/offline_compiler/segfault_test/CMakeLists.txt src/compute-runtime-20.08.15750/unit_tests/offline_compiler/segfault_test/CMakeLists.txt
+--- compute-runtime-20.08.15750/unit_tests/offline_compiler/segfault_test/CMakeLists.txt	2020-03-04 15:31:58.505114528 +0000
++++ src/compute-runtime-20.08.15750/unit_tests/offline_compiler/segfault_test/CMakeLists.txt	2020-03-04 15:32:44.751783310 +0000
+@@ -38,7 +38,7 @@
+   target_link_libraries(ocloc_segfault_test dbghelp)
+ endif()
+ if(UNIX)
+-  target_link_libraries(ocloc_segfault_test dl pthread)
++  target_link_libraries(ocloc_segfault_test dl unwind execinfo)
+ endif()
+ 
+ set(CLOC_SEGFAULT_TEST_INCLUDES
+diff -Nurw compute-runtime-20.08.15750/runtime/CMakeLists.txt src/compute-runtime-20.08.15750/runtime/CMakeLists.txt
+--- compute-runtime-20.08.15750/runtime/CMakeLists.txt	2020-03-04 19:44:42.239141127 +0000
++++ src/compute-runtime-20.08.15750/runtime/CMakeLists.txt	2020-03-04 19:45:16.525809362 +0000
+@@ -84,7 +84,7 @@
+   )
+   target_compile_definitions(${NEO_STATIC_LIB_NAME} PRIVATE OGL=1)
+ else()
+-  set(IGDRCL_EXTRA_LIBS dl pthread)
++  set(IGDRCL_EXTRA_LIBS dl unwind execinfo)
+   target_include_directories(${NEO_STATIC_LIB_NAME} PUBLIC
+     ${NEO_SOURCE_DIR}/core/os_interface/linux
+     ${NEO_SOURCE_DIR}/runtime/os_interface/linux

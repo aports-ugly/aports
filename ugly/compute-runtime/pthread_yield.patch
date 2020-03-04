@@ -1,0 +1,21 @@
+diff -Nurw compute-runtime-20.08.15750/unit_tests/os_interface/linux/drm_gem_close_worker_tests.cpp src/compute-runtime-20.08.15750/unit_tests/os_interface/linux/drm_gem_close_worker_tests.cpp
+--- compute-runtime-20.08.15750/unit_tests/os_interface/linux/drm_gem_close_worker_tests.cpp	2020-03-04 19:49:52.062488625 +0000
++++ src/compute-runtime-20.08.15750/unit_tests/os_interface/linux/drm_gem_close_worker_tests.cpp	2020-03-04 19:50:21.399156633 +0000
+@@ -120,7 +120,7 @@
+ 
+     //wait for worker to complete or deadCnt drops
+     while (!worker->isEmpty() && (deadCnt-- > 0))
+-        pthread_yield(); //yield to another threads
++        sched_yield(); //yield to another threads
+ 
+     worker->close(false);
+ 
+@@ -141,7 +141,7 @@
+ 
+     //wait for worker to complete or deadCnt drops
+     while (!worker->isEmpty() && (deadCnt-- > 0))
+-        pthread_yield(); //yield to another threads
++        sched_yield(); //yield to another threads
+ 
+     //and check if GEM was closed
+     EXPECT_EQ(1, this->drmMock->gem_close_cnt.load());

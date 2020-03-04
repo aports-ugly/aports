@@ -1,0 +1,45 @@
+diff -Nurw compute-runtime-20.08.15750/unit_tests/built_ins/built_in_kernels_tests.cpp src/compute-runtime-20.08.15750/unit_tests/built_ins/built_in_kernels_tests.cpp
+--- compute-runtime-20.08.15750/unit_tests/built_ins/built_in_kernels_tests.cpp	2020-03-04 19:51:20.502492668 +0000
++++ src/compute-runtime-20.08.15750/unit_tests/built_ins/built_in_kernels_tests.cpp	2020-03-04 19:51:41.509160296 +0000
+@@ -6,7 +6,7 @@
+  */
+ 
+ #include "runtime/builtin_kernels_simulation/opencl_c.h"
+-
++#undef select
+ #include "gtest/gtest.h"
+ 
+ namespace BuiltinKernelsSimulation {
+diff -Nurw compute-runtime-20.08.15750/unit_tests/command_queue/get_size_required_buffer_tests.cpp src/compute-runtime-20.08.15750/unit_tests/command_queue/get_size_required_buffer_tests.cpp
+--- compute-runtime-20.08.15750/unit_tests/command_queue/get_size_required_buffer_tests.cpp	2020-03-04 19:51:20.505826001 +0000
++++ src/compute-runtime-20.08.15750/unit_tests/command_queue/get_size_required_buffer_tests.cpp	2020-03-04 19:52:01.999161233 +0000
+@@ -14,6 +14,7 @@
+ #include "runtime/event/event.h"
+ #include "runtime/helpers/hardware_commands_helper.h"
+ #include "runtime/kernel/kernel.h"
++#undef select
+ #include "test.h"
+ #include "unit_tests/command_queue/command_enqueue_fixture.h"
+ #include "unit_tests/command_queue/enqueue_fixture.h"
+diff -Nurw compute-runtime-20.08.15750/unit_tests/execution_model/enqueue_execution_model_kernel_tests.cpp src/compute-runtime-20.08.15750/unit_tests/execution_model/enqueue_execution_model_kernel_tests.cpp
+--- compute-runtime-20.08.15750/unit_tests/execution_model/enqueue_execution_model_kernel_tests.cpp	2020-03-04 19:51:20.509159335 +0000
++++ src/compute-runtime-20.08.15750/unit_tests/execution_model/enqueue_execution_model_kernel_tests.cpp	2020-03-04 19:52:41.835829721 +0000
+@@ -16,6 +16,7 @@
+ #include "runtime/event/user_event.h"
+ #include "runtime/helpers/per_thread_data.h"
+ #include "runtime/kernel/kernel.h"
++#undef select
+ #include "unit_tests/fixtures/device_host_queue_fixture.h"
+ #include "unit_tests/fixtures/execution_model_fixture.h"
+ #include "unit_tests/helpers/gtest_helpers.h"
+diff -Nurw compute-runtime-20.08.15750/unit_tests/profiling/profiling_tests.cpp src/compute-runtime-20.08.15750/unit_tests/profiling/profiling_tests.cpp
+--- compute-runtime-20.08.15750/unit_tests/profiling/profiling_tests.cpp	2020-03-04 19:51:20.529159336 +0000
++++ src/compute-runtime-20.08.15750/unit_tests/profiling/profiling_tests.cpp	2020-03-04 19:52:59.095830510 +0000
+@@ -15,6 +15,7 @@
+ #include "runtime/command_queue/enqueue_marker.h"
+ #include "runtime/command_queue/enqueue_migrate_mem_objects.h"
+ #include "runtime/helpers/dispatch_info.h"
++#undef select
+ #include "test.h"
+ #include "unit_tests/command_queue/command_enqueue_fixture.h"
+ #include "unit_tests/event/event_fixture.h"
