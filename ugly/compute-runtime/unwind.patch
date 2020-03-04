@@ -1,0 +1,12 @@
+diff -Nurw compute-runtime-20.08.15750/offline_compiler/CMakeLists.txt src/compute-runtime-20.08.15750/offline_compiler/CMakeLists.txt
+--- compute-runtime-20.08.15750/offline_compiler/CMakeLists.txt	2020-02-29 00:33:03.068525017 +0000
++++ src/compute-runtime-20.08.15750/offline_compiler/CMakeLists.txt	2020-02-29 00:41:59.361882810 +0000
+@@ -140,7 +140,7 @@
+ endif()
+ 
+ if(UNIX)
+-  target_link_libraries(ocloc dl pthread)
++  target_link_libraries(ocloc dl unwind execinfo igc)
+ endif()
+ 
+ set_target_properties(ocloc PROPERTIES FOLDER "offline_compiler")

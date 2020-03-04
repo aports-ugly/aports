@@ -1,0 +1,14 @@
+diff -Nurw compute-runtime-20.08.15750/core/os_interface/linux/os_library_linux.cpp src/compute-runtime-20.08.15750/core/os_interface/linux/os_library_linux.cpp
+--- compute-runtime-20.08.15750/core/os_interface/linux/os_library_linux.cpp	2020-02-28 22:25:54.774841749 +0000
++++ src/compute-runtime-20.08.15750/core/os_interface/linux/os_library_linux.cpp	2020-02-28 22:26:11.424842510 +0000
+@@ -11,6 +11,10 @@
+ 
+ #include <dlfcn.h>
+ 
++#ifndef RTLD_DEEPBIND
++#define RTLD_DEEPBIND 0
++#endif
++
+ namespace NEO {
+ OsLibrary *OsLibrary::load(const std::string &name) {
+     auto ptr = new (std::nothrow) Linux::OsLibrary(name);

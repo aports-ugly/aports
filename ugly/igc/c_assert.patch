@@ -1,0 +1,34 @@
+diff -Nurw intel-graphics-compiler-igc-1.0.3390/inc/common/UFO/portable_compiler.h src/intel-graphics-compiler-igc-1.0.3390/inc/common/UFO/portable_compiler.h
+--- intel-graphics-compiler-igc-1.0.3390/inc/common/UFO/portable_compiler.h	2020-02-28 20:53:46.104588483 +0000
++++ src/intel-graphics-compiler-igc-1.0.3390/inc/common/UFO/portable_compiler.h	2020-02-28 20:54:32.881257294 +0000
+@@ -125,11 +125,27 @@
+ /* compile-time ASSERT */
+ 
+ #ifndef C_ASSERT
+-    #define __UNIQUENAME( a1, a2 )  __CONCAT( a1, a2 )
+-    #define UNIQUENAME( __text )    __UNIQUENAME( __text, __COUNTER__ )
++//    #define __UNIQUENAME( a1, a2 )  __CONCAT( a1, a2 )
++//    #define UNIQUENAME( __text )    __UNIQUENAME( __text, __COUNTER__ )
++//
++//
++//    #define C_ASSERT(e) typedef char UNIQUENAME(STATIC_ASSERT_)[(e)?1:-1]
+ 
++#define ASSERT_CONCAT_(a, b) a##b
++#define ASSERT_CONCAT(a, b) ASSERT_CONCAT_(a, b)
++/* These can't be used after statements in c89. */
++#ifdef __COUNTER__
++  #define C_ASSERT(e) \
++    ;enum { ASSERT_CONCAT(static_assert_, __COUNTER__) = 1/(int)(!!(e)) }
++#else
++  /* This can't be used twice on the same line so ensure if using in headers
++   * that the headers are not included twice (by wrapping in #ifndef...#endif)
++   * Note it doesn't cause an issue when used on same line of separate modules
++   * compiled with gcc -combine -fwhole-program.  */
++  #define C_ASSERT(e) \
++    ;enum { ASSERT_CONCAT(assert_line_, __LINE__) = 1/(int)(!!(e)) }
++#endif
+ 
+-    #define C_ASSERT(e) typedef char UNIQUENAME(STATIC_ASSERT_)[(e)?1:-1]
+ #endif
+ 
+ 

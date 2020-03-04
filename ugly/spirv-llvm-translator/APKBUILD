@@ -1,0 +1,30 @@
+# Contributor: stef <l0ls0fo2i@ctrlc.hu>
+#
+pkgname=SPIRV-LLVM-Translator
+pkgver=9.0.0_1
+_pkgver=9.0.0-1
+pkgrel=0
+pkgdesc="A tool and a library for bi-directional translation between SPIR-V and LLVM IR"
+arch='all'
+url="https://github.com/KhronosGroup/SPIRV-LLVM-Translator"
+license='MIT'
+subpackages="$pkgname-static $pkgname-dev"
+makedepends="llvm9 cmake"
+
+source="${pkgname}-${pkgver}.tar.gz::https://github.com/KhronosGroup/$pkgname/archive/v$_pkgver.tar.gz"
+
+_builddir="$srcdir/$pkgname-$_pkgver"
+
+build() {
+  cd "$_builddir"
+  mkdir -p build
+  cd build
+  CXXFLAGS='-fPIC' CFLAGS='-fPIC' LLVM_CONFIG=/usr/lib/llvm9/bin/llvm-config cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/usr ..
+  make VERBOSE=1
+}
+
+package() {
+	cd "$_builddir/build"
+	make VERBOSE=1 DESTDIR="$pkgdir" install
+}
+sha512sums="ad0e9a49440f8dc0a9c973c74245640c8392c8ae85431eb5e0ca6ea98e603cb6fcbfcaa8fa3d455df2f53537c7f61915a557f12744c39a9c9f9e1c400ddd74ad  SPIRV-LLVM-Translator-9.0.0_1.tar.gz"

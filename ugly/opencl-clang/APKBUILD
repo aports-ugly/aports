@@ -1,0 +1,28 @@
+# Contributor: stef <l0ls0fo2i@ctrlc.hu>
+#
+pkgname=opencl-clang
+pkgver=9.0.0
+pkgrel=0
+pkgdesc="opencl-clang is a thin wrapper library around clang to compile OpenCL C kernels to SPIR-V modules."
+arch='all'
+url="https://github.com/intel/opencl-clang"
+license='MIT'
+subpackages="$pkgname-dev"
+makedepends="llvm9 clang SPIRV-LLVM-Translator-dev clang-static"
+
+source="${pkgname}-${pkgver}.tar.gz::https://github.com/intel/$pkgname/archive/v$pkgver.tar.gz
+        clang-path.patch"
+
+build() {
+  mkdir -p build
+  cd build
+  LLVM_CONFIG=/usr/lib/llvm9/bin/llvm-config cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/usr ..
+  make VERBOSE=1
+}
+
+package() {
+   cd build
+	make VERBOSE=1 DESTDIR="$pkgdir" install
+}
+sha512sums="126974d816e7f2a90ddb2faa4e8e95841d8ae15f24e77013ca8894ce75ad5079ffe942fb40731030363a10e470e66f2ad1794c2fe31aee6f8608304b492b30eb  opencl-clang-9.0.0.tar.gz
+5857023aea82a982229698e4d4d70fb3d1884b2dc16987458906bf32f782009bb030ecfd0b8e3460a51e5d1c24956a23ef6b835d1bcf8361395652d0caf98b71  clang-path.patch"

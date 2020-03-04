@@ -1,0 +1,34 @@
+# Contributor: stef <l0ls0fo2i@ctrlc.hu>
+#
+pkgname=intel-gmmlib
+pkgver=19.4.1
+pkgrel=0
+pkgdesc="The Intel(R) Graphics Memory Management Library provides device specific and buffer management for the Intel(R) Graphics Compute Runtime for OpenCL(TM) and the Intel(R) Media Driver for VAAPI."
+arch='all'
+url="https://github.com/intel/gmmlib"
+license='MIT'
+subpackages="$pkgname-dev"
+makedepends="cmake"
+
+source="${pkgname}-${pkgver}.tar.gz::https://github.com/intel/gmmlib/archive/$pkgname-$pkgver.tar.gz"
+
+builddir="$srcdir/gmmlib-$pkgname-$pkgver"
+
+build() {
+  mkdir -p build
+  cd build
+  LLVM_CONFIG=/usr/lib/llvm9/bin/llvm-config \
+      cmake \
+      -Wno-dev \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DCMAKE_INSTALL_PREFIX=/usr \
+      ..
+  make VERBOSE=1
+}
+
+package() {
+   cd build
+	make VERBOSE=1 DESTDIR="$pkgdir" install
+   mv "$pkgdir/usr/lib64/" "$pkgdir/usr/lib/"
+}
+sha512sums="264f111348bbaccd6c14c31ab15c7b02e63def56b0d3effa01067fb5e696d6d3e2ad3d5a9cc3a36f33b835dda12ec3916a31d3a812443de9d5dd815e2e4cde53  intel-gmmlib-19.4.1.tar.gz"

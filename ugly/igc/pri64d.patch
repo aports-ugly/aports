@@ -1,0 +1,12 @@
+diff -Nurw intel-graphics-compiler-igc-1.0.3390/visa/CISA.y src/intel-graphics-compiler-igc-1.0.3390/visa/CISA.y
+--- intel-graphics-compiler-igc-1.0.3390/visa/CISA.y	2020-02-28 20:44:41.487896868 +0000
++++ src/intel-graphics-compiler-igc-1.0.3390/visa/CISA.y	2020-02-28 20:44:59.721231041 +0000
+@@ -2043,7 +2043,7 @@
+ 
+     int yytype = YYTRANSLATE (yychar);
+     if (strcmp(yytname[yytype], "NUMBER") == 0)
+-        fprintf (stderr, "\nLine %d: %s, number: %" PRId64 "\n", CISAlineno,  s, yylval.number);
++        fprintf (stderr, "\nLine %d: %s, number: %ld\n", CISAlineno,  s, yylval.number);
+      else if (strcmp(yytname[yytype], "VAR") == 0)
+         fprintf (stderr, "\nLine %d: %s, symbol: %s\n", CISAlineno,  s, yylval.string);
+      else

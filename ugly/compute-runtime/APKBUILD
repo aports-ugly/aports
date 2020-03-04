@@ -1,0 +1,41 @@
+# Contributor: stef <l0ls0fo2i@ctrlc.hu>
+#
+pkgname=compute-runtime
+pkgver=20.08.15750
+pkgrel=0
+pkgdesc="Intel(R) Graphics Compute Runtime for OpenCL(TM). Replaces Beignet for Gen8 (Broadwell) and beyond."
+arch='all'
+url="https://01.org/compute-runtime"
+license='MIT'
+subpackages="$pkgname-dev $pkgname-doc"
+makedepends="cmake intel-gmmlib-dev igc-dev libva-dev libdrm-dev opencl-clang libexecinfo-dev libunwind-dev"
+
+source="${pkgname}-${pkgver}.tar.gz::https://github.com/intel/$pkgname/archive/$pkgver.tar.gz
+        musl-compat.patch
+        unwind.patch
+        missing-null.patch
+        "
+        #select-name-collision.patch
+        #missing-libigc.patch
+
+#builddir="$srcdir/gmmlib-$pkgname-$pkgver"
+
+build() {
+  mkdir -p build
+  cd build
+      CC=clang CXX=clang++ cmake \
+      -Wno-dev \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DCMAKE_INSTALL_PREFIX=/usr \
+      ..
+  make VERBOSE=1
+}
+
+package() {
+   cd build
+	make VERBOSE=1 DESTDIR="$pkgdir" install
+}
+sha512sums="d603127c3b8b1347e08f878f0333cb05f117c6d3386958678fa631d07ccc81275b7c93e44e6c6e9ed7ff1586c748f00034b0b33598753ca2a22106b7f2dbbffc  compute-runtime-20.08.15750.tar.gz
+d825b95db59cccf928fd2007b13f4c136767c54878a44ea95be4058dc52ec81fc9d13e233ccb3c53d3a6eaa310b6f36c271e14659f3943ecd3016449eb83d563  musl-compat.patch
+f8f02ebd4a22849161b93c8d71720fa996b23e8284958533317cdae8e03929ea7487a96dddd830a15d3f7818c0e9cb51e0e1354aaef6b4cb44e5801a55598095  unwind.patch
+a7e7a8ef4794455a06c7c7cc6c3bccea759bcbce03cc800f285e520a97e88fd44cfd2bd931270ea3e475ddd388a1813db5b5fdcc17941fc0597d13fb94c6daeb  missing-null.patch"

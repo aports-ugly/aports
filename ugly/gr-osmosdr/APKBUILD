@@ -7,7 +7,7 @@ pkgdesc="Source block for Funcube Dongle, RTL-SDR, USRP, OsmoSDR, BladeRF, HackR
 arch='all'
 url="http://sdr.osmocom.org/trac/"
 license='GPL'
-subpackages="$pkgname-dev"
+subpackages="$pkgname-dev $pkgname-doc"
 # libuhd
 makedepends='gnuradio gnuradio-dev boost-dev rtlsdr-dev hackrf-dev cmake python3-dev libuhd-dev doxygen swig py3-cheetah py3-mako py3-six soapy-sdr-dev graphviz log4cpp-dev gmp-dev libxtrx-dev fftw-dev gr-iqbal-dev'
 

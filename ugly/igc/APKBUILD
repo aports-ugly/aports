@@ -1,0 +1,41 @@
+# Contributor: stef <l0ls0fo2i@ctrlc.hu>
+#
+pkgname=igc
+pkgver=1.0.3390
+pkgrel=0
+pkgdesc="The Intel® Graphics Compiler for OpenCL™ is an LLVM based compiler for OpenCL™ targeting Intel Gen graphics hardware architecture."
+arch='all'
+url="https://github.com/intel/intel-graphics-compiler"
+license='MIT'
+subpackages="$pkgname-dev"
+makedepends="llvm9 clang SPIRV-LLVM-Translator-dev clang-static opencl-clang-dev"
+
+source="${pkgname}-${pkgver}.tar.gz::https://github.com/intel/intel-graphics-compiler/archive/$pkgname-$pkgver.tar.gz
+        pri64d.patch
+        c_assert.patch"
+
+builddir="$srcdir/intel-graphics-compiler-$pkgname-$pkgver"
+
+build() {
+  mkdir -p build
+  cd build
+  LLVM_CONFIG=/usr/lib/llvm9/bin/llvm-config \
+  CXXFLAGS=-Wno-alloca-larger-than \
+      cmake \
+      -Wno-dev \
+      -DIGC_PREFERRED_LLVM_VERSION=9.0.1 \
+      -DIGC_OPTION__ARCHITECTURE_TARGET=Linux64 \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DCMAKE_INSTALL_PREFIX=/usr \
+      ..
+  make VERBOSE=1
+}
+
+package() {
+   cd build
+	make VERBOSE=1 DESTDIR="$pkgdir" install
+   mv "$pkgdir/usr/lib64/" "$pkgdir/usr/lib/"
+}
+sha512sums="2ab22eff8d30023015db06b4322d8afdcd0067f94438d0bc3ba8e52320e30b154c8969d3804d03519cb76544f85c2636949bf60527e7f9cede5eb2208281aa6b  igc-1.0.3390.tar.gz
+6cb7dc2b238a2d58a08028becb9b77278ac8f7cf7b123ca5ba5bcb6caa5c6d1259b5c19ec714a6aa271fc2e809c6661c820d41e58087ddabf88d8081f43d502c  pri64d.patch
+f9c914aee8a527cc4ea1d891bbe56f72110941e174abe41c715af0159cee7082f779da356b901b1e786b255ac7247a19543adc578364d67ffa1d7fb14a105f86  c_assert.patch"

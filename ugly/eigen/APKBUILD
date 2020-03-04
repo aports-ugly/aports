@@ -3,14 +3,14 @@ pkgname=eigen
 pkgver=3.3.7
 pkgrel=1
 pkgdesc="C++ template library for linear algebra"
-arch="all"
 url="http://eigen.tuxfamily.org/"
+arch="all"
 license="MPL-2.0, GPL-3, LGPL-2.1"
-source="${pkgname}-${pkgver}.tar.bz2::http://bitbucket.org/eigen/eigen/get/${pkgver}.tar.bz2"
 makedepends="cmake openblas-dev suitesparse-dev mpfr-dev fftw-dev boost-dev gmp-dev glu-dev freeglut-dev"
-subpackages="$pkgname-dev"
-
+subpackages="$pkgname-dev $pkgname-doc"
+source="${pkgname}-${pkgver}.tar.bz2::http://bitbucket.org/eigen/eigen/get/${pkgver}.tar.bz2"
 builddir="$srcdir/eigen-eigen-323c052e1731"
+
 build() {
   cd "$builddir"
   mkdir -p build

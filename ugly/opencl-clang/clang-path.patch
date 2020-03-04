@@ -1,0 +1,12 @@
+diff -Nurw opencl-clang-9.0.0/cl_headers/CMakeLists.txt src/opencl-clang-9.0.0/cl_headers/CMakeLists.txt
+--- opencl-clang-9.0.0/cl_headers/CMakeLists.txt	2020-02-27 22:52:06.941860395 +0000
++++ src/opencl-clang-9.0.0/cl_headers/CMakeLists.txt	2020-02-27 22:52:19.851860978 +0000
+@@ -13,7 +13,7 @@
+ 
+ if(USE_PREBUILT_LLVM)
+     set(OPENCL_HEADERS_DIR
+-      "${LLVM_LIBRARY_DIRS}/clang/${LLVM_VERSION_MAJOR}.${LLVM_VERSION_MINOR}.${LLVM_VERSION_PATCH}/include/")
++      "/usr/lib/clang/${LLVM_VERSION_MAJOR}.${LLVM_VERSION_MINOR}.${LLVM_VERSION_PATCH}/include/")
+ else(USE_PREBUILT_LLVM)
+     set(OPENCL_HEADERS_DIR "${CLANG_SOURCE_DIR}/lib/Headers")
+ endif(USE_PREBUILT_LLVM)
