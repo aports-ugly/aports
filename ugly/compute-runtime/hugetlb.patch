@@ -1,0 +1,40 @@
+--- src/compute-runtime-20.08.15750/core/os_interface/linux/os_memory_linux.cpp	2020-03-23 11:23:21.784065965 +0000
++++ cur/compute-runtime-20.08.15750/core/os_interface/linux/os_memory_linux.cpp	2020-03-23 11:25:23.394071538 +0000
+@@ -15,13 +15,32 @@
+ }
+ 
+ void *OSMemoryLinux::reserveCpuAddressRange(size_t sizeToReserve) {
+-    void *tmp = mmapWrapper(0, sizeToReserve, PROT_NONE, MAP_PRIVATE | MAP_ANONYMOUS | MAP_NORESERVE | MAP_HUGETLB, -1, 0);
+-    if((long)tmp!=-1) return tmp;
++    void *ptr = mmapWrapper(0, sizeToReserve, PROT_NONE, MAP_PRIVATE | MAP_ANONYMOUS | MAP_NORESERVE | MAP_HUGETLB, -1, 0);
++    if((long)ptr!=-1) return ptr;
+     // probably does not support MAP_HUGETLB, lets try without
+-    tmp = mmapWrapper(0, sizeToReserve+MemoryConstants::pageSize64k, PROT_NONE, MAP_PRIVATE | MAP_ANONYMOUS | MAP_NORESERVE, -1, 0);
++    ptr = mmapWrapper(0, sizeToReserve+MemoryConstants::pageSize64k, PROT_NONE, MAP_PRIVATE | MAP_ANONYMOUS | MAP_NORESERVE, -1, 0);
++    if((long)ptr == -1 || ptr == NULL) {
++       return NULL;
++    }
+     // force 64K alignment
+-    if((((long) tmp) & (MemoryConstants::pageSize64k - 1)) && munmap(tmp, ((long) tmp) & (MemoryConstants::pageSize64k - 1))!=0)  return NULL;
+-    return (void*) ((long)tmp & ~((long) MemoryConstants::pageSize64k - 1));
++    size_t offset = MemoryConstants::pageSize64k - ((uintptr_t) ptr) & (MemoryConstants::pageSize64k - 1);
++    // unmap prefixed padding
++    if(offset) {
++       if(munmap(ptr, offset)!=0) {
++          return NULL;
++       }
++    }
++    // adjust the ptr to the aligned address
++    ptr = (void*) ((uintptr_t)ptr + offset);
++    // if 0 != sizeToReserve mod pageSized, there is some slack, thus
++    // we cannot unmap that page, but only the one after it
++    size_t slack = MemoryConstants::pageSize - (sizeToReserve % MemoryConstants::pageSize);
++    // munmap excess trailing padding
++    if ((MemoryConstants::pageSize64k - offset - slack) && 
++          munmap((void*) ((uintptr_t)ptr+sizeToReserve+slack), MemoryConstants::pageSize64k - offset - slack)!=0) {
++       return NULL;
++    }
++    return ptr;
+ }
+ 
+ void OSMemoryLinux::releaseCpuAddressRange(void *reservedCpuAddressRange, size_t reservedSize) {
