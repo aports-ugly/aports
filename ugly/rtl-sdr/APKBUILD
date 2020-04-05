@@ -8,7 +8,9 @@ arch="all"
 license="GPL2"
 pkgdesc="turns your Realtek RTL2832 based DVB dongle into a SDR receiver"
 makedepends="cmake pkgconf libusb-dev"
-source="${pkgname}-${pkgver}.tar.gz::https://github.com/lib$pkgname/lib$pkgname/archive/v$pkgver.tar.gz"
+source="${pkgname}-${pkgver}.tar.gz::https://github.com/lib$pkgname/lib$pkgname/archive/v$pkgver.tar.gz
+        rpc_tuner_bw.patch"
+
 subpackages="$pkgname-dev-static $pkgname-dev"
 builddir="$srcdir/lib$pkgname-$pkgver"
 

@@ -1,0 +1,125 @@
+diff -urw src/librtlsdr-0.7.0/include/rtlsdr_rpc.h librtlsdr-0.7.0/include/rtlsdr_rpc.h
+--- src/librtlsdr-0.7.0/include/rtlsdr_rpc.h	2016-12-21 03:24:19.000000000 +0000
++++ librtlsdr-0.7.0/include/rtlsdr_rpc.h	2020-04-05 19:17:27.123154167 +0000
+@@ -74,6 +74,9 @@
+ int rtlsdr_rpc_set_tuner_gain_mode
+ (void* dev, int manual);
+ 
++int rtlsdr_rpc_set_and_get_tuner_bandwidth
++(void* devp, uint32_t bw, uint32_t *applied_bw, int apply_bw);
++
+ int rtlsdr_rpc_set_sample_rate
+ (void* dev, uint32_t rate);
+ 
+diff -urw src/librtlsdr-0.7.0/include/rtlsdr_rpc_msg.h librtlsdr-0.7.0/include/rtlsdr_rpc_msg.h
+--- src/librtlsdr-0.7.0/include/rtlsdr_rpc_msg.h	2016-12-21 03:24:19.000000000 +0000
++++ librtlsdr-0.7.0/include/rtlsdr_rpc_msg.h	2020-04-05 19:17:27.123154167 +0000
+@@ -28,6 +28,7 @@
+   RTLSDR_RPC_OP_GET_TUNER_GAIN,
+   RTLSDR_RPC_OP_SET_TUNER_IF_GAIN,
+   RTLSDR_RPC_OP_SET_TUNER_GAIN_MODE,
++  RTLSDR_RPC_OP_SET_GET_TUNER_BW,
+   RTLSDR_RPC_OP_SET_SAMPLE_RATE,
+   RTLSDR_RPC_OP_GET_SAMPLE_RATE,
+   RTLSDR_RPC_OP_SET_TESTMODE,
+diff -urw src/librtlsdr-0.7.0/src/librtlsdr.c librtlsdr-0.7.0/src/librtlsdr.c
+--- src/librtlsdr-0.7.0/src/librtlsdr.c	2016-12-21 03:24:19.000000000 +0000
++++ librtlsdr-0.7.0/src/librtlsdr.c	2020-04-05 19:17:27.123154167 +0000
+@@ -1158,6 +1158,13 @@
+ 
+ int rtlsdr_set_and_get_tuner_bandwidth(rtlsdr_dev_t *dev, uint32_t bw, uint32_t *applied_bw, int apply_bw )
+ {
++	#ifdef _ENABLE_RPC
++	if (rtlsdr_rpc_is_enabled())
++	{
++     return rtlsdr_rpc_set_and_get_tuner_bandwidth(dev, bw, applied_bw, apply_bw);
++	}
++	#endif
++
+ 	int r = 0;
+ 
+ 		*applied_bw = 0;		/* unknown */
+diff -urw src/librtlsdr-0.7.0/src/rtl_rpcd.c librtlsdr-0.7.0/src/rtl_rpcd.c
+--- src/librtlsdr-0.7.0/src/rtl_rpcd.c	2016-12-21 03:24:19.000000000 +0000
++++ librtlsdr-0.7.0/src/rtl_rpcd.c	2020-04-05 19:17:27.126487502 +0000
+@@ -398,6 +398,7 @@
+     "RTLSDR_RPC_OP_GET_TUNER_GAIN",
+     "RTLSDR_RPC_OP_SET_TUNER_IF_GAIN",
+     "RTLSDR_RPC_OP_SET_TUNER_GAIN_MODE",
++    "RTLSDR_RPC_OP_SET_GET_TUNER_BW",
+     "RTLSDR_RPC_OP_SET_SAMPLE_RATE",
+     "RTLSDR_RPC_OP_GET_SAMPLE_RATE",
+     "RTLSDR_RPC_OP_SET_TESTMODE",
+@@ -788,6 +789,26 @@
+ 
+       break ;
+     }
++
++  case RTLSDR_RPC_OP_SET_GET_TUNER_BW:
++    {
++      uint32_t did;
++      uint32_t bw;
++      uint32_t applied_bw;
++      int apply_bw;
++
++      if (rtlsdr_rpc_msg_pop_uint32(q, &did)) goto on_error;
++      if (rtlsdr_rpc_msg_pop_uint32(q, &bw)) goto on_error;
++      if (rtlsdr_rpc_msg_pop_uint32(q, &apply_bw)) goto on_error;
++
++      if ((rpcd->dev == NULL) || (rpcd->did != did)) goto on_error;
++
++      err = rtlsdr_set_and_get_tuner_bandwidth(rpcd->dev, bw, &applied_bw, apply_bw);
++      if (err) goto on_error;
++      if (rtlsdr_rpc_msg_push_uint32(r, applied_bw)) goto on_error;
++
++      break ;
++    }
+ 
+   case RTLSDR_RPC_OP_SET_SAMPLE_RATE:
+     {
+diff -urw src/librtlsdr-0.7.0/src/rtlsdr_rpc.c librtlsdr-0.7.0/src/rtlsdr_rpc.c
+--- src/librtlsdr-0.7.0/src/rtlsdr_rpc.c	2016-12-21 03:24:19.000000000 +0000
++++ librtlsdr-0.7.0/src/rtlsdr_rpc.c	2020-04-05 19:17:27.126487502 +0000
+@@ -567,6 +567,8 @@
+   rtlsdr_rpc_dev_t* dev;
+   int err = -1;
+ 
++  index = (uint32_t) atoi(getenv("RTLSDR_RPC_DEVICE_INDEX"));
++
+   *devp = NULL;
+ 
+   if (init_cli(cli)) goto on_error_0;
+@@ -921,6 +923,33 @@
+ 
+  on_error_1:
+   free_qr(cli, q, r);
++ on_error_0:
++  return err;
++}
++
++int rtlsdr_rpc_set_and_get_tuner_bandwidth(void* devp, uint32_t bw, uint32_t *applied_bw, int apply_bw )
++{
++  rtlsdr_rpc_dev_t* const dev = devp;
++  rtlsdr_rpc_cli_t* const cli = dev->cli;
++  rtlsdr_rpc_msg_t* q;
++  rtlsdr_rpc_msg_t* r;
++  int err = -1;
++
++  if (alloc_qr(cli, &q, &r)) goto on_error_0;
++
++  rtlsdr_rpc_msg_set_op(q, RTLSDR_RPC_OP_SET_GET_TUNER_BW);
++
++  if (rtlsdr_rpc_msg_push_uint32(q, dev->index)) goto on_error_1;
++  if (rtlsdr_rpc_msg_push_uint32(q, (uint32_t)bw)) goto on_error_1;
++  if (rtlsdr_rpc_msg_push_uint32(q, (uint32_t)apply_bw)) goto on_error_1;
++
++  if (send_recv_msg(cli, q, r)) goto on_error_1;
++
++  if (rtlsdr_rpc_msg_get_err(r)) goto on_error_1;
++  if (rtlsdr_rpc_msg_pop_uint32(r, applied_bw)) goto on_error_1;
++
++ on_error_1:
++  free_qr(cli, q, r);
+  on_error_0:
+   return err;
+ }
