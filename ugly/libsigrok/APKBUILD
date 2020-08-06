@@ -1,7 +1,7 @@
 # Contributor: stef <l0ls0fo2i@ctrlc.hu>
 pkgname=libsigrok
 pkgver=0.5.2
-pkgrel=0
+pkgrel=1
 pkgdesc="Hardware access and backend lib"
 url="https://www.sigrok.org/wiki/Libsigrok"
 arch="all"
@@ -13,6 +13,7 @@ esac
 install=""
 subpackages="$pkgname-dev"
 source="https://sigrok.org/download/source/$pkgname/$pkgname-$pkgver.tar.gz
+        my-vs5202.patch
         fix-version.patch"
 builddir="$srcdir/$pkgname-${pkgver}"
 

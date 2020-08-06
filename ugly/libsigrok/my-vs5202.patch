@@ -1,0 +1,12 @@
+diff -urw libsigrok-0.5.2/src/scpi/scpi_tcp.c src/libsigrok-0.5.2/src/scpi/scpi_tcp.c
+--- libsigrok-0.5.2/src/scpi/scpi_tcp.c	2020-08-06 19:34:54.048212735 +0000
++++ src/libsigrok-0.5.2/src/scpi/scpi_tcp.c	2020-08-06 19:35:09.634880114 +0000
+@@ -147,7 +147,7 @@
+ 	struct scpi_tcp *tcp = priv;
+ 	int len, out;
+ 
+-	len = strlen(command);
++	len = strlen(command)+1;
+ 	out = send(tcp->socket, command, len, 0);
+ 
+ 	if (out < 0) {
