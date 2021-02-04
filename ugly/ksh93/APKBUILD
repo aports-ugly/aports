@@ -1,0 +1,32 @@
+pkgname=ksh93
+pkgver=0.0.1
+pkgrel=0
+pkgdesc="ksh 93u+m: current development of KornShell, based off the last stable AT&T release (93u+ 2012-08-01)"
+url="https://github.com/ksh93/ksh"
+arch="all"
+license="EPL-1.0"
+depends=""
+#depends_dev=""
+#makedepends="$depends_dev cmake"
+_gitver=c7098685723be8a6e03cce245d23e59554723be0
+subpackages="$pkgname-doc"
+source="${url}/archive/${_gitver}.tar.gz"
+
+builddir="$srcdir/ksh-${_gitver}/"
+
+build() {
+   bin/package make	
+}
+
+package() {
+   export ARCH=$(bin/package)
+   mkdir -p ${pkgdir}/usr/bin/
+   cp $srcdir/ksh-${_gitver}/arch/$ARCH/bin/ksh ${pkgdir}/usr/bin/ksh93
+   cp $srcdir/ksh-${_gitver}/arch/$ARCH/bin/shcomp ${pkgdir}/usr/bin/shcomp93
+   mkdir -p ${pkgdir}/usr/share/man/man1
+   cp $srcdir/ksh-${_gitver}/arch/$ARCH/man/man1/sh.1 ${pkgdir}/usr/share/man/man1/ksh93.1
+   mkdir -p ${pkgdir}/usr/share/ksh/functions
+   cp $srcdir/ksh-${_gitver}/arch/$ARCH/fun/* ${pkgdir}/usr/share/ksh/functions
+}
+
+sha512sums="b5ccfc6093b0593f137cfb21a661ea6b65b8dd811557758198528acb329cb2049be17a3333083773a2c2cf921f2b576892c73f2dda2bbc1f6b5a04a1beb0f997  c7098685723be8a6e03cce245d23e59554723be0.tar.gz"
