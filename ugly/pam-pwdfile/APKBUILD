@@ -1,0 +1,34 @@
+# Contributor: Johannes Matheis <jomat+alpinebuild@jmt.gr>
+# Maintainer: Johannes Matheis <jomat+alpinebuild@jmt.gr>
+pkgname=pam-pwdfile
+pkgver=1.0
+pkgrel=0
+pkgdesc="PAM module allowing authentication via an /etc/passwd-like file"
+url="https://git.tiwe.de/libpam-pwdfile.git/"
+arch="all"
+license="BSD"
+depends=""
+makedepends=""
+install=""
+subpackages=""
+source="https://git.tiwe.de/libpam-pwdfile.git/snapshot/libpam-pwdfile-$pkgver.tar.gz"
+builddir="$srcdir/libpam-pwdfile-1.0"
+
+build() {
+	# Replace with proper build command(s)
+	make
+	:
+}
+
+check() {
+	# Replace with proper check command(s)
+	:
+}
+
+package() {
+	# Replace with proper package command(s)
+	make DESTDIR="$pkgdir" install
+	:
+}
+
+sha512sums="269b0fc27bd42a95f6e6c3e7461f157ef28cefc0ad7028e2b6412ea8ed9e115bf39da052932ee272a1831f6f8c50157c9e30c4ef7e2a4ce0289c289c6a04fdfb  libpam-pwdfile-1.0.tar.gz"
