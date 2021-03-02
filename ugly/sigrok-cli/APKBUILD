@@ -1,6 +1,6 @@
 # Contributor: stef <l0ls0fo2i@ctrlc.hu>
 pkgname=sigrok-cli
-pkgver=0.7.1
+pkgver=0.7.2
 pkgrel=0
 pkgdesc="Sigrok command-line interface"
 url="https://www.sigrok.org/wiki/Sigrok-cli"
