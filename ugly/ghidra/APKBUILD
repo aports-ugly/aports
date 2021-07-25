@@ -1,0 +1,82 @@
+# Contributor: stef <l0ls0fo2i@ctrlc.hu>
+pkgname=ghidra
+pkgver=10.0.1
+_ghidra_data=7d843ec229d43c2d1a8178aaa892be90e37e95a2
+_d2j=2.0
+_yajsw=12.12
+_hfsx=0.21
+pkgrel=0
+pkgdesc="Ghidra is a software reverse engineering (SRE) framework"
+url="https://ghidra-sre.org/"
+arch="all"
+license="Apache2"
+depends="openjdk11-jre"
+makedepends="openjdk11 gradle unzip"
+source="$pkgname-$pkgver.tar.gz::https://github.com/NationalSecurityAgency/$pkgname/archive/Ghidra_${pkgver}_build.tar.gz
+        https://github.com/NationalSecurityAgency/ghidra-data/archive/${_ghidra_data}.zip
+        https://github.com/pxb1988/dex2jar/releases/download/${_d2j}/dex-tools-${_d2j}.zip
+        https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/android4me/AXMLPrinter2.jar
+        https://sourceforge.net/projects/yajsw/files/yajsw/yajsw-stable-${_yajsw}/yajsw-stable-${_yajsw}.zip
+        https://sourceforge.net/projects/catacombae/files/HFSExplorer/${_hfsx}/hfsexplorer-${_hfsx/./_}-bin.zip"
+
+builddir="$srcdir/$pkgname-Ghidra_${pkgver}_build/"
+
+prepare() {
+  cd $srcdir
+  mkdir -p hfsx
+  unzip -u hfsexplorer-${_hfsx/./_}-bin.zip -d hfsx
+  cd $builddir
+  install -Dm 644 ../dex2jar-${_d2j}/lib/dex-*.jar ../AXMLPrinter2.jar \
+             ../hfsx/lib/csframework.jar \
+             ../hfsx/lib/hfsx*.jar \
+             ../hfsx/lib/iharder-base64.jar \
+             -t dependencies/flatRepo
+  # YAJSW expects this symlink
+  ln -sf ghidra-Ghidra_${pkgver}_build ../ghidra.bin
+  install -Dm 644 ../yajsw-stable-${_yajsw}.zip -t Ghidra/Features/GhidraServer
+
+  # Add FID datasets
+  install -Dm 644 ../ghidra-data-${_ghidra_data}/FunctionID/*.fidb -t Ghidra/Features/FunctionID/src/main/fidb
+
+  # Ignore lack of licensing for YAJSW zip, packed FID datasets, and the native binaries
+  sed -i '/FileTree tree/a\\t\texclude "yajsw-stable-**.zip"\n\t\texclude "src/main/fidb/**.fidb"\n\t\texclude "os/linux64/**"' gradle/support/ip.gradle
+}
+
+build() {
+  cd $builddir
+  export GRADLE_USER_HOME="$srcdir"/.gradle
+  gradle  --no-daemon --parallel yajswDevUnpack
+  gradle  --no-daemon --parallel prebuildNatives_linux64
+  gradle  --no-daemon --parallel sleighCompile
+  gradle  --no-daemon --parallel buildGhidra
+  #gradle --no-daemon --parallel -I gradle/support/fetchDependencies.gradle init
+  #gradle --no-daemon --parallel buildNatives_linux64
+  #gradle --no-daemon --parallel sleighCompile
+  #gradle --no-daemon --parallel buildGhidra
+}
+
+package() {
+  cd $builddir
+
+  # Extract built archive into destination folder
+  mkdir -p "${pkgdir}"/usr/lib
+  mkdir -p "${pkgdir}"/usr/bin
+
+  _appver=$(grep -oP '(?<=^application.version=).*$' Ghidra/application.properties)
+  _relname=$(grep -oP '(?<=^application.release.name=).*$' Ghidra/application.properties)
+  unzip -u "build/dist/ghidra_${_appver}_${_relname}"_*_linux64.zip -d "${pkgdir}"/usr/lib
+
+  # Simplify some directory and binary names
+  mv "${pkgdir}"/usr/lib/ghidra_${pkgver}_DEV "${pkgdir}"/usr/lib/ghidra
+  mv "${pkgdir}"/usr/lib/ghidra/ghidraRun "${pkgdir}"/usr/bin/ghidra
+  mv "${pkgdir}"/usr/lib/ghidra/support/analyzeHeadless "${pkgdir}"/usr/bin/ghidra-analyzeHeadless
+}
+
+sha512sums="
+6cceb31e29080a653aca17f049778476431eaf779556ae039bc98d06ad81e6c19b3a2b72f9f5aabc4b255cc186ba97f02013ff387dedef82ac94593066e62ea4  ghidra-10.0.1.tar.gz
+b9920a045941b2108d3d61a997a607013e5869d13ec4b5613336791245f07c17e745a7e9a93ecd3e2f4e3c2f2f67c18d4025605ee56c1031864292c713294024  7d843ec229d43c2d1a8178aaa892be90e37e95a2.zip
+c4a6c72ea09b58a44fcb8918cfada600467f10f99a02b53d2436ac68295e73c8daf9ba0a8bc7160ba1e28e87f032ee034435ebe40af35b6e2fe9fa4607581358  dex-tools-2.0.zip
+c1168ec913f1fbb0675915d4fd865ec9a8e8573f6c8aedcb6e68166f61f11aeaececc7548d54d78134843c0102c57d6350973f6d3027d0ffdae52a5c57a7f601  AXMLPrinter2.jar
+0ff5a228ae1c5251c8ba59f9bcd9b4a199b0caaf688f6eccba42c3d227784d8f56f9164b2fad73fc173ec314340c036144123ce152fe911013df5598bd708944  yajsw-stable-12.12.zip
+b85b4316115695acc78cc7c675c673058c05a238451562be0c6a48b2d11a28e5645a42cb62cdf063be015369df26201dfab6cf2e60f39e6468d1d53b23f94415  hfsexplorer-0_21-bin.zip
+"
