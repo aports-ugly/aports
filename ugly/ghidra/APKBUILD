@@ -68,8 +68,8 @@ package() {
 
   # Simplify some directory and binary names
   mv "${pkgdir}"/usr/lib/ghidra_${pkgver}_DEV "${pkgdir}"/usr/lib/ghidra
-  mv "${pkgdir}"/usr/lib/ghidra/ghidraRun "${pkgdir}"/usr/bin/ghidra
-  mv "${pkgdir}"/usr/lib/ghidra/support/analyzeHeadless "${pkgdir}"/usr/bin/ghidra-analyzeHeadless
+  ln -s ../lib/ghidra/ghidraRun "${pkgdir}"/usr/bin/ghidra
+  ln -s ../lib/ghidra/support/analyzeHeadless "${pkgdir}"/usr/bin/ghidra-analyzeHeadless
 }
 
 sha512sums="
